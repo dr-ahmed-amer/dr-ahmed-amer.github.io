@@ -187,7 +187,19 @@ footer{padding-bottom:110px}
 }
 .chat-panel.open{display:flex;flex-direction:column}
 .chat-head{
-  background:var(--deep);color:#fff;padding:16px 18px;padding-inline-end:52px;position:relative;flex:none;
+  background:var(--deep);color:#fff;padding:16px 18px;padding-inline-end:92px;position:relative;flex:none;
+}
+.chat-lang{
+  position:absolute;top:10px;inset-inline-end:52px;
+  width:32px;height:32px;border:none;border-radius:50%;
+  background:rgba(255,255,255,.16);color:#fff;font-size:13px;font-weight:700;line-height:1;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:background .15s;
+}
+.chat-lang:hover{background:rgba(255,255,255,.3)}
+.chat-banner{
+  background:#fff3e8;color:#8a3c00;font-size:12.5px;font-weight:700;
+  padding:8px 14px;text-align:center;border-bottom:1px solid var(--line);flex:none;
 }
 .chat-close{
   position:absolute;top:10px;inset-inline-end:12px;
@@ -855,6 +867,8 @@ function renderAll(){
   $("chatSub").textContent = pick("Preliminary guidance — not a final diagnosis","إرشادات مبدئية — مش تشخيص نهائي");
   $("chatText").placeholder = g("chatHint");
   $("chatSend").textContent = pick("Send ➤","إرسال ➤");
+  $("chatBanner").textContent = pick("Preliminary guidance - not a final diagnosis","إرشاد مبدئي - مش تشخيص نهائي");
+  $("chatLangBtn").textContent = ar ? "EN" : "ع";
   chatReset();
 
   /* footer */
@@ -896,69 +910,87 @@ $("langToggle").addEventListener("click", function(){
 function g(key){ return (LANG === "ar" && AR[key] !== undefined) ? AR[key] : CONFIG[key]; }
 function pick(en, arT){ return LANG === "ar" ? arT : en; }
 
-/* --- on-site patient assistant: safe temporary self-care guidance --- */
-var SYMPTOMS = [
- {id:"pain", kw:["pain","ache","hurt","pulp","ألم","وجع","بيوجع","بتوجع","موجع"],
-  en:"Tooth pain", ar:"ألم في سن",
+/* --- on-site patient assistant: bilingual triage, red-flag stop, WhatsApp handoff --- */
+var ISSUES = [
+ {id:"pain", kw:["pain","ache","hurt","tooth","pulp","ألم","وجع","بيوجع","بتوجع","موجع","ضرس"],
+  en:"Tooth pain", ar:"ألم أسنان",
   guide:{
-   en:["Rinse gently with warm salt water (half a teaspoon in a glass).","Take a regular over-the-counter pain reliever you normally use, following the package directions.","Hold a cold compress on the cheek, 15 minutes at a time.","Avoid very hot, cold or sweet food and drinks.","Never place aspirin directly on the gum."],
-   ar:["مضمض بمية دافية بالملح (نص معلقة ملح على كوباية).","خد مسكن عادي بتستعمله عادة، بالجرعة المكتوبة على العبوة.","حط كمادة ساقعة على الخد، 15 دقيقة كل مرة.","بعد عن الأكل والشرب السخن أو الساقع أو المسكر جداً.","متحطش أسبرين على اللثة أبداً."]}},
- {id:"swelling", kw:["swell","swollen","puff","ورم","تورم","منفوخ","منتفخ","وارجم"],
-  en:"Swelling", ar:"ورم",
+   en:["Rinse gently with warm salt water (half a teaspoon in a glass).","Take a regular over-the-counter pain reliever you normally use, following the package directions.","Hold a cold compress on the cheek, 15 minutes at a time.","Never place aspirin directly on the gum."],
+   ar:["مضمض بمية دافية بالملح (نص معلقة ملح على كوباية).","خد مسكن عادي بتستعمله عادة، بالجرعة المكتوبة على العبوة.","حط كمادة ساقعة على الخد، 15 دقيقة كل مرة.","متحطش أسبرين على اللثة أبداً."]}},
+ {id:"gums", kw:["gingiv","gum","لثة","التهاب"],
+  en:"Gum inflammation", ar:"التهاب لثة",
   guide:{
-   en:["Hold a cold compress on the outside of the face.","Rinse gently with warm salt water a few times a day.","Sleep with your head slightly raised.","Do not apply heat to the area."],
-   ar:["حط كمادة ساقعة على وشك من بره.","مضمض بمية دافية بالملح كذا مرة في اليوم.","نام ودماغك مرفوعة شوية.","متحطش أي حاجة سخنة على المكان."]}},
+   en:["Keep brushing gently twice a day with a soft brush.","Rinse with warm salt water 2-3 times a day.","Avoid smoking and very spicy food until it is checked.","It usually needs a professional cleaning, so book a visit."],
+   ar:["اغسل أسنانك برفق مرتين في اليوم بفرشاة ناعمة.","مضمض بمية دافية بالملح ٢-٣ مرات في اليوم.","بعد عن التدخين والأكل الحراق لحد ما تتكشف.","غالبًا محتاجة تنضيف عند دكتور، فاحجز كشف."]}},
  {id:"broken", kw:["broke","broken","chip","crack","fracture","كسر","كسرت","تكسر","شرخ","مكسور","مشروخ"],
-  en:"Broken or chipped tooth", ar:"سنة مكسورة أو مشروخة",
+  en:"Broken tooth", ar:"كسر في سنة",
   guide:{
    en:["Rinse your mouth with warm water.","Save any broken piece in milk or saline and bring it with you.","Cover a sharp edge with sugar-free chewing gum or dental wax from a pharmacy.","Avoid chewing on that side."],
    ar:["مضمض بمية دافية.","احفظ أي قطعة اتكسرت في لبن أو محلول ملح وهاتها معاك.","غطي أي حرف حاد بعلكة خالية من السكر أو شمع أسنان من الصيدلية.","متضغطش على الناحية دي في الأكل."]}},
- {id:"filling", kw:["filling","crown","fell out","came off","loose cap","حشو","حشوة","تركيبة","طربوش","وقعت","وقع","فكت"],
-  en:"Lost filling or crown", ar:"حشوة أو تركيبة وقعت",
-  guide:{
-   en:["Keep the crown or piece safely and bring it with you.","A pharmacy can provide temporary dental cement as a short-term cover.","Avoid chewing on that side and keep the area clean.","A dab of clove oil can calm the spot."],
-   ar:["احفظ التركيبة أو القطعة في مكان آمن وهاتها معاك.","من الصيدلية تقدر تجيب أسمنت أسنان مؤقت كغطاء مؤقت.","بعد عن المضغ على الناحية دي وخلي المكان نضيف.","نقطة زيت قرنفل ممكن تهدي المكان."]}},
  {id:"sensitivity", kw:["sensitiv","zing","حساسية","حساسه","بيوخز","وخز"],
   en:"Sensitivity", ar:"حساسية",
   guide:{
    en:["Use a desensitizing toothpaste and brush gently with a soft brush.","Avoid very cold, hot or acidic food and drinks for now.","Do not brush hard right after acidic food."],
    ar:["استعمل معجون مخصوص للحساسية واغسل بفرشاة ناعمة برفق.","بعد عن الساقع جداً أو السخن جداً أو الحوامض دلوقتي.","متغسلش أسنانك بعنف بعد أكل حامض على طول."]}},
- {id:"gums", kw:["bleed","gum","gingiv","نزيف","لثة","بينزل دم","دم من"],
-  en:"Bleeding gums", ar:"نزيف لثة",
+ {id:"braces", kw:["braces","bracket","orthodont","wire","تقويم","سلك"],
+  en:"Braces (orthodontics)", ar:"تقويم",
   guide:{
-   en:["Keep brushing gently twice a day and clean between the teeth; stopping makes it worse.","Rinse with warm salt water.","If bleeding follows an injury and does not stop after 15 minutes of gentle pressure, seek urgent care."],
-   ar:["كمل غسيل أسنانك برفق مرتين في اليوم ونضف بين الأسنان؛ الوقف بيزود المشكلة.","مضمض بمية دافية بالملح.","لو النزيف بعد إصابة ومبيوقفش بعد 15 دقيقة ضغط خفيف، روح لأقرب طوارئ."]}}
+   en:["If a wire or bracket is poking, cover it with orthodontic wax from a pharmacy.","Stick to soft food and avoid hard or sticky things.","Rinse with warm salt water if any spot feels sore."],
+   ar:["لو في سلك أو حتة واخزة، غطيها بشمع التقويم من الصيدلية.","كل أكل طري وبعد عن الحاجات الصلبة أو اللزجة.","مضمض بمية دافية بالملح لو فيه مكان مجروح."]}},
+ {id:"whitening", kw:["whiten","bleach","stain","yellow","تبييض","تبيض","اصفرار"],
+  en:"Whitening", ar:"تبييض",
+  guide:{
+   en:["After whitening, avoid coffee, tea and smoking for a couple of days.","Do not overuse whitening strips or home remedies — they can harm the enamel.","A photo of your teeth on WhatsApp helps him advise you better."],
+   ar:["بعد التبييض، بعد عن القهوة والشاي والتدخين كام يوم.","متكثرش من شرايط التبييض أو الوصفات البيتية، ممكن تضر المينا.","ابعتله صورة أسنانك على واتساب وهو يقدر يفيدك أحسن."]}},
+ {id:"breath", kw:["breath","smell","halitosis","رائحة","ريحة","نفس"],
+  en:"Bad breath", ar:"رائحة فم",
+  guide:{
+   en:["Brush your tongue gently and clean between your teeth daily.","Drink enough water through the day.","If it continues, it often points to gum inflammation — worth a check."],
+   ar:["نضف لسانك برفق واستعمل خيط بين الأسنان يوميًا.","اشرب مية كفاية على مدار اليوم.","لو مستمرة، غالبًا السبب التهاب لثة، ويستاهل كشف."]}}
 ];
-var DURATIONS = [
- {en:"Less than 2 days", ar:"أقل من يومين", long:false},
- {en:"A few days", ar:"كام يوم", long:false},
- {en:"More than a week", ar:"أكتر من أسبوع", long:true}
+var Q_DURATION = [
+ {en:"Less than a day", ar:"أقل من يوم"},
+ {en:"1-3 days", ar:"من يوم لـ ٣ أيام"},
+ {en:"More than 3 days", ar:"أكتر من ٣ أيام"}
 ];
-var chatStep = "start";
-var chatSym = null;
+var Q_TEMP = [
+ {en:"Cold", ar:"ساقع"},
+ {en:"Hot", ar:"سخن"},
+ {en:"Both", ar:"الاتنين"},
+ {en:"Neither", ar:"ولا حاجة"}
+];
+var REDFLAG_RES = [
+ /نزيف|بينزل دم|بنزل دم|(^|\s)دم(\s|$)|bleed/i,
+ /ورم|تورم|منتفخ|منفوخ|swell/i,
+ /ألم شديد|وجع شديد|شديد جدا|جامد جدا|مش قادر أستحمل|مش قادرة أستحمل|severe|unbearable|excruciating/i,
+ /أفتح بقي|افتح بقي|فمي مقفول|مش قادر أفتح|مش قادرة أفتح|can't open|cant open|trismus|lockjaw/i
+];
+var chatStep = "choose";
+var chatIssue = null;
+var chatAns = { duration:"", temp:"", swell:"" };
+var chatName = "";
 
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
 function waUrl(text){
   return "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(text);
 }
 function chatScroll(){
   var b = $("chatBody"); b.scrollTop = b.scrollHeight;
 }
-function botMsg(html, withWa){
+function botMsg(html, waText, waLabel){
   var d = document.createElement("div");
   d.className = "chat-msg bot";
   d.innerHTML = html;
-  if (withWa){
+  if (waText){
     var a = document.createElement("a");
     a.className = "wa"; a.target = "_blank"; a.rel = "noopener";
-    a.href = waUrl(chatSym
-      ? pick("Hello Dr. Ahmed, I have " + chatSym.en.toLowerCase() + ".","أهلاً د. أحمد، عندي " + chatSym.ar + ".")
-      : pick(CONFIG.waPrefill, "أهلاً د. أحمد!"));
-    a.textContent = pick("Message Dr. Ahmed on WhatsApp","ابعت لد. أحمد على واتساب");
+    a.href = waUrl(waText);
+    a.textContent = waLabel || pick("Message Dr. Ahmed on WhatsApp","ابعت لد. أحمد على واتساب");
     d.appendChild(a);
   }
   $("chatBody").appendChild(d); chatScroll();
 }
-function botSay(html, withWa){ setTimeout(function(){ botMsg(html, withWa); }, 450); }
+function botSay(html, waText, waLabel){ setTimeout(function(){ botMsg(html, waText, waLabel); }, 450); }
 function userMsg(text){
   var d = document.createElement("div");
   d.className = "chat-msg user";
@@ -974,71 +1006,131 @@ function showQuick(items){
     q.appendChild(b);
   });
 }
-function symptomChips(){
-  var items = SYMPTOMS.map(function(s){
-    return {label: pick(s.en, s.ar), fn: function(){ chooseSymptom(s, true); }};
+function issueChips(){
+  return ISSUES.map(function(s){
+    return {label: pick(s.en, s.ar), fn: function(){ chooseIssue(s, true); }};
   });
-  items.push({label: pick("Something else","حاجة تانية"), fn: function(){
-    userMsg(pick("Something else","حاجة تانية"));
-    chatFallback();
-  }});
-  return items;
 }
 function chatReset(){
-  if (typeof SYMPTOMS === "undefined" || !SYMPTOMS) return;
-  chatStep = "start"; chatSym = null;
+  if (typeof ISSUES === "undefined" || !ISSUES) return;
+  chatStep = "choose"; chatIssue = null;
+  chatAns = { duration:"", temp:"", swell:"" }; chatName = "";
   $("chatBody").innerHTML = "";
+  $("chatBanner").textContent = pick("Preliminary guidance - not a final diagnosis","إرشاد مبدئي - مش تشخيص نهائي");
   botMsg(g("chatGreeting"));
-  showQuick(symptomChips());
+  showQuick(issueChips());
 }
-function chooseSymptom(s, echo){
-  chatSym = s;
-  if (echo) userMsg(pick(s.en, s.ar));
-  chatStep = "awaitDuration";
-  botSay(pick("Sorry you're dealing with that. How long has it been bothering you?","متأسف إنك بتعاني من كده. بيوجعك من قد إيه؟"));
-  showQuick(DURATIONS.map(function(d){
-    return {label: pick(d.en, d.ar), fn: function(){ chooseDuration(d, true); }};
+function hasRedFlag(t){
+  for (var i = 0; i < REDFLAG_RES.length; i++){ if (REDFLAG_RES[i].test(t)) return true; }
+  return false;
+}
+function emergency(){
+  chatStep = "emergency";
+  showQuick([]);
+  botSay("<b>" + pick("⚠ This needs urgent care.","⚠ الحالة دي محتاجة تدخل عاجل.") + "</b><br>" +
+    pick("Please go to a dental emergency clinic immediately — don't wait for a reply here. You can also message Dr. Ahmed right now:",
+         "روح لطوارئ الأسنان فوراً ومستنيش رد هنا. وتقدر تبعت لد. أحمد دلوقتي حالاً:"),
+    pick("Hello Dr. Ahmed, this is urgent — I have a dental emergency.","أهلاً د. أحمد، الموضوع طارئ — عندي حالة طوارئ أسنان."));
+}
+function askQ2(){
+  chatStep = "q2";
+  botSay(pick("Does the pain get triggered by cold or hot?","الألم بيزيد مع الساقع ولا السخن؟"));
+  showQuick(Q_TEMP.map(function(d){
+    return {label: pick(d.en, d.ar), fn: function(){ answerQ(2, pick(d.en, d.ar)); }};
   }));
 }
-function chooseDuration(d, echo){
-  if (echo) userMsg(pick(d.en, d.ar));
-  chatStep = "guided";
-  var lines = chatSym.guide[LANG === "ar" ? "ar" : "en"];
-  var html = (d.long ? pick("Since it's been more than a week, please don't wait on it. ","بما إنها عدت أسبوع، متستناش عليها. ") : "")
-    + "<b>" + pick("Temporary relief until you see him:","علاج مؤقت لحد ما تشوفه:") + "</b><br>• "
-    + lines.join("<br>• ")
-    + "<br><br>" + pick("⚠ See a doctor or emergency dentist today if you have fever, swelling spreading toward the eye or neck, or any trouble swallowing or breathing.","⚠ روح لدكتور أو طوارئ أسنان النهاردة لو عندك سخونية، أو الورم بيمتد ناحية العين أو الرقبة، أو أي صعوبة في البلع أو النفس.")
-    + '<span class="note">' + pick("This is temporary self-care only, not a final diagnosis.","دي رعاية مؤقتة بس، مش تشخيص نهائي.") + "</span>";
-  botSay(html, true);
-  showQuick([{label: pick("Another symptom","عرض تاني"), fn: function(){
-    chatStep = "start"; chatSym = null;
-    botMsg(pick("Sure — what's bothering you?","اتفضل — إيه اللي مضايقك؟"));
-    showQuick(symptomChips());
-  }}]);
+function askQ3(){
+  chatStep = "q3";
+  botSay(pick("Is there any swelling?","فيه ورم؟"));
+  showQuick([
+    {label: pick("Yes","أيوه"), fn: function(){ userMsg(pick("Yes","أيوه")); emergency(); }},
+    {label: pick("No","لا"), fn: function(){ answerQ(3, pick("No","لا")); }}
+  ]);
 }
-function chatFallback(){
-  chatStep = "start"; chatSym = null;
-  botSay(pick("I'm only set up for common dental issues, so the fastest accurate answer is from Dr. Ahmed himself:","أنا مجهز لمشاكل الأسنان الشائعة بس، فأسرع إجابة مضبوطة هتكون من د. أحمد نفسه:"), true);
-  showQuick(symptomChips());
+function answerQ(n, label){
+  userMsg(label);
+  if (n === 1){ chatAns.duration = label; askQ2(); return; }
+  if (n === 2){ chatAns.temp = label; askQ3(); return; }
+  chatAns.swell = label; afterQuestions();
+}
+function chooseIssue(s, echo){
+  chatIssue = s;
+  if (echo) userMsg(pick(s.en, s.ar));
+  chatStep = "q1";
+  botSay(pick("Sorry you're dealing with that. How long has it been going on?","متأسف إنك بتمر بكده. بقاله قد إيه؟"));
+  showQuick(Q_DURATION.map(function(d){
+    return {label: pick(d.en, d.ar), fn: function(){ answerQ(1, pick(d.en, d.ar)); }};
+  }));
+}
+function afterQuestions(){
+  chatStep = "name";
+  var lines = chatIssue.guide[LANG === "ar" ? "ar" : "en"];
+  botSay("<b>" + pick("Until you see him:","لحد ما تشوفه:") + "</b><br>• " + lines.join("<br>• ") +
+    '<span class="note">' + pick("This is temporary self-care only, not a final diagnosis.","دي رعاية مؤقتة بس، مش تشخيص نهائي.") + "</span>");
+  botSay(pick("Last step — what's your name?","خطوة أخيرة — اسمك إيه؟"));
+  showQuick([]);
+}
+function finishChat(phone){
+  chatStep = "done";
+  var summary = LANG === "ar"
+    ? "أهلاً د. أحمد،\nالاسم: " + chatName + "\nرقم الواتساب: " + phone + "\nالمشكلة: " + chatIssue.ar + "\nالمدة: " + chatAns.duration + "\nالألم مع ساقع/سخن: " + chatAns.temp + "\nفيه ورم: " + chatAns.swell
+    : "Hello Dr. Ahmed,\nName: " + chatName + "\nWhatsApp: " + phone + "\nIssue: " + chatIssue.en + "\nDuration: " + chatAns.duration + "\nPain with cold/hot: " + chatAns.temp + "\nSwelling: " + chatAns.swell;
+  var card = "<b>" + pick("Your summary:","ملخصك:") + "</b><br>" +
+    pick("Name: ","الاسم: ") + esc(chatName) + "<br>" +
+    pick("WhatsApp: ","واتساب: ") + esc(phone) + "<br>" +
+    pick("Issue: ","المشكلة: ") + esc(pick(chatIssue.en, chatIssue.ar)) + "<br>" +
+    pick("Duration: ","المدة: ") + esc(chatAns.duration) + "<br>" +
+    pick("Cold/hot: ","ساقع/سخن: ") + esc(chatAns.temp) + "<br>" +
+    pick("Swelling: ","فيه ورم: ") + esc(chatAns.swell) + "<br><br>" +
+    pick("Tap below to send it straight to Dr. Ahmed on WhatsApp:","دوس تحت عشان تبعته على طول لد. أحمد على واتساب:");
+  botSay(card, summary, pick("Send to Dr. Ahmed on WhatsApp","ابعت الملخص لد. أحمد على واتساب"));
+  showQuick([]);
 }
 function handleChatText(){
   var msg = $("chatText").value.trim();
   if (!msg) return;
   $("chatText").value = "";
   userMsg(msg);
-  var low = msg.toLowerCase();
-  var hit = null;
-  SYMPTOMS.forEach(function(s){
-    if (hit) return;
-    s.kw.forEach(function(k){ if (!hit && low.indexOf(k.toLowerCase()) !== -1) hit = s; });
-  });
-  if (hit && chatStep !== "awaitDuration"){ chooseSymptom(hit, false); return; }
-  if (chatStep === "awaitDuration"){
-    var long = /week|أسبوع|شهر|month/.test(low);
-    chooseDuration({en:msg, ar:msg, long:long}, false);
+  if (chatStep === "emergency"){
+    botSay(pick("Please don't wait here — go to a dental emergency clinic now, or message Dr. Ahmed:","متستناش هنا — روح لطوارئ الأسنان دلوقتي، أو ابعت لد. أحمد:"),
+      pick("Hello Dr. Ahmed, this is urgent — I have a dental emergency.","أهلاً د. أحمد، الموضوع طارئ — عندي حالة طوارئ أسنان."));
     return;
   }
-  chatFallback();
+  if (chatStep === "done"){
+    botSay(pick("Your summary is ready above — tap the WhatsApp button to send it:","ملخصك جاهز فوق — دوس زرار الواتساب عشان تبعته:"), null);
+    return;
+  }
+  if (hasRedFlag(msg)){ emergency(); return; }
+  if (chatStep === "choose"){
+    var hit = null, low = msg.toLowerCase();
+    ISSUES.forEach(function(s){
+      if (hit) return;
+      s.kw.forEach(function(k){ if (!hit && low.indexOf(k.toLowerCase()) !== -1) hit = s; });
+    });
+    if (hit){ chooseIssue(hit, false); return; }
+    botSay(pick("I'm set up for the issues listed above. For anything else, Dr. Ahmed answers directly:","أنا مجهز للحالات اللي فوق بس. لأي حاجة تانية، د. أحمد بيرد بنفسه:"),
+      pick(CONFIG.waPrefill, "أهلاً د. أحمد!"));
+    return;
+  }
+  if (chatStep === "q1"){ chatAns.duration = msg; askQ2(); return; }
+  if (chatStep === "q2"){ chatAns.temp = msg; askQ3(); return; }
+  if (chatStep === "q3"){
+    if (/^(أيوه|ايوه|اه|آه|نعم|yes|yeah)(\s|$|[.!؟،])/i.test(msg)){ emergency(); return; }
+    chatAns.swell = msg; afterQuestions(); return;
+  }
+  if (chatStep === "name"){
+    chatName = msg; chatStep = "phone";
+    botSay(pick("Thanks, " + chatName + ". Your WhatsApp number?","شكرًا يا " + chatName + ". رقم الواتساب بتاعك؟"));
+    return;
+  }
+  if (chatStep === "phone"){
+    var digits = msg.replace(/[^0-9]/g, "");
+    if (digits.length < 8){
+      botSay(pick("That doesn't look like a full number — type it with the country code, digits only:","الرقم ده مش باين كامل — اكتبه بالكود الدولي، أرقام بس:"));
+      return;
+    }
+    finishChat(digits); return;
+  }
 }
 
 $("chatFab").addEventListener("click", function(){
@@ -1047,6 +1139,11 @@ $("chatFab").addEventListener("click", function(){
 });
 $("chatClose").addEventListener("click", function(){
   $("chatPanel").classList.remove("open");
+});
+$("chatLangBtn").addEventListener("click", function(){
+  LANG = LANG === "ar" ? "en" : "ar";
+  try { localStorage.setItem("siteLang", LANG); } catch(e) {}
+  renderAll();
 });
 $("chatSend").addEventListener("click", handleChatText);
 $("chatText").addEventListener("keydown", function(e){ if(e.key === "Enter") handleChatText(); });
@@ -1718,8 +1815,10 @@ window.__initCusdis();
     <div class="chat-head">
       <b id="chatTitle"></b>
       <span id="chatSub"></span>
+      <button class="chat-lang" id="chatLangBtn" type="button" aria-label="Switch language">ع</button>
       <button class="chat-close" id="chatClose" type="button" aria-label="Close chat">✕</button>
     </div>
+    <div class="chat-banner" id="chatBanner"></div>
     <div class="chat-body" id="chatBody">
       <div class="chat-msg" id="chatGreeting"></div>
     </div>
