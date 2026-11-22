@@ -1213,14 +1213,27 @@ $("langToggle").addEventListener("click", function(){
   if (!voter) { voter = Math.random().toString(36).slice(2) + Date.now().toString(36); try { localStorage.setItem("voterToken", voter); } catch(e) {} }
   const fbOn = () => !!(CONFIG.firebase && CONFIG.firebase.apiKey && CONFIG.firebase.apiKey.indexOf("PASTE-") !== 0);
   const isAr = () => document.documentElement.lang === "ar";
-  function loadFS(cb){
-    if (db || !fbOn()) { cb(); return; }
+  let authLoaded = false;
+  function loadAuthScript(cb){
+    if (authLoaded || (typeof firebase !== "undefined" && typeof firebase.auth === "function")){ authLoaded = true; cb(); return; }
+    const s3 = document.createElement("script");
+    s3.src = "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js";
+    s3.onload = () => { authLoaded = true; cb(); };
+    s3.onerror = () => cb();
+    document.head.appendChild(s3);
+  }
+  function loadFS(cb, withAuth){
+    if (!fbOn()) { cb(); return; }
+    if (db) { if (withAuth) loadAuthScript(cb); else cb(); return; }
     const s1 = document.createElement("script");
     s1.src = "https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js";
     s1.onload = () => {
       const s2 = document.createElement("script");
       s2.src = "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js";
-      s2.onload = () => { try { firebase.initializeApp(CONFIG.firebase); db = firebase.firestore(); } catch(e) {} cb(); };
+      s2.onload = () => {
+        try { firebase.initializeApp(CONFIG.firebase); db = firebase.firestore(); } catch(e) {}
+        if (withAuth) loadAuthScript(cb); else cb();
+      };
       s2.onerror = () => cb();
       document.head.appendChild(s2);
     };
@@ -1286,6 +1299,29 @@ $("langToggle").addEventListener("click", function(){
   const bar = document.getElementById("heroTrust");
   if (bar) bar.addEventListener("click", function(){ open("page"); });
   window.__rateUpdate();
+  window.__loadFS = loadFS;
+  window.__fbDb = function(){ return db; };
+  /* published cases: saved to Firestore by the owner from the admin page,
+     merged here so they show on every device */
+  window.__loadPublishedCases = function(){
+    if (!fbOn()) return;
+    loadFS(function(){
+      if (!db) return;
+      db.collection("casesPublished").orderBy("created", "asc").get().then(function(q){
+        let added = 0;
+        q.forEach(function(doc){
+          const c = doc.data();
+          const id = "pub-" + doc.id;
+          if (CONFIG.cases.some(function(x){ return x.id === id; })) return;
+          CONFIG.cases.push({ id:id, tag:c.tagEn, title:c.titleEn, text:c.textEn, photos:c.photos || [], before:c.before || null, after:c.after || null });
+          AR.cases.push({ id:id, tag:c.tagAr || c.tagEn, title:c.titleAr || c.titleEn, text:c.textAr || c.textEn, photos:c.photos || [], before:c.before || null, after:c.after || null });
+          added++;
+        });
+        if (added) renderAll();
+      }).catch(function(){});
+    });
+  };
+  window.__loadPublishedCases();
 })();
 
 /* top-level locale helpers for the chat assistant (renderAll keeps its own) */
