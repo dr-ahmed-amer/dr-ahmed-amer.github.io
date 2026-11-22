@@ -1378,6 +1378,58 @@ var ISSUES = [
    en:["Brush your tongue gently and clean between your teeth daily.","Drink enough water through the day.","If it continues, it often points to gum inflammation — worth a check."],
    ar:["نضف لسانك برفق واستعمل خيط بين الأسنان يوميًا.","اشرب مية كفاية على مدار اليوم.","لو مستمرة، غالبًا السبب التهاب لثة، ويستاهل كشف."]}}
 ];
+/* --- free-question knowledge base: safe general answers for off-script questions --- */
+var FREE_QA = [
+ {id:"cost", kw:["price","cost","how much","fee","charge","expensive","سعر","بكام","تكلفة","تكلفه","أسعار","اسعار","فلوس"],
+  en:"Every case is different, so an honest price needs a look first. Message Dr. Ahmed on WhatsApp with what you need, and he'll explain the options and the expected cost clearly before anything starts.",
+  ar:"كل حالة بتختلف، فالسعر الصح محتاج كشف الأول. ابعت لد. أحمد على واتساب إيه اللي محتاجه، وهو هيشرحلك الاختيارات والتكلفة المتوقعة بوضوح قبل ما يبدأ أي حاجة."},
+ {id:"booking", kw:["book","appointment","visit","schedule","available","حجز","احجز","معاد","ميعاد","كشف","اجي","أجي","متاح"],
+  en:"Booking is simple: send Dr. Ahmed a WhatsApp message with what's bothering you and the days that suit you, and he'll arrange the visit himself.",
+  ar:"الحجز بسيط: ابعت لد. أحمد على واتساب إيه اللي مضايقك والأيام اللي تناسبك، وهو هيرتب المعاد بنفسه."},
+ {id:"location", kw:["where","location","address","clinic","place","فين","مكان","عنوان","عيادة"],
+  en:"The clinic location and directions get shared when you book. Message Dr. Ahmed on WhatsApp and he'll send you the exact address and the easiest way to get there.",
+  ar:"مكان العيادة والوصول ليها بيتقال عند الحجز. ابعت لد. أحمد على واتساب وهو هيبعتلك العنوان بالظبط وأسهل طريقة توصل بيها."},
+ {id:"hours", kw:["hour","open","close","when","time","مواعيد","ساعات","بيفتح","بيقفل","امتى","إمتى"],
+  en:"Appointments are arranged personally, so times are flexible. Message Dr. Ahmed on WhatsApp with the time that suits you and he'll confirm the nearest available slot.",
+  ar:"المواعيد بتترتب بشكل شخصي، فالمعاد مرن. ابعت لد. أحمد على واتساب الوقت اللي يناسبك وهو هيرد بأقرب معاد متاح."},
+ {id:"kids", kw:["kid","child","baby","son","daughter","طفل","أطفال","اطفال","ابني","ابني","بنتي","ولدي","بيبي","صغير"],
+  en:"Kids are welcome. For little ones: brush gently twice a day, keep sweets and juices to mealtimes, and never ignore a cavity in a baby tooth - those teeth hold the place for the permanent ones. A friendly first visit early makes everything easier later.",
+  ar:"الأطفال أهلاً بيهم. للصغيرين: غسيل برفق مرتين في اليوم، تقليل الحلويات والعصاير وخليهم مع الأكل، ومتهملش أبداً تسوس في سنة لبنية، دي حافظة مكان السنة الدائمة. أول زيارة ودية بدري بتسهل كل حاجة بعدين."},
+ {id:"pregnancy", kw:["pregnan","حامل","حمل","رضاعة","بترضع","مرضعة"],
+  en:"Dental care matters during pregnancy, and urgent problems should not wait. The second trimester is usually the most comfortable time for treatment. Always tell the dentist you're pregnant or breastfeeding so every choice stays safe for you and the baby.",
+  ar:"العناية بالأسنان مهمة أثناء الحمل، والمشاكل الملحة متتأجلش. الشهور الوسطى غالبًا أريح وقت للعلاج. قولي دايمًا للدكتور إنك حامل أو بترضعي عشان كل اختيار يبقى آمن ليكي وللبيبي."},
+ {id:"extraction", kw:["extract","pulled","removal","removed","خلع","خلعت","قلع","قلعت","شيلت"],
+  en:"After an extraction: bite on the gauze as instructed, don't rinse or spit for the first 24 hours, cold compress on the cheek, soft cool food, and no smoking or straws. If bleeding doesn't stop or pain gets worse after 2-3 days, that's a reason to be seen right away.",
+  ar:"بعد الخلع: عض على الشاش زي ما اتقالك، متتقمضش ومتبصقش أول ٢٤ ساعة، كمادة ساقعة على الخد، أكل طري وبارد، وممنوع تدخين أو شفاطة. لو النزيف مش واقف أو الألم بيزيد بعد يومين تلاتة، ده سبب تتكشف فوراً."},
+ {id:"wisdom", kw:["wisdom","ضرس العقل","عقل"],
+  en:"Wisdom tooth trouble is very common at your age. Warm salt-water rinses calm the gum around it, but the real answer needs an X-ray to see its position. Book a visit and Dr. Ahmed will tell you if it can stay or should come out.",
+  ar:"مشاكل ضرس العقل شائعة جداً في سنك. المضمضة بمية دافية بالملح بتهدي اللثة حواليه، بس الإجابة الحقيقية محتاجة أشعة عشان نشوف وضعه. احجز كشف ود. أحمد هيقولك لو ممكن يسيبه أو لازم يتخلع."},
+ {id:"ulcer", kw:["ulcer","sore","قرحة","قرحه","قرح"],
+  en:"Mouth ulcers usually heal on their own in one to two weeks. Warm salt-water rinses and avoiding spicy or acidic food help. If an ulcer lasts more than two weeks, it needs a professional look.",
+  ar:"قرح الفم غالبًا بتتشفى لوحدها في أسبوع لأسبوعين. المضمضة بمية دافية بالملح والبعد عن الحراق والحوامض بيساعدوا. لو القرحة عدت أسبوعين، لازم تتشاف عند دكتور."},
+ {id:"jaw", kw:["jaw","click","tmj","فك","طقطقة","طقطقه"],
+  en:"Jaw clicking or pain often improves with soft food, avoiding wide opening and gum chewing, and warm compresses on the joint. If it locks or the pain stays, it needs an examination.",
+  ar:"طقطقة أو ألم الفك غالبًا بيتحسن مع الأكل الطري، وتقليل الفتح الواسع والعلكة، وكمادات دافية على المفصل. لو الفك بيقفل أو الألم مستمر، محتاج كشف."},
+ {id:"hygiene", kw:["brush","floss","toothpaste","mouthwash","clean","معجون","فرشاة","فرشاه","خيط","غسول","مضمضة","تنضيف","نضافة"],
+  en:"The basics that protect your teeth: a soft brush twice a day for two minutes with fluoride toothpaste, daily floss or interdental cleaning, and less sugar between meals. Small habits, big difference.",
+  ar:"الأساسيات اللي بتحمي أسنانك: فرشاة ناعمة مرتين في اليوم دقيقتين بمعجون فيه فلورايد، وخيط أو تنضيف بين الأسنان يوميًا، وتقليل السكريات بين الوجبات. عادات صغيرة بفرق كبير."},
+ {id:"rootcanal", kw:["root canal","rootcanal","nerve","سحب عصب","علاج عصب","علاج جذور","العصب"],
+  en:"A root canal removes the inflamed nerve, relieves the pain, and keeps your natural tooth. It's done fully numb, usually over one or two visits, and most patients are surprised how comfortable it is.",
+  ar:"علاج العصب بيشيل العصب الملتهب، بيريحك من الألم، وبيحافظ على سنتك الطبيعية. بيتعمل بتخدير كامل، غالبًا على جلسة أو جلستين، وأغلب المرضى بيتفاجئوا قد إيه الموضوع مريح."},
+ {id:"crown", kw:["crown","bridge","cap","تركيب","تركيبة","تلبيس","تلبيسة","طربوش","تركيبات"],
+  en:"A crown protects a weak or heavily filled tooth and brings back its shape and strength. There are different materials, and the right one depends on the tooth and your bite - Dr. Ahmed will show you the options.",
+  ar:"التركيبة بتحمي السنة الضعيفة أو المحشوة بحشو كبير وبترجع شكلها وقوتها. فيه خامات مختلفة، والأنسب بيعتمد على السنة والضغطة، ود. أحمد هيعرضلك الاختيارات."},
+ {id:"medication", kw:["antibiotic","medicine","medication","pill","drug","مضاد حيوي","مضاد","دواء","حبوب","حباية"],
+  en:"Please don't start antibiotics on your own - the right medication depends on the cause, and the wrong one does more harm than good. Your usual over-the-counter pain reliever is fine for now, and a dentist should decide anything stronger.",
+  ar:"متاخدش مضاد حيوي من عندك، الدوا الصح بيعتمد على السبب، والغلط بيضر أكتر ما بينفع. المسكن العادي اللي بتستعمله تمام دلوقتي، وأي حاجة أقوى لازم دكتور يحددها."},
+ {id:"fear", kw:["scared","afraid","fear","anxious","nervous","terrified","خايف","بخاف","خوف","قلقان","قلقانة","مرعوب"],
+  en:"That's completely normal, and you're not alone. Tell Dr. Ahmed how you feel - he explains every step before it happens, goes at your pace, and the first visit can be just a talk and a look, nothing more.",
+  ar:"ده طبيعي جداً ومش انت بس. قول لد. أحمد إحساسك، هو بيشرح كل خطوة قبل ما تحصل، وبيمشي على راحتك، وأول زيارة ممكن تبقى كلام وكشف بس من غير أي حاجة تانية."},
+ {id:"greet", kw:["hello","hi ","hey","good morning","good evening","thanks","thank you","مرحبا","أهلا","اهلا","السلام","هاي","شكرا","شكرًا","متشكر"],
+  en:"Hello! Happy to help. Ask me anything about teeth, treatments, or booking - and for anything specific, Dr. Ahmed himself is one WhatsApp message away.",
+  ar:"أهلاً بيك! تحت أمرك. اسألني عن أي حاجة تخص الأسنان أو العلاج أو الحجز، ولأي حاجة خاصة بحالتك، د. أحمد على بعد رسالة واتساب واحدة."}
+];
+
 var Q_DURATION = [
  {en:"Less than a day", ar:"أقل من يوم"},
  {en:"1-3 days", ar:"من يوم لـ ٣ أيام"},
@@ -1393,7 +1445,9 @@ var REDFLAG_RES = [
  /نزيف|بينزل دم|بنزل دم|(^|\s)دم(\s|$)|bleed/i,
  /ورم|تورم|منتفخ|منفوخ|swell/i,
  /ألم شديد|وجع شديد|شديد جدا|جامد جدا|مش قادر أستحمل|مش قادرة أستحمل|severe|unbearable|excruciating/i,
- /أفتح بقي|افتح بقي|فمي مقفول|مش قادر أفتح|مش قادرة أفتح|can't open|cant open|trismus|lockjaw/i
+ /أفتح بقي|افتح بقي|فمي مقفول|مش قادر أفتح|مش قادرة أفتح|can't open|cant open|trismus|lockjaw/i,
+ /fever|سخونية|حمى/i,
+ /accident|trauma|knocked|حادثة|اتخبط|خبطت|وقعت على وشي|وقع على وشه/i
 ];
 var chatStep = "choose";
 var chatIssue = null;
@@ -1449,6 +1503,33 @@ function chatReset(){
   $("chatBanner").textContent = pick("Preliminary guidance - not a final diagnosis","إرشاد مبدئي - مش تشخيص نهائي");
   botMsg(g("chatGreeting"));
   showQuick(issueChips());
+}
+function chatMsgLang(msg){ return /[\u0600-\u06FF]/.test(msg) ? "ar" : LANG; }
+function pickL(l, en, ar){ return l === "ar" ? ar : en; }
+function matchFreeQA(low){
+  var hit = null;
+  FREE_QA.forEach(function(q){
+    if (hit) return;
+    q.kw.forEach(function(k){ if (!hit && low.indexOf(k.toLowerCase()) !== -1) hit = q; });
+  });
+  return hit;
+}
+function freeQAAnswer(q, raw){
+  var l = chatMsgLang(raw);
+  botSay(pickL(l, q.en, q.ar) +
+    '<span class="note">' + pickL(l, "General guidance only, not a final diagnosis.","دي إرشادات عامة بس، مش تشخيص نهائي.") + "</span>",
+    pick(CONFIG.waPrefill, "أهلاً د. أحمد!"),
+    pickL(l, "Ask Dr. Ahmed directly","اسأل د. أحمد مباشرة"));
+}
+function genericAnswer(raw){
+  var l = chatMsgLang(raw);
+  botSay("<b>" + pickL(l, "Good question.","سؤال كويس.") + "</b><br>" +
+    pickL(l,
+      "I can share general guidance, but every case is different, so I can't answer your specific situation here. In general: keep the area clean, rinse gently with warm salt water, and avoid whatever irritates it. For a real answer, Dr. Ahmed should take a look - he replies personally on WhatsApp:",
+      "أقدر أديك إرشادات عامة، بس كل حالة بتختلف، فمش هقدر أجاوب على حالتك بالتحديد هنا. بشكل عام: حافظ على نظافة المكان، مضمض برفق بمية دافية بالملح، وبعد عن أي حاجة بتهيجه. عشان إجابة حقيقية، لازم د. أحمد يشوف حالتك، وهو بيرد بنفسه على واتساب:") +
+    '<span class="note">' + pickL(l, "General guidance only, not a final diagnosis.","دي إرشادات عامة بس، مش تشخيص نهائي.") + "</span>",
+    pick(CONFIG.waPrefill, "أهلاً د. أحمد!"),
+    pickL(l, "Ask Dr. Ahmed on WhatsApp","اسأل د. أحمد على واتساب"));
 }
 function hasRedFlag(t){
   for (var i = 0; i < REDFLAG_RES.length; i++){ if (REDFLAG_RES[i].test(t)) return true; }
@@ -1527,8 +1608,8 @@ function handleChatText(){
     return;
   }
   if (chatStep === "done"){
-    botSay(pick("Your summary is ready above — tap the WhatsApp button to send it:","ملخصك جاهز فوق — دوس زرار الواتساب عشان تبعته:"), null);
-    return;
+    /* a fresh question after the summary: reopen the open-question flow */
+    chatStep = "choose"; chatIssue = null;
   }
   if (hasRedFlag(msg)){ emergency(); return; }
   if (chatStep === "choose"){
@@ -1538,8 +1619,9 @@ function handleChatText(){
       s.kw.forEach(function(k){ if (!hit && low.indexOf(k.toLowerCase()) !== -1) hit = s; });
     });
     if (hit){ chooseIssue(hit, false); return; }
-    botSay(pick("I'm set up for the issues listed above. For anything else, Dr. Ahmed answers directly:","أنا مجهز للحالات اللي فوق بس. لأي حاجة تانية، د. أحمد بيرد بنفسه:"),
-      pick(CONFIG.waPrefill, "أهلاً د. أحمد!"));
+    var qa = matchFreeQA(low);
+    if (qa){ freeQAAnswer(qa, msg); return; }
+    genericAnswer(msg);
     return;
   }
   if (chatStep === "q1"){ chatAns.duration = msg; askQ2(); return; }
