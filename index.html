@@ -381,19 +381,6 @@ footer{padding-bottom:110px}
 }
 .case h3{font-size:20px;margin-bottom:6px}
 .case p{color:var(--ink-soft);font-size:15px}
-.case-plus{
-  background:transparent;border:2.5px dashed #b8cfe8;color:var(--ink-soft);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:10px;min-height:320px;cursor:pointer;font:inherit;font-size:15px;
-  font-weight:700;border-radius:var(--radius);transition:.2s;
-}
-.case-plus:hover{border-color:var(--accent);color:var(--accent)}
-.case-plus .plus-sign{font-size:46px;line-height:1;font-weight:300}
-.pin-card input{
-  width:100%;padding:10px 14px;border:1.5px solid #d7e4f5;border-radius:10px;
-  font:inherit;font-size:14px;background:#f7fbff;color:var(--ink);margin-top:8px;
-}
-
 /* ---------- testimonials ---------- */
 .testi{background:var(--cream-dark);display:none}
 .testi-card{
@@ -479,7 +466,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
 }
 @media (max-width:768px){
   .nav{height:60px}
-  .btn,.nav .links a,.top-actions .cta,.lang-btn,.case-plus{min-height:48px;min-width:48px}
+  .btn,.nav .links a,.top-actions .cta,.lang-btn{min-height:48px;min-width:48px}
   .hero .btns,.contact-box .btns,.foot-cta .btns{gap:12px}
 }
 @media (max-width:480px){
@@ -529,29 +516,9 @@ html,body{height:100%;overflow:hidden}
 [dir="rtl"] .app-scroll{direction:ltr}
 [dir="rtl"] .app-scroll>*{direction:rtl}
 
-/* ---------- owner edit mode ---------- */
+/* ---------- owner edit mode (moved to admin.html) ---------- */
 .case .thumb{position:relative}
 .ph-count{position:absolute;bottom:10px;right:10px;background:rgba(10,42,94,.85);color:#fff;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700;text-transform:none}
-.edit-panel{position:fixed;left:10px;right:10px;bottom:10px;max-height:82vh;overflow-y:auto;z-index:1001;background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 24px 60px rgba(10,42,94,.35);padding:20px;font-size:15px;color:var(--ink)}
-.edit-panel label{display:block;margin:10px 0 4px;font-weight:600;color:var(--deep);font-size:13.5px}
-.edit-panel input,.edit-panel textarea,.edit-panel select{width:100%;padding:10px 12px;border:1.5px solid #d7e4f5;border-radius:10px;font:inherit;background:#f7fbff;color:var(--ink)}
-.ep-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.ep-head b{color:var(--deep);font-size:17px}
-.ep-head button{border:none;background:#eef4fb;border-radius:50%;width:32px;height:32px;font-size:15px;cursor:pointer;color:var(--deep)}
-.ep-note{font-size:13px;color:var(--ink-soft);background:#fff8e6;border:1px solid #f3e2b3;border-radius:10px;padding:10px 12px;margin:8px 0}
-.edit-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-.edit-btn{padding:10px 18px;border-radius:999px;border:1.5px solid var(--deep);background:#fff;color:var(--deep);font-weight:700;cursor:pointer;font-size:14px}
-.edit-btn.primary{background:var(--deep);color:#fff}
-.ep-status{font-size:13.5px;color:var(--deep);margin-top:10px;min-height:18px}
-.ep-hr{border:none;border-top:1px solid var(--line);margin:16px 0 4px}
-.ep-list-title{font-weight:700;color:var(--deep);font-size:13.5px;margin-top:12px}
-.edit-item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 4px;border-bottom:1px dashed var(--line);font-size:14px}
-.edit-item button{border:none;background:#fde8e8;color:#b42318;border-radius:50%;width:28px;height:28px;cursor:pointer}
-.ep-sec{font-weight:700;color:var(--deep);font-size:15px;margin:2px 0 4px}
-.soc-row{display:flex;gap:8px;margin-bottom:8px;align-items:center}
-.soc-row select{padding:9px;border:1.5px solid #d7e4f5;border-radius:10px;background:#f7fbff;font:inherit;font-size:13.5px;color:var(--ink)}
-.soc-row input{flex:1;min-width:0;padding:9px 12px;border:1.5px solid #d7e4f5;border-radius:10px;font:inherit;font-size:13.5px;background:#f7fbff;color:var(--ink)}
-.soc-row button{border:none;background:#fde8e8;color:#b42318;border-radius:50%;width:30px;height:30px;cursor:pointer;flex:none}
 /* visitor comments on cases */
 .case-comment{margin-top:16px;background:#FFF;border:1px solid #E5E7EB;border-radius:12px;padding:16px;box-shadow:0 4px 14px rgba(16,24,40,.06)}
 .case-comment .cc-head{display:flex;flex-direction:column;align-items:flex-start;gap:2px;margin-bottom:10px}
@@ -809,17 +776,7 @@ function renderAll(){
      <div class="cc-soon">${pick("Comments coming soon - Share your thoughts","التعليقات قريبًا - شاركنا رأيك")}</div></div>`);
     return `<div class="case"><div class="thumb">${c.photos && c.photos.length ? '<img src="' + c.photos[0] + '" alt="' + c.title + '" loading="' + (ci === 0 ? "eager" : "lazy") + '">' + (c.photos.length > 1 ? '<span class="ph-count">✚ ' + (c.photos.length - 1) + '</span>' : "") : pick(c.tag + "<br>Case 0" + (ci+1), c.tag + "<br>حالة 0" + (ci+1))}</div>
      <div class="body"><span class="tag">${c.tag}</span><h3>${c.title}</h3><p>${c.text}</p>${cm}</div></div>`;
-  }).join("")
-  + `<button type="button" class="case-plus" id="casePlus"><span class="plus-sign">+</span><span>${pick("Add a case","أضف حالة")}</span></button>`
-  + `<div class="case pin-card" id="pinCard" style="display:none"><div class="body" style="width:100%">
-     <h3 id="pinTitle"></h3><p id="pinHint" style="margin-bottom:4px"></p>
-     <input id="pinIn1" type="password" inputmode="numeric" autocomplete="off">
-     <input id="pinIn2" type="password" inputmode="numeric" autocomplete="off" style="display:none">
-     <div style="display:flex;gap:8px;margin-top:12px">
-       <button class="edit-btn primary" id="pinGo" type="button"></button>
-       <button class="edit-btn" id="pinCancel" type="button"></button>
-     </div>
-     <div class="ep-status" id="pinStatus" style="margin-top:8px;color:#c0392b;font-size:13px"></div></div></div>`;
+  }).join("");
   /* comments: Cusdis widget, one thread per case (page-id case-N). Moderated: nothing shows until approved. */
 
   /* testimonial */
@@ -1148,440 +1105,36 @@ window.addEventListener("scroll", closeChatOnScroll, { passive: true });
   window.addEventListener("scroll", onScroll, {passive:true});
 })();
 
-/* ============ EDIT MODE (owner only): add cases + export updated file ============
-   Hidden on purpose: tap the footer line 5 times quickly, or open the site with #edit.
-   A static site cannot store data on a server: adding a case updates the page code,
-   and the updated file is exported (download where allowed, or copy the code). */
+/* ============ OWNER OVERRIDES (read-only): show cases/bio/links/photo added via admin.html ============ */
 (function(){
-  const P = (en, ar) => LANG === "ar" ? ar : en;
-  const STORE_KEY = "addedCasesV1";
-  const TAGS = [
-    ["Endodontics","علاج الجذور"], ["Restorative","الترميم"],
-    ["Esthetic","تجميل الأسنان"], ["Prosthodontics","التركيبات"],
-    ["Oral Surgery","جراحة الفم"], ["Periodontics","علاج اللثة"],
-    ["Pediatric","أسنان الأطفال"], ["Other","أخرى"]
-  ];
   let stored = [];
-  try { stored = JSON.parse(localStorage.getItem(STORE_KEY) || "[]"); } catch(e) { stored = []; }
-
-  /* drop cases already baked into the source, adopt the rest */
+  try { stored = JSON.parse(localStorage.getItem("addedCasesV1") || "[]"); } catch(e) { stored = []; }
   const baked = {};
   CONFIG.cases.forEach(c => { if (c.id) baked[c.id] = true; });
   stored = stored.filter(c => !baked[c.id]);
-  stored.forEach(c => {
-    CONFIG.cases.push({ id:c.id, tag:c.tagEn, title:c.titleEn, text:c.textEn, photos:c.photos });
-    AR.cases.push({ id:c.id, tag:c.tagAr, title:c.titleAr, text:c.textAr, photos:c.photos });
-  });
-  function saveStored(){ try { localStorage.setItem(STORE_KEY, JSON.stringify(stored)); } catch(e) {} }
-  if (stored.length) { saveStored(); }
-
-  /* owner overrides saved on this device: bio text + social links */
-  let bioOv = null, socOv = null, startDirty = false;
+  if (stored.length){
+    stored.forEach(c => {
+      CONFIG.cases.push({ id:c.id, tag:c.tagEn, title:c.titleEn, text:c.textEn, photos:c.photos });
+      AR.cases.push({ id:c.id, tag:c.tagAr, title:c.titleAr, text:c.textAr, photos:c.photos });
+    });
+    try { localStorage.setItem("addedCasesV1", JSON.stringify(stored)); } catch(e) {}
+  }
+  let bioOv = null, socOv = null, profilePhoto = null, dirty = false;
   try { bioOv = JSON.parse(localStorage.getItem("bioOverrideV1") || "null"); } catch(e) {}
   try { socOv = JSON.parse(localStorage.getItem("socialsOverrideV1") || "null"); } catch(e) {}
-  let profilePhoto = null;
   try { profilePhoto = localStorage.getItem("profilePhotoV1"); } catch(e) {}
-  function applyProfilePhoto(){
-    if (!profilePhoto) return;
-    const img = document.querySelector(".portrait img.ph");
-    if (img) img.src = profilePhoto;
-  }
   if (bioOv && bioOv.en && bioOv.en.length){
     CONFIG.aboutText = bioOv.en;
     if (bioOv.ar && bioOv.ar.length) AR.aboutText = bioOv.ar;
-    startDirty = true;
+    dirty = true;
   }
-  if (socOv && socOv.length){ CONFIG.socials = socOv; startDirty = true; }
-  const PLATFORMS = [["ig","Instagram"],["f","Facebook"],["in","LinkedIn"],["tt","TikTok"],["x","X"],["yt","YouTube"],["wa","WhatsApp"],["web","Website"]];
-  let soc = [];
-  function freshSoc(){ return (CONFIG.socials || []).map(s => ({ icon: s.icon, url: s.url })); }
-
-  let panel = null;
-  function buildPanel(){
-    panel = document.createElement("div");
-    panel.className = "edit-panel";
-    panel.style.display = "none";
-    panel.style.animation = "none";
-    panel.innerHTML =
-      '<div class="ep-head"><b id="epTitle"></b><button type="button" id="epClose" aria-label="Close">✕</button></div>' +
-      '<p class="ep-note" id="epNote"></p>' +
-      '<label id="lbTitleEn"></label><input id="fTitleEn" type="text">' +
-      '<label id="lbTitleAr"></label><input id="fTitleAr" type="text" dir="rtl">' +
-      '<label id="lbTag"></label><select id="fTag"></select>' +
-      '<label id="lbDescEn"></label><textarea id="fDescEn" rows="3"></textarea>' +
-      '<label id="lbDescAr"></label><textarea id="fDescAr" rows="3" dir="rtl"></textarea>' +
-      '<label id="lbPhotos"></label><input id="fPhotos" type="file" accept="image/*" multiple>' +
-      '<div class="edit-actions"><button type="button" class="edit-btn primary" id="epAdd"></button></div>' +
-      '<div class="ep-status" id="epStatus"></div>' +
-      '<div class="edit-list" id="epList"></div>' +
-      '<hr class="ep-hr">' +
-      '<div class="ep-sec" id="epSecBio"></div>' +
-      '<label id="lbBioEn"></label><textarea id="fBioEn" rows="3"></textarea>' +
-      '<label id="lbBioAr"></label><textarea id="fBioAr" rows="3" dir="rtl"></textarea>' +
-      '<div class="edit-actions"><button type="button" class="edit-btn primary" id="epSaveBio"></button></div>' +
-      '<hr class="ep-hr">' +
-      '<div class="ep-sec" id="epSecPhoto"></div>' +
-      '<div id="photoPreview" style="margin:6px 0 10px;display:none"><img id="photoPreviewImg" style="width:96px;height:96px;object-fit:cover;border-radius:16px;border:1px solid #d7e4f5"></div>' +
-      '<label id="lbPhoto"></label><input id="fPhoto" type="file" accept="image/*">' +
-      '<div class="edit-actions"><button type="button" class="edit-btn primary" id="epSavePhoto"></button></div>' +
-      '<hr class="ep-hr">' +
-      '<div class="ep-sec" id="epSecSoc"></div>' +
-      '<div id="socRows"></div>' +
-      '<div class="edit-actions">' +
-      '  <button type="button" class="edit-btn" id="epAddSoc"></button>' +
-      '  <button type="button" class="edit-btn primary" id="epSaveSoc"></button>' +
-      '</div>' +
-      '<hr class="ep-hr">' +
-      '<p class="ep-note" id="epNote2"></p>' +
-      '<div class="edit-actions">' +
-      '  <button type="button" class="edit-btn primary" id="epDownload"></button>' +
-      '  <button type="button" class="edit-btn" id="epShowCode"></button>' +
-      '</div>' +
-      '<div id="epCodeWrap" style="display:none;margin-top:10px">' +
-      '  <textarea id="epCode" rows="8" readonly style="direction:ltr"></textarea>' +
-      '  <div class="edit-actions"><button type="button" class="edit-btn" id="epCopy"></button></div>' +
-      '</div>';
-    document.body.appendChild(panel);
-    const sel = panel.querySelector("#fTag");
-    sel.innerHTML = TAGS.map((t,i) => '<option value="' + i + '">' + t[0] + '</option>').join("");
-    panel.querySelector("#epClose").addEventListener("click", function(){ panel.style.display = "none"; });
-    panel.querySelector("#epAdd").addEventListener("click", addCase);
-    panel.querySelector("#epDownload").addEventListener("click", doExport);
-    panel.querySelector("#epShowCode").addEventListener("click", function(){
-      const w = panel.querySelector("#epCodeWrap");
-      w.style.display = w.style.display === "none" ? "block" : "none";
-      if (w.style.display === "block") panel.querySelector("#epCode").value = buildExport().text;
-    });
-    panel.querySelector("#epCopy").addEventListener("click", copyCode);
-    panel.querySelector("#epSaveBio").addEventListener("click", saveBio);
-    panel.querySelector("#epSavePhoto").addEventListener("click", savePhoto);
-    panel.querySelector("#fPhoto").addEventListener("change", previewPhoto);
-    panel.querySelector("#epAddSoc").addEventListener("click", function(){ soc.push({ icon:"ig", url:"" }); renderSocRows(); });
-    panel.querySelector("#epSaveSoc").addEventListener("click", saveSoc);
-    panel.querySelector("#fBioEn").value = (CONFIG.aboutText || []).join("\n\n");
-    panel.querySelector("#fBioAr").value = (AR.aboutText || []).join("\n\n");
-    soc = freshSoc();
-    renderSocRows();
-    renderEditorLabels();
-    renderList();
+  if (socOv && socOv.length){ CONFIG.socials = socOv; dirty = true; }
+  if (profilePhoto){
+    const img = document.querySelector(".portrait img.ph");
+    if (img) img.src = profilePhoto;
   }
-  function renderEditorLabels(){
-    if (!panel) return;
-    panel.querySelector("#epTitle").textContent = P("Edit mode — add a case","وضع التعديل — أضف حالة");
-    panel.querySelector("#epNote").textContent = P(
-      "This is a static site: nothing is stored on a server. Your case is added to the page code below, then you export the updated file and send it to Instinct on WhatsApp to publish it.",
-      "الموقع ده ثابت: مفيش حاجة بتتحفظ على سيرفر. الحالة بتتضاف لكود الصفحة تحت، وبعدين تصدّر الملف المحدّث وتبعته لإنستينكت على واتساب عشان يتنشر.");
-    panel.querySelector("#lbTitleEn").textContent = P("Case title (English) *","عنوان الحالة (إنجليزي) *");
-    panel.querySelector("#lbTitleAr").textContent = P("Case title (Arabic, optional)","عنوان الحالة (عربي، اختياري)");
-    panel.querySelector("#lbTag").textContent = P("Specialty","التخصص");
-    panel.querySelector("#lbDescEn").textContent = P("Description (English)","الوصف (إنجليزي)");
-    panel.querySelector("#lbDescAr").textContent = P("Description (Arabic, optional)","الوصف (عربي، اختياري)");
-    panel.querySelector("#lbPhotos").textContent = P("Photos (optional, up to 6)","صور (اختياري، حتى ٦)");
-    panel.querySelector("#epAdd").textContent = P("Add case to the page","ضيف الحالة للصفحة");
-    panel.querySelector("#epNote2").textContent = P(
-      "Export when you are done. On the hosted link: Show code, then Copy, and paste the case data to Instinct on WhatsApp — it gets merged into the site and published. In the downloaded HTML file: Download saves the full updated site file.",
-      "اعمل تصدير لما تخلص. في اللينك المستضاف: أظهر الكود وبعدين نسخ، والصق بيانات الحالات لإنستينكت على واتساب — هتتدمج في الموقع وتتنشر. في ملف الـ HTML المحمّل: زرار التنزيل بيحفظ ملف الموقع المحدّث كامل.");
-    panel.querySelector("#epDownload").textContent = P("⤓ Download updated site","⤓ نزّل الموقع المحدّث");
-    panel.querySelector("#epShowCode").textContent = P("Show code / data to copy","أظهر الكود / البيانات للنسخ");
-    panel.querySelector("#epCopy").textContent = P("Copy all code","انسخ الكود كله");
-    panel.querySelector("#epSecBio").textContent = P("Your bio (the About section):","البايو (قسم عني):");
-    panel.querySelector("#lbBioEn").textContent = P("Bio (English) — blank line between paragraphs","البايو (إنجليزي) — سطر فاضي بين كل فقرة");
-    panel.querySelector("#lbBioAr").textContent = P("Bio (Arabic)","البايو (عربي)");
-    panel.querySelector("#epSaveBio").textContent = P("Save bio","احفظ البايو");
-    panel.querySelector("#epSecPhoto").textContent = P("Profile photo (the About section):","صورة البروفايل (قسم عني):");
-    panel.querySelector("#lbPhoto").textContent = P("Photo from your device (square looks best)","صورة من جهازك (المربعة شكلها أفضل)");
-    panel.querySelector("#epSavePhoto").textContent = P("Save photo","احفظ الصورة");
-    panel.querySelector("#epSecSoc").textContent = P("Social media links (footer icons):","لينكات السوشيال ميديا (أيقونات الفوتر):");
-    panel.querySelector("#epAddSoc").textContent = P("+ Add a link","+ ضيف لينك");
-    panel.querySelector("#epSaveSoc").textContent = P("Save links","احفظ اللينكات");
-    renderList();
-  }
-  function renderList(){
-    if (!panel) return;
-    const el = panel.querySelector("#epList");
-    if (!stored.length){ el.innerHTML = ""; return; }
-    el.innerHTML = '<div class="ep-list-title">' + P("Added on this device:","اتضافوا على الجهاز ده:") + '</div>' +
-      stored.map((c,i) => '<div class="edit-item"><span>' + (c.titleEn || "") + '</span><button type="button" data-i="' + i + '" aria-label="Delete">✕</button></div>').join("");
-    el.querySelectorAll("button").forEach(b => b.addEventListener("click", function(){
-      const i = +b.getAttribute("data-i");
-      const c = stored[i];
-      stored.splice(i, 1);
-      let k = CONFIG.cases.findIndex(x => x.id === c.id); if (k > -1) CONFIG.cases.splice(k, 1);
-      k = AR.cases.findIndex(x => x.id === c.id); if (k > -1) AR.cases.splice(k, 1);
-      saveStored(); renderAll(); renderList();
-    }));
-  }
-  function renderSocRows(){
-    if (!panel) return;
-    const wrap = panel.querySelector("#socRows");
-    wrap.innerHTML = soc.map((s,i) =>
-      '<div class="soc-row"><select data-i="' + i + '">' +
-      PLATFORMS.map(p => '<option value="' + p[0] + '"' + (s.icon === p[0] ? " selected" : "") + '>' + p[1] + '</option>').join("") +
-      '</select><input type="url" data-i="' + i + '" dir="ltr" placeholder="https://..." value="' + String(s.url || "").replace(/"/g, "&quot;") + '">' +
-      '<button type="button" data-i="' + i + '" aria-label="Delete">✕</button></div>').join("");
-    wrap.querySelectorAll("select").forEach(el => el.addEventListener("change", function(){ soc[+el.getAttribute("data-i")].icon = el.value; }));
-    wrap.querySelectorAll("input").forEach(el => el.addEventListener("input", function(){ soc[+el.getAttribute("data-i")].url = el.value; }));
-    wrap.querySelectorAll("button").forEach(el => el.addEventListener("click", function(){ soc.splice(+el.getAttribute("data-i"), 1); renderSocRows(); }));
-  }
-  function previewPhoto(){
-    const f = panel.querySelector("#fPhoto").files[0];
-    const pv = panel.querySelector("#photoPreview");
-    if (!f){ pv.style.display = "none"; return; }
-    const fr = new FileReader();
-    fr.onload = function(){ panel.querySelector("#photoPreviewImg").src = fr.result; pv.style.display = "block"; };
-    fr.readAsDataURL(f);
-  }
-  async function savePhoto(){
-    const st = panel.querySelector("#epStatus");
-    const f = panel.querySelector("#fPhoto").files[0];
-    if (!f){ st.textContent = P("Choose a photo first.","اختار صورة الأول."); return; }
-    st.textContent = P("Processing photo...","بجهز الصورة...");
-    const d = await compress(f);
-    if (!d){ st.textContent = P("Could not read that image.","مش قادر أقرا الصورة دي."); return; }
-    profilePhoto = d;
-    try { localStorage.setItem("profilePhotoV1", d); } catch(e) {}
-    applyProfilePhoto();
-    st.textContent = P("Profile photo updated on the page now. Export below to publish it permanently.","صورة البروفايل اتحدثت في الصفحة دلوقتي. اعمل تصدير تحت عشان تتنشر بشكل دائم.");
-  }
-  function saveBio(){
-    const st = panel.querySelector("#epStatus");
-    const en = panel.querySelector("#fBioEn").value.split(/\n\s*\n/).map(s => s.trim()).filter(Boolean);
-    const arT = panel.querySelector("#fBioAr").value.split(/\n\s*\n/).map(s => s.trim()).filter(Boolean);
-    if (!en.length){ st.textContent = P("The English bio cannot be empty.","البايو الإنجليزي مينفعش يبقى فاضي."); return; }
-    CONFIG.aboutText = en;
-    if (arT.length) AR.aboutText = arT;
-    try { localStorage.setItem("bioOverrideV1", JSON.stringify({ en: en, ar: arT })); } catch(e) {}
-    renderAll();
-    st.textContent = P("Bio updated on the page now. Export below to publish it permanently.","البايو اتحدث في الصفحة دلوقتي. اعمل تصدير تحت عشان يتنشر بشكل دائم.");
-  }
-  function saveSoc(){
-    const st = panel.querySelector("#epStatus");
-    const list = soc.filter(s => (s.url || "").trim()).map(s => ({ icon: s.icon, url: s.url.trim() }));
-    CONFIG.socials = list;
-    try { localStorage.setItem("socialsOverrideV1", JSON.stringify(list)); } catch(e) {}
-    renderAll();
-    st.textContent = P("Links saved and showing in the footer now. Export below to publish them permanently.","اللينكات اتحفظت وظاهرة في الفوتر دلوقتي. اعمل تصدير تحت عشان تتنشر بشكل دائم.");
-  }
-  function compress(file){
-    return new Promise(function(resolve){
-      const fr = new FileReader();
-      fr.onload = function(){
-        const img = new Image();
-        img.onload = function(){
-          try {
-            const max = 1200;
-            const s = Math.min(1, max / Math.max(img.width, img.height));
-            const cv = document.createElement("canvas");
-            cv.width = Math.max(1, Math.round(img.width * s)); cv.height = Math.max(1, Math.round(img.height * s));
-            cv.getContext("2d").drawImage(img, 0, 0, cv.width, cv.height);
-            resolve(cv.toDataURL("image/jpeg", 0.82));
-          } catch(e){ resolve(fr.result); }
-        };
-        img.onerror = function(){ resolve(fr.result); };
-        img.src = fr.result;
-      };
-      fr.onerror = function(){ resolve(null); };
-      fr.readAsDataURL(file);
-    });
-  }
-  async function addCase(){
-    const tEn = panel.querySelector("#fTitleEn").value.trim();
-    const st = panel.querySelector("#epStatus");
-    if (!tEn){ st.textContent = P("Title (English) is required.","العنوان بالإنجليزي مطلوب."); return; }
-    st.textContent = P("Processing photos...","بجهز الصور...");
-    const files = Array.prototype.slice.call(panel.querySelector("#fPhotos").files || []).slice(0, 6);
-    const photos = [];
-    for (const f of files){ const d = await compress(f); if (d) photos.push(d); }
-    const ti = +panel.querySelector("#fTag").value;
-    const c = {
-      id: "uc" + Date.now(),
-      titleEn: tEn,
-      titleAr: panel.querySelector("#fTitleAr").value.trim() || tEn,
-      textEn: panel.querySelector("#fDescEn").value.trim(),
-      textAr: panel.querySelector("#fDescAr").value.trim() || panel.querySelector("#fDescEn").value.trim(),
-      tagEn: TAGS[ti][0], tagAr: TAGS[ti][1],
-      photos: photos
-    };
-    stored.push(c);
-    CONFIG.cases.push({ id:c.id, tag:c.tagEn, title:c.titleEn, text:c.textEn, photos:c.photos });
-    AR.cases.push({ id:c.id, tag:c.tagAr, title:c.titleAr, text:c.textAr, photos:c.photos });
-    saveStored(); renderAll(); renderList();
-    ["fTitleEn","fTitleAr","fDescEn","fDescAr"].forEach(id => panel.querySelector("#" + id).value = "");
-    panel.querySelector("#fPhotos").value = "";
-    st.textContent = P("Case added and visible on the page now. Export below to send it for publishing.","الحالة اتضافت وظاهرة في الصفحة دلوقتي. اعمل تصدير تحت عشان تبعتها للنشر.");
-  }
-  function serializeCases(arr){
-    return "[\n    " + arr.map(function(c){
-      const o = {};
-      if (c.id) o.id = c.id;
-      o.tag = c.tag; o.title = c.title; o.text = c.text;
-      if (c.photos && c.photos.length) o.photos = c.photos;
-      return JSON.stringify(o);
-    }).join(",\n    ") + "\n  ]";
-  }
-  function replaceNth(src, key, n, content){
-    let idx = -1, from = 0;
-    for (let k = 0; k <= n; k++){ idx = src.indexOf(key, from); if (idx < 0) return src; from = idx + key.length; }
-    const i = src.indexOf("[", idx);
-    let depth = 0, inStr = null, esc = false, j = i;
-    for (; j < src.length; j++){
-      const ch = src[j];
-      if (inStr){ if (esc) esc = false; else if (ch === "\\") esc = true; else if (ch === inStr) inStr = null; continue; }
-      if (ch === '"' || ch === "'" || ch === '`'){ inStr = ch; continue; }
-      if (ch === "[") depth++;
-      else if (ch === "]"){ depth--; if (!depth) break; }
-    }
-    if (depth) return src;
-    return src.slice(0, i) + content + src.slice(j + 1);
-  }
-  function serializeStrArray(arr){
-    return "[\n    " + arr.map(s => JSON.stringify(s)).join(",\n    ") + "\n  ]";
-  }
-  function serializeSocials(arr){
-    return "[\n    " + arr.map(s => JSON.stringify({ icon: s.icon, url: s.url })).join(",\n    ") + "\n  ]";
-  }
-  function buildExport(){
-    /* standalone file: the full source is in the page, export a complete updated HTML.
-       hosted viewer: no inline source, export just the owner's data to send to Instinct. */
-    if (SOURCE_SNAPSHOT.indexOf("cases:") > -1) {
-      let src = SOURCE_SNAPSHOT;
-      src = replaceNth(src, "cases:", 0, serializeCases(CONFIG.cases));
-      src = replaceNth(src, "cases:", 1, serializeCases(AR.cases));
-      src = replaceNth(src, "aboutText:", 0, serializeStrArray(CONFIG.aboutText));
-      src = replaceNth(src, "aboutText:", 1, serializeStrArray(AR.aboutText));
-      src = replaceNth(src, "socials:", 0, serializeSocials(CONFIG.socials));
-      if (profilePhoto) src = src.replace(/(<div class="portrait"><img class="ph" src=")[^"]*(")/, "$1" + profilePhoto + "$2");
-      return { kind: "html", text: src };
-    }
-    return { kind: "pack", text: JSON.stringify({
-      type: "dental-portfolio-cases",
-      cases: stored,
-      bio: { en: CONFIG.aboutText, ar: AR.aboutText },
-      socials: CONFIG.socials,
-      profilePhoto: profilePhoto
-    }, null, 2) };
-  }
-  function doExport(){
-    const out = buildExport();
-    const st = panel.querySelector("#epStatus");
-    panel.querySelector("#epCodeWrap").style.display = "block";
-    panel.querySelector("#epCode").value = out.text;
-    if (out.kind === "pack") {
-      st.textContent = P("Your case data is below. Tap Copy and paste it to Instinct on WhatsApp — it will be merged into the site and published.",
-                         "بيانات حالاتك تحت. دوس نسخ والصقها لإنستينكت على واتساب — هتتدمج في الموقع وتتنشر.");
-      return;
-    }
-    let ok = false;
-    try {
-      const blob = new Blob([out.text], { type: "text/html" });
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = "dental-portfolio-updated.html";
-      document.body.appendChild(a); a.click(); a.remove();
-      ok = true;
-    } catch(e) { ok = false; }
-    st.textContent = ok
-      ? P("Download started. Send the new file to Instinct on WhatsApp to publish it. If nothing downloaded, use Copy and paste the code.",
-          "التنزيل بدأ. ابعت الملف الجديد لإنستينكت على واتساب عشان يتنشر. لو مفيش حاجة نزلت، استخدم نسخ والصق الكود.")
-      : P("Download is blocked here. Use Copy and paste the code to Instinct on WhatsApp.",
-          "التنزيل مقفول هنا. استخدم نسخ والصق الكود لإنستينكت على واتساب.");
-  }
-  function copyCode(){
-    const ta = panel.querySelector("#epCode");
-    const st = panel.querySelector("#epStatus");
-    ta.focus(); ta.select();
-    let ok = false;
-    try { ok = document.execCommand("copy"); } catch(e) {}
-    if (!ok && navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(ta.value).then(function(){
-        st.textContent = P("Copied. Paste it to Instinct on WhatsApp.","اتنسخ. الصقه لإنستينكت على واتساب.");
-      }, function(){
-        st.textContent = P("Select the code above and copy it manually.","حدد الكود فوق واعمله نسخ يدوي.");
-      });
-      return;
-    }
-    st.textContent = ok ? P("Copied. Paste it to Instinct on WhatsApp.","اتنسخ. الصقه لإنستينكت على واتساب.")
-                        : P("Select the code above and copy it manually.","حدد الكود فوق واعمله نسخ يدوي.");
-  }
-  function toggleEditor(){
-    if (!panel) buildPanel();
-    panel.style.display = panel.style.display === "none" ? "block" : "none";
-    if (panel.style.display === "block"){
-      panel.querySelector("#fBioEn").value = (CONFIG.aboutText || []).join("\n\n");
-      panel.querySelector("#fBioAr").value = (AR.aboutText || []).join("\n\n");
-      soc = freshSoc();
-      renderSocRows();
-    }
-  }
-  const fn = $("footNote");
-  if (fn){
-    let taps = 0, timer = null;
-    fn.style.cursor = "pointer";
-    fn.addEventListener("click", function(){
-      taps++; if (timer) clearTimeout(timer);
-      timer = setTimeout(function(){ taps = 0; }, 3000);
-      if (taps >= 5){ taps = 0; toggleEditor(); }
-    });
-  }
-  if (location.hash === "#edit") toggleEditor();
-  applyProfilePhoto();
-  if (stored.length || startDirty) renderAll();
-  const _renderAll = renderAll;
-  renderAll = function(){ _renderAll(); renderEditorLabels(); };
-  window.__openCaseEditor = function(){ toggleEditor(); };
+  if (stored.length || dirty) renderAll();
 })();
-
-/* owner-only "+" card: PIN gate. Honest note: this is a deterrent, not real
-   security - a static page ships its code to every visitor, so anyone reading
-   the source can open the editor. It keeps casual visitors out. */
-let ownerPin = null;
-try { ownerPin = localStorage.getItem("ownerPinV1"); } catch(e) {}
-function openPinGate(){
-  const card = $("pinCard"); if (!card) return;
-  const setMode = !ownerPin;
-  card.style.display = "";
-  $("pinTitle").textContent = pick(setMode ? "Set your editor PIN" : "Editor PIN", setMode ? "اعمل رقم سري للتعديل" : "الرقم السري للتعديل");
-  $("pinHint").textContent = pick(
-    setMode ? "First time only: choose 4 or more digits. This keeps visitors out of the editor. On a static site this is a lock on the door, not a vault." : "Enter your PIN to open the case editor.",
-    setMode ? "أول مرة بس: اختار ٤ أرقام أو أكتر. ده بيمنع الزوار من فتح التعديل. الموقع ثابت، فده قفل على الباب مش خزنة." : "اكتب الرقم السري عشان تفتح تعديل الحالات.");
-  $("pinIn1").value = ""; $("pinIn2").value = "";
-  $("pinIn2").style.display = setMode ? "" : "none";
-  $("pinIn1").placeholder = setMode ? pick("Choose PIN (4+ digits)","اختار الرقم (٤ أرقام أو أكتر)") : pick("Your PIN","الرقم السري");
-  $("pinIn2").placeholder = pick("Repeat the PIN","أعد كتابة الرقم");
-  $("pinGo").textContent = pick(setMode ? "Save PIN & open" : "Open editor", setMode ? "احفظ الرقم وافتح" : "افتح التعديل");
-  $("pinCancel").textContent = pick("Cancel","إلغاء");
-  $("pinStatus").textContent = "";
-  card.scrollIntoView({ behavior:"smooth", block:"center" });
-  setTimeout(function(){ $("pinIn1").focus(); }, 400);
-}
-function submitPin(){
-  const st = $("pinStatus");
-  const p1 = $("pinIn1").value.trim();
-  if (!ownerPin){
-    const p2 = $("pinIn2").value.trim();
-    if (p1.length < 4){ st.textContent = pick("Use 4 digits at least.","٤ أرقام على الأقل."); return; }
-    if (p1 !== p2){ st.textContent = pick("The two PINs do not match.","الرقمن مش متطابقين."); return; }
-    ownerPin = p1;
-    try { localStorage.setItem("ownerPinV1", p1); } catch(e) {}
-    $("pinCard").style.display = "none";
-    if (window.__openCaseEditor) window.__openCaseEditor();
-    return;
-  }
-  if (p1 === ownerPin){
-    $("pinCard").style.display = "none";
-    if (window.__openCaseEditor) window.__openCaseEditor();
-  } else {
-    st.textContent = pick("Wrong PIN, try again.","الرقم غلط، حاول تاني.");
-  }
-}
-$("casesGrid").addEventListener("click", function(e){
-  if (e.target.closest("#casePlus")) openPinGate();
-  else if (e.target.closest("#pinGo")) submitPin();
-  else if (e.target.closest("#pinCancel")) $("pinCard").style.display = "none";
-});
-$("casesGrid").addEventListener("keydown", function(e){
-  if (e.key === "Enter" && e.target.closest("#pinCard")) submitPin();
-});
 
 /* Cusdis: mount one widget per case card (SDK loaded once below) */
 window.__initCusdis = function(){
