@@ -35,6 +35,7 @@
   /* spacing scale (responsive spec) */
   --space-xs:8px; --space-sm:12px; --space-md:16px; --space-lg:24px; --space-xl:48px; --space-2xl:80px;
 }
+
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:70px;overflow-x:hidden}
 body{
@@ -520,7 +521,16 @@ footer{padding-bottom:110px}
 }
 .case h3{font-size:20px;margin-bottom:6px}
 .case p{color:var(--ink-soft);font-size:15px}
-.case-details{margin-top:12px;background:#F0F7FF;border:1px solid #D6E8FF;border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.7}
+/* ---------- before/after slider (a case with "before" + "after" photo URLs gets a drag slider) ---------- */
+.ba-wrap{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;cursor:ew-resize;touch-action:none;user-select:none;-webkit-user-select:none;background:#EAF4FF}
+.ba-wrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;max-width:none;pointer-events:none}
+.ba-before{position:absolute;inset:0;z-index:1;clip-path:inset(0 50% 0 0)}
+.ba-line{position:absolute;top:0;bottom:0;left:50%;width:3px;background:#fff;box-shadow:0 0 10px rgba(0,0,0,.4);z-index:2;transform:translateX(-50%)}
+.ba-handle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:42px;height:42px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.ba-tag{position:absolute;top:10px;background:rgba(0,0,0,.6);color:#fff;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;z-index:3;letter-spacing:.05em;text-transform:uppercase}
+.ba-tag.before{left:10px}
+.ba-tag.after{right:10px;background:#0f2a6b}
+.ba-wrap:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
 /* ---------- testimonials ---------- */
 .testi{background:var(--cream-dark);display:none}
 .testi-card{
@@ -531,6 +541,7 @@ footer{padding-bottom:110px}
 .testi-card blockquote{font-size:19px;font-family:Georgia,serif;font-style:italic;margin-bottom:18px}
 .testi-card .who{font-weight:700;font-size:14.5px}
 .testi-card .who small{display:block;color:var(--ink-soft);font-weight:400}
+
 /* ---------- contact ---------- */
 .contact-box{
   background:var(--deep);color:#fff;border-radius:34px;
@@ -891,30 +902,13 @@ function applySpecFilter(code){
    comparison slider instead of a plain thumbnail. Multiple sliders per page OK.
    Mouse + touch + arrow keys. Physical left/right, so it is identical in RTL. */
 function baSliderHTML(before, after, ar){
-  return <div class="ba-wrap" role="slider" tabindex="0" aria-valuemin="5" aria-valuemax="95" aria-valuenow="50" data-before="${before}" data-after="${after}">
-    <img src="${after}" alt="After" loading="lazy" draggable="false">
-    <div class="ba-before"><img src="${before}" alt="Before" loading="lazy" draggable="false"></div>
+  return `<div class="ba-wrap" role="slider" tabindex="0" aria-label="${ar ? "المقارنة قبل وبعد" : "Before and after comparison"}" aria-valuemin="5" aria-valuemax="95" aria-valuenow="50">
+    <img src="${after}" alt="${ar ? "بعد" : "After"}" loading="lazy" draggable="false">
+    <div class="ba-before"><img src="${before}" alt="${ar ? "قبل" : "Before"}" loading="lazy" draggable="false"></div>
     <div class="ba-line"><div class="ba-handle">↔️</div></div>
     <span class="ba-tag before">${ar ? "قبل" : "Before"}</span>
     <span class="ba-tag after">${ar ? "بعد" : "After"}</span>
-    <button class="ba-expand" title="تكبير">⛶</button>
-  </div>;
-}
-function openBaFullscreen(before, after, details){
-  let lb = document.getElementById("baLightbox");
-  if(!lb){
-    lb = document.createElement("div");
-    lb.id = "baLightbox";
-    lb.innerHTML = '<button class="ba-close">✕</button><div id="baLightboxInner"></div><div id="baLightboxDetails" class="ba-details" style="display:none"></div><div style="color:#fff;margin-top:14px">اسحب يمين وشمال - دوس بره الصورة عشان تقفل</div>';
-    document.body.appendChild(lb);
-    lb.querySelector(".ba-close").onclick = function(){ lb.classList.remove("open"); };
-    lb.addEventListener("click", function(e){ if(e.target === lb) lb.classList.remove("open"); });
-  }
-  document.getElementById("baLightboxInner").innerHTML = baSliderHTML(before, after, document.documentElement.lang === "ar");
-  var dEl = document.getElementById("baLightboxDetails");
-  if(details){ dEl.textContent = details; dEl.style.display = "block"; } else { dEl.style.display = "none"; }
-  lb.classList.add("open");
-  initBaSliders();
+  </div>`;
 }
 function __baSet(wrap, p){
   p = Math.max(5, Math.min(95, p));
@@ -935,20 +929,7 @@ window.addEventListener("touchend", () => { __baActive = null; });
 window.addEventListener("touchmove", __baMove, {passive:true});
 function initBaSliders(){
   document.querySelectorAll(".ba-wrap").forEach(wrap => {
-   wrap.querySelectorAll(".ba-expand").forEach(function(btn){
-  btn.addEventListener("click", function(e){
-    e.stopPropagation();
-    var card = wrap.closest(".case");
-    var details = "";
-    if(card){
-      var t = card.querySelector("h3"); var p = card.querySelector(".case-desc");
-      if(t) details += t.textContent + "\n";
-      if(p) details += p.textContent;
-    }
-    openBaFullscreen(wrap.dataset.before, wrap.dataset.after, details);
-  });
-});
-       wrap.addEventListener("mousedown", () => { __baActive = wrap; });
+    wrap.addEventListener("mousedown", () => { __baActive = wrap; });
     wrap.addEventListener("touchstart", () => { __baActive = wrap; }, {passive:true});
     wrap.addEventListener("keydown", e => {
       const now = parseFloat(wrap.getAttribute("aria-valuenow")) || 50;
