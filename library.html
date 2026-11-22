@@ -89,6 +89,32 @@ body{background:#eef5f4}
 <div class="lib-search-wrap"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="mlSearch" type="search" class="ml-search" placeholder="Search the medical library..."></div>
 </div></header>
 <div class="wrap lib-body">
+<section id="aiSearch" aria-labelledby="aiTitle">
+<style>
+#aiSearch{margin:14px 0 22px;padding:22px 20px;border-radius:18px;background:linear-gradient(135deg,#0D47A1 0%,#1565C0 55%,#1E88E5 100%);color:#fff;box-shadow:0 10px 30px rgba(13,71,161,.25)}
+#aiSearch .ai-badge{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.12em;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.16);margin-bottom:8px}
+#aiSearch h3{margin:0 0 4px;font-size:22px}
+#aiSearch .ai-sub{margin:0 0 14px;font-size:14px;opacity:.92}
+#aiSearch .ai-row{display:flex;gap:10px;flex-wrap:wrap}
+#aiSearch input{flex:1;min-width:220px;padding:13px 16px;border-radius:12px;border:2px solid rgba(255,255,255,.35);background:rgba(255,255,255,.97);color:#0D1B2A;font-size:16px;outline:none}
+#aiSearch input:focus{border-color:#FFD54F}
+#aiSearch button{padding:13px 22px;border-radius:12px;border:0;background:#FFD54F;color:#1A1200;font-weight:800;font-size:15px;cursor:pointer}
+#aiSearch .ai-note{margin-top:10px;font-size:12px;opacity:.85}
+#aiResults{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-top:14px}
+#aiResults .ai-card{background:#fff;color:#0D1B2A;border-radius:14px;padding:14px 16px;text-align:start}
+#aiResults .ai-card h4{margin:0 0 4px;font-size:16px;color:#0D47A1}
+#aiResults .ai-card .ai-cat{display:inline-block;font-size:11px;font-weight:700;color:#5B21B6;background:#EDE9FE;border-radius:999px;padding:2px 9px;margin-bottom:8px}
+#aiResults .ai-card p{margin:0 0 10px;font-size:13.5px;line-height:1.65;color:#334155}
+#aiResults .ai-card a{font-size:13px;font-weight:700;color:#0D47A1}
+#aiResults .ai-empty{grid-column:1/-1;background:rgba(255,255,255,.14);border-radius:12px;padding:14px 16px;font-size:14px}
+</style>
+<div class="ai-badge" id="aiBadge">AI</div>
+<h3 id="aiTitle">AI Dental Search</h3>
+<p class="ai-sub" id="aiSub">Search 100+ dental topics in English and Arabic - instant answers from our built-in library.</p>
+<div class="ai-row"><input id="aiInput" type="search" placeholder="Try: toothache, تسوس, braces, whitening..." autocomplete="off"><button id="aiGo" type="button">Search</button></div>
+<div id="aiResults" aria-live="polite"></div>
+<p class="ai-note" id="aiNote">Educational information only - it does not replace a dental examination. AI answers coming soon.</p>
+</section>
 <div class="ml-top"><div class="ml-tabs" role="tablist" aria-label="Library audience"><button id="mlPatient" type="button" role="tab" aria-selected="true">For Patients</button><button id="mlDoctor" type="button" role="tab" aria-selected="false"><span id="mlDoctorText">For Doctors</span><small>Clinical</small></button></div></div>
 <div class="ml-surface" id="mlSurface"><div class="ml-browse" id="mlBrowse"><div class="ml-filters" id="mlFilters"></div><div class="ml-grid" id="mlGrid" aria-live="polite"></div></div><article class="ml-article" id="mlArticle" hidden></article></div></div></div></section></main><footer class="library-footer"><p id="libraryFooter"></p><a id="libraryHome" href="index.html">Back to home</a><a id="libraryContact" href="https://wa.me/201270402429" target="_blank" rel="noopener">Contact on WhatsApp</a></footer><a class="library-wa-float" href="https://wa.me/201270402429" target="_blank" rel="noopener" aria-label="WhatsApp">WhatsApp ↗</a><script>const NAV_ITEMS=[["home","Home","الرئيسية"],["about","About","عني"],["services","Services","الخدمات"],["cases","Cases","الحالات"],["why","Why Me","ليه أنا"],["contact","Contact","تواصل"],["faq","FAQ","الأسئلة الشائعة"]];const FIREBASE_CONFIG={apiKey:"AIzaSyCcY4GBf-MG0Dtu_yY0V1SZ-2THpKZAQhY",authDomain:"dr-ahmed-portfolio.firebaseapp.com",projectId:"dr-ahmed-portfolio",appId:"1:245590666294:web:ddad844c6e2d72f22f3c97",};let libraryLang='en';try{libraryLang=localStorage.getItem('siteLang')||'en';}catch(e){}
 function libraryLocale(){let ar=libraryLang==='ar';document.documentElement.dir=ar?'rtl':'ltr';document.documentElement.lang=ar?'ar':'en';document.title=ar?'المكتبة الطبية | د. أحمد عامر':'Medical Library | Dr. Ahmed Amer';document.getElementById('langToggle').textContent=ar?'EN':'ع';document.getElementById('libraryNavLabel').textContent=ar?'المكتبة الطبية':'Medical Library';document.getElementById('navLinks').replaceChildren(...NAV_ITEMS.map(n=>{let a=document.createElement('a');a.href='index.html#'+n[0];a.textContent=n[ar?2:1];return a;}));document.getElementById('libraryKicker').textContent=ar?'اقرأ · اتعلم · اهتم':'READ · LEARN · CARE';document.getElementById('libraryFooter').textContent=ar?'محتوى تثقيفي فقط. الكشف عند طبيب أسنان مش بديله مقالة.':'For education only. An article does not replace a dental examination.';document.getElementById('libraryContact').textContent=ar?'كلمني واتساب':'Contact on WhatsApp';document.getElementById('libraryHome').textContent=ar?'العودة للرئيسية':'Back to home';var lh=document.getElementById('libHomeLabel');if(lh)lh.textContent=ar?'العودة للرئيسية':'Back to home';try{localStorage.setItem('siteLang',libraryLang);}catch(e){}}
@@ -133,4 +159,37 @@ LIBRARY_DEMOS.forEach(a=>{a.publishedDate='2026-11-22';});
 
 </script><script>(function(){function navState(){const nav=document.querySelector('.nav'),menu=document.getElementById('navMenu');if(!nav||!menu)return;const ar=document.documentElement.lang==='ar',open=nav.classList.contains('nav-open');menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?(ar?'اقفل القائمة':'Close menu'):(ar?'افتح القائمة':'Open menu'));const isLibrary=/library\.html$/.test(location.pathname),line=nav.getBoundingClientRect().bottom+28,section=Array.from(document.querySelectorAll('#home,main>section,#appScroll>section')).find(s=>{const r=s.getBoundingClientRect();return r.top<=line&&r.bottom>line;}),current=section?'#'+section.id:'';document.querySelectorAll('#navLinks a').forEach(a=>{if(!isLibrary&&a.hash===current)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});}
 function close(){document.querySelector('.nav').classList.remove('nav-open');navState();}
-document.addEventListener('DOMContentLoaded',()=>{const nav=document.querySelector('.nav'),menu=document.getElementById('navMenu');menu.addEventListener('click',()=>{nav.classList.toggle('nav-open');navState();});document.getElementById('navLinks').addEventListener('click',e=>{if(e.target.closest('a'))close();});document.addEventListener('click',e=>{if(!nav.contains(e.target))close();});document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});window.addEventListener('hashchange',navState);let queued=false;const scrollRoot=document.getElementById('appScroll')||window;scrollRoot.addEventListener('scroll',()=>{if(!queued){queued=true;requestAnimationFrame(()=>{queued=false;navState();});}},{passive:true});window.addEventListener('resize',navState);new MutationObserver(navState).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});navState();});})();</script></body></html>
+document.addEventListener('DOMContentLoaded',()=>{const nav=document.querySelector('.nav'),menu=document.getElementById('navMenu');menu.addEventListener('click',()=>{nav.classList.toggle('nav-open');navState();});document.getElementById('navLinks').addEventListener('click',e=>{if(e.target.closest('a'))close();});document.addEventListener('click',e=>{if(!nav.contains(e.target))close();});document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});window.addEventListener('hashchange',navState);let queued=false;const scrollRoot=document.getElementById('appScroll')||window;scrollRoot.addEventListener('scroll',()=>{if(!queued){queued=true;requestAnimationFrame(()=>{queued=false;navState();});}},{passive:true});window.addEventListener('resize',navState);new MutationObserver(navState).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});navState();});})();</script><script src="ai-topics.js"></script>
+<script>
+(function(){
+  var input = document.getElementById("aiInput");
+  var results = document.getElementById("aiResults");
+  if (!input || !results || !window.AI_TOPICS) return;
+  function isAr(){ return document.documentElement.lang === "ar" || (localStorage.getItem("siteLang") === "ar"); }
+  function esc(s){ var d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
+  function render(list){
+    var ar = isAr();
+    if (!list.length){
+      results.innerHTML = '<div class="ai-empty">' + (ar ? "مفيش نتائج مطابقة. جرّب كلمة تانية، أو اسأل دكتور أحمد على واتساب." : "No matching topics. Try another word, or ask Dr. Ahmed on WhatsApp.") + "</div>";
+      return;
+    }
+    results.innerHTML = list.slice(0, 12).map(function(t){
+      return '<div class="ai-card"><h4>' + esc(ar ? t.ar : t.en) + "</h4>"
+        + '<span class="ai-cat">' + esc(t.cat) + "</span>"
+        + "<p>" + esc(ar ? t.sar : t.sen) + "</p>"
+        + '<a href="' + t.src + '" target="_blank" rel="noopener">' + (ar ? "المصدر الموثوق ↗" : "Trusted source ↗") + "</a></div>";
+    }).join("");
+  }
+  function search(){
+    var q = input.value.trim().toLowerCase();
+    if (!q){ results.innerHTML = ""; return; }
+    render(window.AI_TOPICS.filter(function(t){
+      return (t.en + " " + t.ar + " " + t.cat + " " + t.sen + " " + t.sar).toLowerCase().indexOf(q) !== -1;
+    }));
+  }
+  input.addEventListener("input", search);
+  document.getElementById("aiGo").addEventListener("click", search);
+  new MutationObserver(search).observe(document.documentElement, { attributes: true, attributeFilter: ["lang"] });
+})();
+</script>
+</body></html>
