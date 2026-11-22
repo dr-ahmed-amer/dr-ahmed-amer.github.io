@@ -442,16 +442,22 @@ footer{padding-bottom:110px}
 
 /* ---------- why me ---------- */
 .why{background:var(--cream-dark)}
+#whyList{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
 .why-item{
-  display:grid;grid-template-columns:70px 1fr;gap:22px;
-  padding:30px 0;border-bottom:1px solid var(--line);
-  border-left:4px solid var(--accent);padding-left:26px;margin-bottom:6px;
+  display:grid;grid-template-columns:56px 1fr;gap:18px;align-items:start;
+  background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px 22px;
+  box-shadow:0 4px 14px rgba(10,42,94,.06);
+  transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;
 }
+.why-item:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(10,42,94,.13);border-color:rgba(30,144,255,.45)}
 .why-item .num{
-  font-family:var(--font-display);font-weight:800;font-size:34px;color:var(--accent);
+  width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,var(--accent),#38bdf8);color:#fff;
+  font-family:var(--font-display);font-weight:800;font-size:20px;
 }
-.why-item h3{font-size:19px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px}
-.why-item p{color:var(--ink-soft);font-size:15.5px}
+.why-item h3{font-size:17.5px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;color:var(--ink)}
+.why-item p{color:var(--ink-soft);font-size:15px;line-height:1.55;margin:0}
+@media (max-width:768px){#whyList{grid-template-columns:1fr}}
 
 /* ---------- stats ---------- */
 .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:56px}
@@ -630,7 +636,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
 }
 
 /* ---------- RTL (Arabic) adjustments ---------- */
-[dir="rtl"] .why-item{border-left:none;border-right:4px solid var(--accent);padding-left:0;padding-right:26px}
+[dir="rtl"] .why-item .num{letter-spacing:0}
 [dir="rtl"] .chat-msg{border-radius:14px 14px 4px 14px}
 [dir="rtl"] .hero .role,[dir="rtl"] .intro .what,[dir="rtl"] .intro .who{letter-spacing:.08em}
 [dir="rtl"] .marquee span,[dir="rtl"] .section-title,[dir="rtl"] h3{letter-spacing:0}
@@ -793,9 +799,9 @@ const CONFIG = {
 
   /* --- Why work with me (numbered list) --- */
   why: [
-    { title:"Documented Cases",    text:"Every case is photographed and recorded, before and after." },
-    { title:"Evidence-Based",      text:"Treatment decisions follow current clinical guidelines." },
-    { title:"Patient First",       text:"Clear explanations and honest options, every time." },
+    { title:"Documented Cases",    text:"Every case is photographed and recorded, before and after treatment." },
+    { title:"Evidence-Based Care", text:"Every treatment decision follows current clinical guidelines." },
+    { title:"Patient First",       text:"Clear explanations and honest options, every single time." },
     { title:"Always Reachable",    text:"Fast replies on WhatsApp for questions and follow-ups." }
   ],
 
@@ -854,10 +860,10 @@ const AR = {
     { icon:"Dc", name:"التوثيق",       note:"سجلات وصور الحالات" }
   ],
   why: [
-    { title:"حالات موثقة",     text:"كل حالة بتتصور وبتتوثق، قبل وبعد." },
-    { title:"مبني على الدليل", text:"قرارات العلاج مبنية على أحدث الإرشادات الإكلينيكية." },
-    { title:"المريض أولاً",    text:"شرح واضح وخيارات أمينة، في كل مرة." },
-    { title:"متواجد دايماً",   text:"ردود سريعة على واتساب للأسئلة والمتابعة." }
+    { title:"حالات موثقة",      text:"كل حالة بتتصور وبتتسجل، قبل العلاج وبعده." },
+    { title:"علاج مبني على الدليل", text:"كل قرار علاجي بيتبع أحدث الإرشادات الإكلينيكية." },
+    { title:"المريض أولاً",     text:"شرح واضح وخيارات أمينة، في كل مرة." },
+    { title:"متواجد دايماً",    text:"ردود سريعة على واتساب للأسئلة والمتابعة." }
   ],
   stats: [
     { n:"auto-cases",    suffix:"", label:"حالة موثقة",   sub:"مصورة قبل وبعد",            icon:"✚", color:"#1E90FF", link:"#cases",    tip:"تصفح الحالات الإكلينيكية" },
