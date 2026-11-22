@@ -1261,14 +1261,27 @@ $("langToggle").addEventListener("click", function(){
   if (!voter) { voter = Math.random().toString(36).slice(2) + Date.now().toString(36); try { localStorage.setItem("voterToken", voter); } catch(e) {} }
   const fbOn = () => !!(CONFIG.firebase && CONFIG.firebase.apiKey && CONFIG.firebase.apiKey.indexOf("PASTE-") !== 0);
   const isAr = () => document.documentElement.lang === "ar";
-  function loadFS(cb){
-    if (db || !fbOn()) { cb(); return; }
+  let authLoaded = false;
+  function loadAuthScript(cb){
+    if (authLoaded || (typeof firebase !== "undefined" && typeof firebase.auth === "function")){ authLoaded = true; cb(); return; }
+    const s3 = document.createElement("script");
+    s3.src = "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js";
+    s3.onload = () => { authLoaded = true; cb(); };
+    s3.onerror = () => cb();
+    document.head.appendChild(s3);
+  }
+  function loadFS(cb, withAuth){
+    if (!fbOn()) { cb(); return; }
+    if (db) { if (withAuth) loadAuthScript(cb); else cb(); return; }
     const s1 = document.createElement("script");
     s1.src = "https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js";
     s1.onload = () => {
       const s2 = document.createElement("script");
       s2.src = "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js";
-      s2.onload = () => { try { firebase.initializeApp(CONFIG.firebase); db = firebase.firestore(); } catch(e) {} cb(); };
+      s2.onload = () => {
+        try { firebase.initializeApp(CONFIG.firebase); db = firebase.firestore(); } catch(e) {}
+        if (withAuth) loadAuthScript(cb); else cb();
+      };
       s2.onerror = () => cb();
       document.head.appendChild(s2);
     };
@@ -1334,6 +1347,29 @@ $("langToggle").addEventListener("click", function(){
   const bar = document.getElementById("heroTrust");
   if (bar) bar.addEventListener("click", function(){ open("page"); });
   window.__rateUpdate();
+  window.__loadFS = loadFS;
+  window.__fbDb = function(){ return db; };
+  /* published cases: saved to Firestore by the owner from the admin page,
+     merged here so they show on every device */
+  window.__loadPublishedCases = function(){
+    if (!fbOn()) return;
+    loadFS(function(){
+      if (!db) return;
+      db.collection("casesPublished").orderBy("created", "asc").get().then(function(q){
+        let added = 0;
+        q.forEach(function(doc){
+          const c = doc.data();
+          const id = "pub-" + doc.id;
+          if (CONFIG.cases.some(function(x){ return x.id === id; })) return;
+          CONFIG.cases.push({ id:id, tag:c.tagEn, title:c.titleEn, text:c.textEn, photos:c.photos || [], before:c.before || null, after:c.after || null });
+          AR.cases.push({ id:id, tag:c.tagAr || c.tagEn, title:c.titleAr || c.titleEn, text:c.textAr || c.textEn, photos:c.photos || [], before:c.before || null, after:c.after || null });
+          added++;
+        });
+        if (added) renderAll();
+      }).catch(function(){});
+    });
+  };
+  window.__loadPublishedCases();
 })();
 
 /* top-level locale helpers for the chat assistant (renderAll keeps its own) */
@@ -1946,12 +1982,26 @@ async function __sha256(t){
     panel.innerHTML =
       '<div class="ep-head"><b id="epTitle"></b><button type="button" id="epClose" aria-label="Close">✕</button></div>' +
       '<p class="ep-note" id="epNote"></p>' +
+      '<div class="ep-sec" id="epSecPub"></div>' +
+      '<div id="pubSignedOut">' +
+      '  <label id="lbPubEmail"></label><input id="fPubEmail" type="email" dir="ltr">' +
+      '  <label id="lbPubPass"></label><input id="fPubPass" type="password" dir="ltr">' +
+      '  <div class="edit-actions"><button type="button" class="edit-btn primary" id="epSignIn"></button></div>' +
+      '</div>' +
+      '<div id="pubSignedIn" style="display:none">' +
+      '  <div class="ep-status" id="pubWho"></div>' +
+      '  <div class="edit-actions"><button type="button" class="edit-btn" id="epSignOut"></button></div>' +
+      '</div>' +
+      '<div class="ep-status" id="pubStatus"></div>' +
+      '<hr class="ep-hr">' +
       '<label id="lbTitleEn"></label><input id="fTitleEn" type="text">' +
       '<label id="lbTitleAr"></label><input id="fTitleAr" type="text" dir="rtl">' +
       '<label id="lbTag"></label><select id="fTag"></select>' +
       '<label id="lbDescEn"></label><textarea id="fDescEn" rows="3"></textarea>' +
       '<label id="lbDescAr"></label><textarea id="fDescAr" rows="3" dir="rtl"></textarea>' +
       '<label id="lbPhotos"></label><input id="fPhotos" type="file" accept="image/*" multiple>' +
+      '<label id="lbBA"></label><input id="fBefore" type="file" accept="image/*">' +
+      '<label id="lbAA"></label><input id="fAfter" type="file" accept="image/*">' +
       '<div class="edit-actions"><button type="button" class="edit-btn primary" id="epAdd"></button></div>' +
       '<div class="ep-status" id="epStatus"></div>' +
       '<div class="edit-list" id="epList"></div>' +
@@ -1987,6 +2037,8 @@ async function __sha256(t){
     sel.innerHTML = TAGS.map((t,i) => '<option value="' + i + '">' + t[0] + '</option>').join("");
     panel.querySelector("#epClose").addEventListener("click", function(){ panel.style.display = "none"; });
     panel.querySelector("#epAdd").addEventListener("click", addCase);
+    panel.querySelector("#epSignIn").addEventListener("click", pubSignIn);
+    panel.querySelector("#epSignOut").addEventListener("click", function(){ if (auth) auth.signOut(); });
     panel.querySelector("#epDownload").addEventListener("click", doExport);
     panel.querySelector("#epShowCode").addEventListener("click", function(){
       const w = panel.querySelector("#epCodeWrap");
@@ -2018,6 +2070,13 @@ async function __sha256(t){
     panel.querySelector("#lbDescEn").textContent = P("Description (English)","الوصف (إنجليزي)");
     panel.querySelector("#lbDescAr").textContent = P("Description (Arabic, optional)","الوصف (عربي، اختياري)");
     panel.querySelector("#lbPhotos").textContent = P("Photos (optional, up to 6)","صور (اختياري، حتى ٦)");
+    panel.querySelector("#epSecPub").textContent = P("Publish live (all devices):","النشر المباشر (كل الأجهزة):");
+    panel.querySelector("#lbPubEmail").textContent = P("Owner email","إيميل المالك");
+    panel.querySelector("#lbPubPass").textContent = P("Password","الباسورد");
+    panel.querySelector("#epSignIn").textContent = P("Sign in to publish","سجل الدخول عشان تنشر");
+    panel.querySelector("#epSignOut").textContent = P("Sign out","سجل الخروج");
+    panel.querySelector("#lbBA").textContent = P("Before photo (optional - makes the comparison slider)","صورة قبل (اختياري - بتعمل سلايدر المقارنة)");
+    panel.querySelector("#lbAA").textContent = P("After photo (optional - makes the comparison slider)","صورة بعد (اختياري - بتعمل سلايدر المقارنة)");
     panel.querySelector("#epAdd").textContent = P("Add case to the page","ضيف الحالة للصفحة");
     panel.querySelector("#epNote2").textContent = P(
       "Export when you are done. On the hosted link: Show code, then Copy, and paste the case data to Instinct on WhatsApp — it gets merged into the site and published. In the downloaded HTML file: Download saves the full updated site file.",
@@ -2036,6 +2095,46 @@ async function __sha256(t){
     panel.querySelector("#epAddSoc").textContent = P("+ Add a link","+ ضيف لينك");
     panel.querySelector("#epSaveSoc").textContent = P("Save links","احفظ اللينكات");
     renderList();
+  }
+  /* --- live publishing: Firebase email/password sign-in, Firestore casesPublished --- */
+  let auth = null, authUser = null;
+  function ensureAuth(cb){
+    if (typeof window.__loadFS !== "function"){ cb(false); return; }
+    window.__loadFS(function(){
+      const db = window.__fbDb && window.__fbDb();
+      if (!db || typeof firebase === "undefined" || typeof firebase.auth !== "function"){ cb(false); return; }
+      try { auth = firebase.auth(); } catch(e){ cb(false); return; }
+      cb(true);
+    }, true);
+  }
+  function pubSignIn(){
+    const em = panel.querySelector("#fPubEmail").value.trim();
+    const pw = panel.querySelector("#fPubPass").value;
+    const st = panel.querySelector("#pubStatus");
+    if (!em || !pw){ st.textContent = P("Email and password are required.","الإيميل والباسورد مطلوبين."); return; }
+    st.textContent = P("Signing in...","بسجل الدخول...");
+    ensureAuth(function(ok){
+      if (!ok){ st.textContent = P("Could not load sign-in. Check your connection.","تعذر تحميل تسجيل الدخول. اتأكد من النت."); return; }
+      auth.signInWithEmailAndPassword(em, pw).then(function(){
+        st.textContent = "";
+      }).catch(function(){
+        st.textContent = P("Sign-in failed: wrong email or password.","فشل تسجيل الدخول: إيميل أو باسورد غلط.");
+      });
+    });
+  }
+  function refreshPubUI(){
+    if (!panel) return;
+    panel.querySelector("#pubSignedOut").style.display = authUser ? "none" : "";
+    panel.querySelector("#pubSignedIn").style.display = authUser ? "" : "none";
+    if (authUser) panel.querySelector("#pubWho").textContent = P(
+      "Signed in as " + authUser.email + " - new cases publish live on all devices.",
+      "مسجل دخولك كـ " + authUser.email + " - الحالات الجديدة بتتنشر لايف على كل الأجهزة.");
+  }
+  function watchAuth(){
+    ensureAuth(function(ok){
+      if (!ok) return;
+      auth.onAuthStateChanged(function(u){ authUser = u || null; refreshPubUI(); });
+    });
   }
   let editingId = null;
   function renderList(){
@@ -2068,6 +2167,9 @@ async function __sha256(t){
     if (!confirm(P("Delete this case? It disappears from the page immediately. Export below to publish the change.",
                    "متأكد إنك عايز تمسح الحالة دي؟ هتختفي من الصفحة فورًا. اعمل تصدير تحت عشان المسح يتنشر."))) return;
     const id = c.id;
+    if (id.indexOf("pub-") === 0 && authUser && window.__fbDb && window.__fbDb()){
+      window.__fbDb().collection("casesPublished").doc(id.slice(4)).delete().catch(function(){});
+    }
     const si = stored.findIndex(x => x.id === id);
     if (si > -1){ stored.splice(si, 1); saveStored(); }
     else { if (delIds.indexOf(id) === -1) delIds.push(id); saveDeleted(); }
@@ -2196,13 +2298,50 @@ async function __sha256(t){
       tagEn: TAGS[ti][0], tagAr: TAGS[ti][1],
       photos: photos
     };
+    const bf = panel.querySelector("#fBefore").files[0];
+    const af = panel.querySelector("#fAfter").files[0];
+    const beforeImg = bf ? await compress(bf) : null;
+    const afterImg = af ? await compress(af) : null;
+    const clearForm = function(){
+      ["fTitleEn","fTitleAr","fDescEn","fDescAr"].forEach(id => panel.querySelector("#" + id).value = "");
+      panel.querySelector("#fPhotos").value = "";
+      panel.querySelector("#fBefore").value = "";
+      panel.querySelector("#fAfter").value = "";
+    };
+    if (authUser){
+      st.textContent = P("Publishing live...","بينشر لايف...");
+      const doc = {
+        titleEn: c.titleEn, titleAr: c.titleAr, textEn: c.textEn, textAr: c.textAr,
+        tagEn: c.tagEn, tagAr: c.tagAr, photos: photos,
+        before: beforeImg || "", after: afterImg || "",
+        created: firebase.firestore.FieldValue.serverTimestamp()
+      };
+      if (JSON.stringify(doc).length > 950000){
+        st.textContent = P("The photos together are too large for one case - use fewer photos.","الصور مع بعض أكبر من اللازم لحالة واحدة - قلل عدد الصور.");
+        return;
+      }
+      try {
+        const ref = await window.__fbDb().collection("casesPublished").add(doc);
+        c.id = "pub-" + ref.id;
+        CONFIG.cases.push({ id:c.id, tag:c.tagEn, title:c.titleEn, text:c.textEn, photos:c.photos, before:beforeImg, after:afterImg });
+        AR.cases.push({ id:c.id, tag:c.tagAr, title:c.titleAr, text:c.textAr, photos:c.photos, before:beforeImg, after:afterImg });
+        renderAll(); renderList(); clearForm();
+        st.textContent = P("Published - live on all devices now.","اتنشر - لايف على كل الأجهزة دلوقتي.");
+      } catch(e){
+        st.textContent = P("Publishing failed - saved on this device only, export below.","النشر فشل - اتحفظ على الجهاز ده بس، اعمل تصدير تحت.");
+        stored.push(c);
+        CONFIG.cases.push({ id:c.id, tag:c.tagEn, title:c.titleEn, text:c.textEn, photos:c.photos });
+        AR.cases.push({ id:c.id, tag:c.tagAr, title:c.titleAr, text:c.textAr, photos:c.photos });
+        saveStored(); renderAll(); renderList(); clearForm();
+      }
+      return;
+    }
     stored.push(c);
     CONFIG.cases.push({ id:c.id, tag:c.tagEn, title:c.titleEn, text:c.textEn, photos:c.photos });
     AR.cases.push({ id:c.id, tag:c.tagAr, title:c.titleAr, text:c.textAr, photos:c.photos });
     saveStored(); renderAll(); renderList();
-    ["fTitleEn","fTitleAr","fDescEn","fDescAr"].forEach(id => panel.querySelector("#" + id).value = "");
-    panel.querySelector("#fPhotos").value = "";
-    st.textContent = P("Case added and visible on the page now. Export below to send it for publishing.","الحالة اتضافت وظاهرة في الصفحة دلوقتي. اعمل تصدير تحت عشان تبعتها للنشر.");
+    clearForm();
+    st.textContent = P("Saved on this device only. Sign in above to publish live on all devices.","اتحفظ على الجهاز ده بس. سجل الدخول فوق عشان تنشر لايف على كل الأجهزة.");
   }
   function serializeCases(arr){
     return "[\n    " + arr.map(function(c){
@@ -2314,6 +2453,7 @@ async function __sha256(t){
   const _renderAll = renderAll;
   renderAll = function(){ _renderAll(); renderEditorLabels(); };
   window.__openCaseEditor = function(){ toggleEditor(); };
+  watchAuth();
 })();
 
 /* ADMIN-END */
