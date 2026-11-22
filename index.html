@@ -801,6 +801,21 @@ html,body{height:100%;overflow:hidden}
 .cm-send{background:#0b6cff;color:#fff;border:none;border-radius:999px;padding:9px 22px;font-weight:800;font-size:14px;cursor:pointer}
 .cm-send:disabled{opacity:.5}
 .cm-status{font-size:13px;color:#5a6b85}
+
+/* Frequently asked questions */
+#faq,#reviews{scroll-margin-top:100px}
+.faq-list{max-width:850px;margin:28px auto;display:grid;gap:12px}
+.faq-item{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 5px 16px rgba(10,42,94,.04)}
+.faq-q{width:100%;min-height:64px;background:none;border:0;color:var(--deep);padding:19px 22px;text-align:start;font:700 16px/1.5 var(--font-body);display:flex;justify-content:space-between;align-items:center;gap:16px;cursor:pointer}
+.faq-symbol{font-size:24px;font-weight:400;flex-shrink:0}
+.faq-answer{display:grid;grid-template-rows:0fr;transition:grid-template-rows .25s ease}
+.faq-answer>div{overflow:hidden;min-height:0}
+.faq-answer p{margin:0;padding:0 22px 20px;color:var(--ink-soft);font-size:15px;line-height:1.8}
+.faq-item.open .faq-answer{grid-template-rows:1fr}
+.faq-bottom{text-align:center;margin-top:24px}
+@media(max-width:700px){#faq,#reviews{scroll-margin-top:190px}.faq-q{font-size:15px;padding:16px}.faq-answer p{padding:0 16px 18px}}
+@media(prefers-reduced-motion:reduce){.faq-answer{transition:none}}
+
 </style>
 </head>
 
@@ -989,6 +1004,15 @@ html,body{height:100%;overflow:hidden}
 </section>
 
 <!-- ============ SECTION: Footer ============ -->
+<section class="section" id="faq" aria-labelledby="faqTitle">
+<div class="wrap">
+  <span class="eyebrow" id="faqLabel">FAQ</span>
+  <h2 class="section-title" id="faqTitle">Common Questions</h2>
+  <p class="section-sub" id="faqSub">Everything you need to know before your visit</p>
+  <div class="faq-list" id="faqList"></div>
+  <div class="faq-bottom"><a class="btn" id="faqWhatsApp" href="https://wa.me/201270402429" target="_blank" rel="noopener">Still have a question? Ask on WhatsApp →</a></div>
+</div>
+</section>
 <footer>
   <div class="foot-cta">
     <div class="wrap">
@@ -1223,6 +1247,22 @@ function cldOpt(u, w){
   if (/^(f_|q_|w_|c_|e_)/.test(rest)) return u;
   return u.slice(0, up + 8) + "f_auto,q_auto,w_" + (w || 800) + "/" + rest;
 }
+
+const FAQ_ITEMS = [["Does treatment hurt?", "هل العلاج بيوجع؟", "Local anesthesia and gentle techniques help keep treatment comfortable. You may feel pressure or temporary sensitivity. Treatment is provided under the supervision of faculty members.", "البنج الموضعي والتعامل بهدوء بيساعدوا إن العلاج يكون مريح. ممكن تحس بضغط أو حساسية مؤقتة. العلاج بيتم تحت إشراف أعضاء هيئة التدريس."], ["How much does whitening cost?", "تبييض الأسنان بكام؟", "It depends on your case. Message us on WhatsApp for an exact price after a quick check. Treatment is provided under the supervision of faculty members.", "السعر بيختلف حسب حالتك. ابعت لنا على واتساب علشان تعرف السعر بعد الكشف. العلاج بيتم تحت إشراف أعضاء هيئة التدريس."], ["How long does a filling or root canal take?", "الحشو أو حشو العصب بياخد وقت قد إيه؟", "Most fillings take 30-45 minutes. Root canal treatment usually needs 1-2 visits, depending on the case. Treatment is provided under the supervision of faculty members.", "الحشو غالبًا بياخد من 30 لـ45 دقيقة، وحشو العصب غالبًا بيحتاج زيارة أو زيارتين حسب الحالة. العلاج بيتم تحت إشراف أعضاء هيئة التدريس."], ["Do you treat students or offer student prices?", "بتعالجوا طلبة؟ وفي أسعار للطلبة؟", "Yes, we have special prices for students. Just tell us you are a student on WhatsApp. Treatment is provided under the supervision of faculty members.", "أيوه، فيه أسعار خاصة للطلبة. قول لنا إنك طالب على واتساب. العلاج بيتم تحت إشراف أعضاء هيئة التدريس."], ["Where is the clinic or university?", "مكان العيادة أو الجامعة فين؟", "Suez Canal University, under the supervision of the department's doctors.", "جامعة قناة السويس تحت إشراف دكاترة القسم."], ["How can I book?", "أحجز إزاي؟", "Just click any WhatsApp button on the site and send us your case. We will reply quickly.", "اضغط على أي زر واتساب في الموقع وابعت لنا تفاصيل حالتك، وهنرد عليك في أقرب وقت."]];
+function renderFaq(){
+  const ar=document.documentElement.lang==='ar';
+  document.getElementById('faqLabel').textContent=ar?'الأسئلة الشائعة':'FAQ';
+  document.getElementById('faqTitle').textContent=ar?'أسئلة بتتكرر':'Common Questions';
+  document.getElementById('faqSub').textContent=ar?'كل اللي محتاج تعرفه قبل زيارتك':'Everything you need to know before your visit';
+  document.getElementById('faqWhatsApp').textContent=ar?'لسه عندك سؤال؟ اسألنا على واتساب ←':'Still have a question? Ask on WhatsApp →';
+  document.getElementById('faqList').innerHTML=FAQ_ITEMS.map((it,i)=>'<div class="faq-item"><button type="button" class="faq-q" aria-expanded="false" aria-controls="faqAnswer'+i+'"><span>'+it[ar?1:0]+'</span><span class="faq-symbol" aria-hidden="true">+</span></button><div class="faq-answer" id="faqAnswer'+i+'"><div><p>'+it[ar?3:2]+'</p></div></div></div>').join('');
+  document.querySelectorAll('.faq-q').forEach(b=>b.addEventListener('click',()=>{
+    const was=b.getAttribute('aria-expanded')==='true';
+    document.querySelectorAll('.faq-item').forEach(it=>{it.classList.remove('open');it.querySelector('button').setAttribute('aria-expanded','false');it.querySelector('.faq-symbol').textContent='+';});
+    if(!was){b.parentElement.classList.add('open');b.setAttribute('aria-expanded','true');b.querySelector('.faq-symbol').textContent='−';}
+  }));
+}
+
 window.addEventListener('DOMContentLoaded', function(){
 const SOURCE_SNAPSHOT = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
 const $ = id => document.getElementById(id);
@@ -1771,6 +1811,7 @@ function renderAll(){
   initBaSliders();
   initComments();
   initReviews();
+  renderFaq();
   /* photo lightbox: tap a case photo to see the full image */
   if (!document.getElementById("photoLightbox")){
     const lb = document.createElement("div");
