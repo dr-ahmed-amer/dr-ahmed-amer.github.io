@@ -1145,16 +1145,6 @@ window.addEventListener("scroll", closeChatOnScroll, { passive: true });
     dirty = true;
   }
   if (socOv && socOv.length){ CONFIG.socials = socOv; dirty = true; }
-  let profileOv = null;
-  try { profileOv = JSON.parse(localStorage.getItem("profileOverrideV1") || "null"); } catch(e) {}
-  if (profileOv){
-    if (profileOv.name) CONFIG.name = profileOv.name;
-    if (profileOv.nameAr) AR.name = profileOv.nameAr;
-    if (profileOv.role) CONFIG.role = profileOv.role;
-    if (profileOv.roleAr) AR.role = profileOv.roleAr;
-    if (profileOv.whatsapp) CONFIG.whatsapp = profileOv.whatsapp;
-    dirty = true;
-  }
   if (profilePhoto){
     const img = document.querySelector(".portrait img.ph");
     if (img) img.src = profilePhoto;
