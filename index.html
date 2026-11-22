@@ -683,6 +683,48 @@ html,body{height:100%;overflow:hidden}
 .case-comment .cc-soon{padding:18px 4px;color:#5a6b85;font-size:15px;text-align:center}
 @media (max-width:480px){.case-comment{padding:16px}}
 #epCode{font-family:monospace;font-size:11px}
+
+/* ---------- nav pill buttons (owner spec 22 Nov) ---------- */
+.nav .links{gap:10px}
+.nav .links a{
+  font-size:17px;font-weight:800;padding:11px 22px;border-radius:999px;
+  background:#f1f5ff;color:#0a2540;border:1.5px solid #dbe6ff;
+  text-decoration:none;display:inline-flex;align-items:center;justify-content:center;
+}
+.nav .links a:hover{background:#fff;color:#0b6cff;border-color:#0b6cff;box-shadow:0 6px 16px rgba(11,108,255,.18)}
+.nav .links a:last-child{
+  background:#0b6cff;color:#fff;border-color:#0b6cff;
+  box-shadow:0 8px 20px rgba(11,108,255,.4);
+}
+.nav .links a:last-child:hover{background:#0b6cff;color:#fff;border-color:#0b6cff;box-shadow:0 8px 20px rgba(11,108,255,.4)}
+@media (max-width:860px){
+  .nav{flex-wrap:wrap}
+  .nav .links{display:flex;flex-wrap:wrap;justify-content:center;order:3;width:100%;margin-top:6px}
+  .nav .links a{font-size:14.5px;padding:9px 14px}
+}
+/* ---------- native comments (Firestore) ---------- */
+.cm-list{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+.cm-item{display:flex;gap:10px;align-items:flex-start}
+.cm-avatar{width:34px;height:34px;border-radius:50%;background:#0b6cff;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex:none}
+.cm-bubble{flex:1;min-width:0}
+.cm-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.cm-name-d{font-weight:800;font-size:14px;color:#0a2540}
+.cm-time{font-size:12px;color:#8a97ab}
+.cm-text-d{font-size:14.5px;line-height:1.6;color:#1f2937;margin-top:2px;overflow-wrap:anywhere}
+.cm-like{background:none;border:none;cursor:pointer;font-size:13px;color:#8a97ab;font-weight:700;padding:2px 0;display:inline-flex;align-items:center;gap:4px}
+.cm-like.liked{color:#e0245e}
+.cm-pending-note{font-size:12px;color:#b45309;background:#fef3c7;border-radius:8px;padding:2px 8px}
+.cm-reply{margin-top:8px;margin-inline-start:24px;background:#f1f5ff;border-inline-start:3px solid #0b6cff;border-radius:10px;padding:8px 12px}
+.cm-reply .cm-name-d{color:#0b6cff;display:flex;align-items:center;gap:6px}
+.cm-owner-badge{font-size:11px;background:#0b6cff;color:#fff;border-radius:20px;padding:2px 8px;font-weight:800}
+.cm-form{display:flex;flex-direction:column;gap:8px;border-top:1px solid #eef2f7;padding-top:12px;position:relative}
+.cm-name,.cm-text{border:1.5px solid #dbe6ff;border-radius:10px;padding:9px 12px;font:inherit;font-size:14px;background:#fbfdff;color:#0a2540}
+.cm-text{resize:vertical;min-height:44px}
+.cm-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.cm-foot{display:flex;align-items:center;gap:10px}
+.cm-send{background:#0b6cff;color:#fff;border:none;border-radius:999px;padding:9px 22px;font-weight:800;font-size:14px;cursor:pointer}
+.cm-send:disabled{opacity:.5}
+.cm-status{font-size:13px;color:#5a6b85}
 </style>
 </head>
 
@@ -927,6 +969,146 @@ window.addEventListener("mouseup", () => { __baActive = null; });
 window.addEventListener("mousemove", __baMove);
 window.addEventListener("touchend", () => { __baActive = null; });
 window.addEventListener("touchmove", __baMove, {passive:true});
+/* ---------- native Firestore comments + likes ---------- */
+function initComments(){
+  const boxes = document.querySelectorAll(".case-comment[data-cm-case]");
+  if (!boxes.length) return;
+  const fbOn = !!(CONFIG.firebase && CONFIG.firebase.apiKey && CONFIG.firebase.apiKey.indexOf("PASTE-") !== 0);
+  if (!fbOn) return;
+  const isAr = () => document.documentElement.lang === "ar";
+  const cmEsc = (x) => String(x).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; });
+  let voter = "";
+  try { voter = localStorage.getItem("voterToken") || ""; } catch(e) {}
+  if (!voter) { voter = Math.random().toString(36).slice(2) + Date.now().toString(36); try { localStorage.setItem("voterToken", voter); } catch(e) {} }
+  let myComments = {};
+  try { myComments = JSON.parse(localStorage.getItem("myCommentsV1") || "{}"); } catch(e) {}
+  let myLikes = {};
+  try { myLikes = JSON.parse(localStorage.getItem("myCommentLikesV1") || "{}"); } catch(e) {}
+
+  function ensureDb(cb){
+    if (window.__fbDb && window.__fbDb()) { cb(window.__fbDb()); return; }
+    if (typeof firebase !== "undefined" && firebase.firestore) {
+      try { if (!firebase.apps.length) firebase.initializeApp(CONFIG.firebase); } catch(e) {}
+      window.__fbDb = window.__fbDb || function(){ return firebase.firestore(); };
+      cb(firebase.firestore()); return;
+    }
+    const s1 = document.createElement("script");
+    s1.src = "https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js";
+    s1.onload = function(){
+      const s2 = document.createElement("script");
+      s2.src = "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js";
+      s2.onload = function(){
+        try { if (!firebase.apps.length) firebase.initializeApp(CONFIG.firebase); } catch(e) {}
+        window.__fbDb = window.__fbDb || function(){ return firebase.firestore(); };
+        cb(firebase.firestore());
+      };
+      s2.onerror = function(){};
+      document.head.appendChild(s2);
+    };
+    s1.onerror = function(){};
+    document.head.appendChild(s1);
+  }
+
+  function timeStr(ts){
+    try {
+      const d = ts && ts.toDate ? ts.toDate() : new Date(ts);
+      return d.toLocaleDateString(isAr() ? "ar-EG" : "en-GB", { day: "numeric", month: "short" });
+    } catch(e){ return ""; }
+  }
+
+  function renderOne(box, items){
+    const list = box.querySelector(".cm-list");
+    const caseId = box.getAttribute("data-cm-case");
+    const mine = Object.keys(myComments).filter(id => myComments[id].caseId === caseId)
+      .map(id => ({ id: id, name: myComments[id].name, text: myComments[id].text, ts: myComments[id].ts, pending: true, likeCount: 0, reply: "" }));
+    const known = {}; items.forEach(it => known[it.id] = true);
+    const merged = items.concat(mine.filter(m => !known[m.id]));
+    if (!merged.length){
+      list.innerHTML = '<div style="font-size:13.5px;color:#8a97ab;padding:4px 0">' + (isAr() ? "لسه مفيش تعليقات - كون أول واحد يعلق" : "No comments yet - be the first") + '</div>';
+      return;
+    }
+    list.innerHTML = merged.map(function(it){
+      const initial = (it.name || (isAr() ? "ز" : "G")).trim().charAt(0).toUpperCase() || "G";
+      const liked = myLikes[it.id] ? " liked" : "";
+      const heart = myLikes[it.id] ? "♥" : "♡";
+      const pendingTag = it.pending ? '<span class="cm-pending-note">' + (isAr() ? "في انتظار المراجعة" : "Pending review") + '</span>' : "";
+      const replyHtml = it.reply ? '<div class="cm-reply"><div class="cm-name-d">' + (isAr() ? "د. أحمد" : "Dr. Ahmed") + '<span class="cm-owner-badge">' + (isAr() ? "الطبيب" : "Doctor") + '</span></div><div class="cm-text-d" dir="auto">' + cmEsc(it.reply) + '</div></div>' : "";
+      const likeBtn = it.pending ? "" : '<button type="button" class="cm-like' + liked + '" data-cm-like="' + it.id + '">' + heart + ' <span>' + (it.likeCount || 0) + '</span></button>';
+      return '<div class="cm-item"><div class="cm-avatar">' + cmEsc(initial) + '</div><div class="cm-bubble">' +
+        '<div class="cm-top"><span class="cm-name-d" dir="auto">' + cmEsc(it.name || (isAr() ? "زائر" : "Guest")) + '</span><span class="cm-time">' + timeStr(it.ts) + '</span>' + pendingTag + '</div>' +
+        '<div class="cm-text-d" dir="auto">' + cmEsc(it.text) + '</div>' + likeBtn + replyHtml + '</div></div>';
+    }).join("");
+  }
+
+  function loadFor(box){
+    const caseId = box.getAttribute("data-cm-case");
+    ensureDb(function(db){
+      db.collection("comments").where("caseId", "==", caseId).where("approved", "==", true).get()
+        .then(function(q){
+          const items = [];
+          q.forEach(function(d){ const a = d.data(); items.push({ id: d.id, name: a.name, text: a.text, ts: a.createdAt, likeCount: a.likeCount || 0, reply: a.reply || "" }); });
+          items.sort(function(a, b){ const ta = a.ts && a.ts.toMillis ? a.ts.toMillis() : 0, tb = b.ts && b.ts.toMillis ? b.ts.toMillis() : 0; return ta - tb; });
+          renderOne(box, items);
+        })
+        .catch(function(){ renderOne(box, []); });
+    });
+  }
+
+  boxes.forEach(function(box){
+    loadFor(box);
+    const sendBtn = box.querySelector(".cm-send");
+    const status = box.querySelector(".cm-status");
+    sendBtn.addEventListener("click", function(){
+      const caseId = box.getAttribute("data-cm-case");
+      const hp = box.querySelector(".cm-hp");
+      if (hp && hp.value) { status.textContent = isAr() ? "تم الإرسال" : "Sent"; return; }
+      const name = box.querySelector(".cm-name").value.trim().slice(0, 40);
+      const text = box.querySelector(".cm-text").value.trim().slice(0, 500);
+      if (!text) { status.textContent = isAr() ? "اكتب تعليق الأول" : "Write a comment first"; return; }
+      let last = 0;
+      try { last = +localStorage.getItem("lastCommentTs") || 0; } catch(e) {}
+      if (Date.now() - last < 60000) { status.textContent = isAr() ? "استنى دقيقة بين كل تعليق" : "Please wait a minute between comments"; return; }
+      sendBtn.disabled = true;
+      status.textContent = isAr() ? "بيتم الإرسال..." : "Posting...";
+      ensureDb(function(db){
+        db.collection("comments").add({
+          caseId: caseId, name: name, text: text, approved: false, likeCount: 0, reply: "",
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        }).then(function(ref){
+          try { localStorage.setItem("lastCommentTs", String(Date.now())); } catch(e) {}
+          myComments[ref.id] = { caseId: caseId, name: name, text: text, ts: Date.now() };
+          try { localStorage.setItem("myCommentsV1", JSON.stringify(myComments)); } catch(e) {}
+          box.querySelector(".cm-text").value = "";
+          status.textContent = isAr() ? "وصل! هيظهر للكل بعد المراجعة" : "Posted! Public after review";
+          sendBtn.disabled = false;
+          loadFor(box);
+        }).catch(function(){
+          status.textContent = isAr() ? "حصلت مشكلة، جرب تاني" : "Something went wrong, try again";
+          sendBtn.disabled = false;
+        });
+      });
+    });
+  });
+
+  document.querySelectorAll(".cm-like").forEach(function(){});
+  document.addEventListener("click", function(e){
+    const b = e.target.closest("[data-cm-like]");
+    if (!b || myLikes[b.getAttribute("data-cm-like")]) return;
+    const cid = b.getAttribute("data-cm-like");
+    myLikes[cid] = 1;
+    try { localStorage.setItem("myCommentLikesV1", JSON.stringify(myLikes)); } catch(e) {}
+    b.classList.add("liked");
+    const span = b.querySelector("span");
+    if (span) span.textContent = (+span.textContent || 0) + 1;
+    b.firstChild.textContent = "♥ ";
+    ensureDb(function(db){
+      db.collection("commentVotes").doc(cid + "_" + voter).set({ commentId: cid })
+        .then(function(){ return db.collection("comments").doc(cid).update({ likeCount: firebase.firestore.FieldValue.increment(1) }); })
+        .catch(function(){});
+    });
+  }, { once: false });
+}
+
 function initBaSliders(){
   document.querySelectorAll(".ba-wrap").forEach(wrap => {
     wrap.addEventListener("mousedown", () => { __baActive = wrap; });
@@ -1097,11 +1279,14 @@ function renderAll(){
   }
   $("casesGrid").innerHTML = shownIdx.map((ci) => { const c = allCases[ci];
     const cm = !commentsOn ? "" :
-     (CONFIG.cusdisAppId && CONFIG.cusdisAppId.indexOf("PASTE-") !== 0 ?
-     `<div class="case-comment"><div class="cc-head"><b>💬 ${pick("Comments","التعليقات")}</b><span>${pick("Join the discussion — no account needed","شارك في النقاش — بدون حساب")}</span></div>
-     <div class="cusdis-box" data-host="https://cusdis.com" data-app-id="${CONFIG.cusdisAppId}" data-page-id="case-${ci+1}" data-page-url="${location.origin}${location.pathname}?case=${ci+1}" data-page-title="${c.title}" data-theme="light"></div></div>` :
-     `<div class="case-comment"><div class="cc-head"><b>💬 ${pick("Comments","التعليقات")}</b></div>
-     <div class="cc-soon">${pick("Comments coming soon - Share your thoughts","التعليقات قريبًا - شاركنا رأيك")}</div></div>`);
+     `<div class="case-comment" data-cm-case="case-${ci+1}"><div class="cc-head"><b>💬 ${pick("Comments","التعليقات")}</b><span>${pick("No account needed - shows after a quick review","بدون حساب - يظهر بعد مراجعة سريعة")}</span></div>
+     <div class="cm-list"></div>
+     <div class="cm-form">
+       <input type="text" class="cm-name" maxlength="40" placeholder="${pick("Your name (optional)","اسمك (اختياري)")}">
+       <textarea class="cm-text" rows="2" maxlength="500" placeholder="${pick("Write a comment...","اكتب تعليقك...")}"></textarea>
+       <input type="text" class="cm-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+       <div class="cm-foot"><button type="button" class="cm-send">${pick("Post","انشر")}</button><span class="cm-status"></span></div>
+     </div></div>`;
     const enC = CONFIG.cases[ci] || {};
     const beforeUrl = c.before || enC.before, afterUrl = c.after || enC.after;
     const thumbHtml = (beforeUrl && afterUrl)
@@ -1111,6 +1296,7 @@ function renderAll(){
      <div class="body"><span class="tag">${c.tag}</span><h3>${c.title}</h3><p>${c.text}</p><div class="rate-row" data-rate-open="case-${ci+1}" data-rate-target="case-${ci+1}">${pick("☆ Rate this case","☆ قيّم الحالة")}<span class="cavg"></span></div>${cm}</div></div>`;
   }).join("");
   initBaSliders();
+  initComments();
   /* photo lightbox: tap a case photo to see the full image */
   if (!document.getElementById("photoLightbox")){
     const lb = document.createElement("div");
@@ -1848,17 +2034,8 @@ window.addEventListener("scroll", closeChatOnScroll, { passive: true });
   if (stored.length || dirty) renderAll();
 })();
 
-/* Cusdis: mount one widget per case card (SDK loaded once below) */
-window.__initCusdis = function(){
-  if (!(window.CUSDIS && window.CUSDIS.renderTo)) return;
-  document.querySelectorAll(".cusdis-box").forEach(function(el){
-    if (!el.dataset.mounted) { el.dataset.mounted = "1"; window.CUSDIS.renderTo(el); }
-  });
-};
-window.__initCusdis();
 });
 </script>
-<script async defer src="https://cusdis.com/js/cusdis.es.js" onload="window.__initCusdis && window.__initCusdis()"></script>
 
 <!-- ============ SECTION: Curtain reveal (opening animation) ============ -->
 <div class="intro" id="intro">
