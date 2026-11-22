@@ -521,6 +521,16 @@ footer{padding-bottom:110px}
 }
 .case h3{font-size:20px;margin-bottom:6px}
 .case p{color:var(--ink-soft);font-size:15px}
+/* ---------- before/after slider (a case with "before" + "after" photo URLs gets a drag slider) ---------- */
+.ba-wrap{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;cursor:ew-resize;touch-action:none;user-select:none;-webkit-user-select:none;background:#EAF4FF}
+.ba-wrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;max-width:none;pointer-events:none}
+.ba-before{position:absolute;inset:0;z-index:1;clip-path:inset(0 50% 0 0)}
+.ba-line{position:absolute;top:0;bottom:0;left:50%;width:3px;background:#fff;box-shadow:0 0 10px rgba(0,0,0,.4);z-index:2;transform:translateX(-50%)}
+.ba-handle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:42px;height:42px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.ba-tag{position:absolute;top:10px;background:rgba(0,0,0,.6);color:#fff;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;z-index:3;letter-spacing:.05em;text-transform:uppercase}
+.ba-tag.before{left:10px}
+.ba-tag.after{right:10px;background:#0f2a6b}
+.ba-wrap:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
 /* ---------- testimonials ---------- */
 .testi{background:var(--cream-dark);display:none}
 .testi-card{
@@ -768,7 +778,12 @@ const CONFIG = {
   /* --- Comments (Cusdis): website ID from the cusdis.com dashboard --- */
   cusdisAppId: "PASTE-CUSDIS-APP-ID",
 
-  /* --- Clinical cases (placeholders — replace with real cases) --- */
+  /* --- Clinical cases (placeholders — replace with real cases) ---
+     BEFORE/AFTER SLIDER: add "before" and "after" image URLs to any case and its
+     card becomes a draggable comparison slider, e.g.
+       { id:"case1", tag:"Endodontics", title:"...", text:"...",
+         before:"photos/case1-before.jpg", after:"photos/case1-after.jpg" }
+     Put the images in the repo (or any URL). Works with several sliders per page. --- */
   cases: [
     { id:"case1", tag:"Endodontics",  title:"Root Canal Treatment - Upper Molar", text:"Patient presented with severe pain. Root canal treatment was completed in 2 visits with excellent healing and no post-operative pain." }
   ],
@@ -885,6 +900,47 @@ function applySpecFilter(code){
   renderAll();
   const sec = document.getElementById("cases");
   if (sec) sec.scrollIntoView({ behavior: "smooth" });
+}
+/* ---------- before/after slider component ----------
+   Any case object with "before" and "after" image URLs renders as a draggable
+   comparison slider instead of a plain thumbnail. Multiple sliders per page OK.
+   Mouse + touch + arrow keys. Physical left/right, so it is identical in RTL. */
+function baSliderHTML(before, after, ar){
+  return `<div class="ba-wrap" role="slider" tabindex="0" aria-label="${ar ? "المقارنة قبل وبعد" : "Before and after comparison"}" aria-valuemin="5" aria-valuemax="95" aria-valuenow="50">
+    <img src="${after}" alt="${ar ? "بعد" : "After"}" loading="lazy" draggable="false">
+    <div class="ba-before"><img src="${before}" alt="${ar ? "قبل" : "Before"}" loading="lazy" draggable="false"></div>
+    <div class="ba-line"><div class="ba-handle">↔️</div></div>
+    <span class="ba-tag before">${ar ? "قبل" : "Before"}</span>
+    <span class="ba-tag after">${ar ? "بعد" : "After"}</span>
+  </div>`;
+}
+function __baSet(wrap, p){
+  p = Math.max(5, Math.min(95, p));
+  wrap.querySelector(".ba-before").style.clipPath = "inset(0 " + (100 - p) + "% 0 0)";
+  wrap.querySelector(".ba-line").style.left = p + "%";
+  wrap.setAttribute("aria-valuenow", Math.round(p));
+}
+let __baActive = null;
+function __baMove(e){
+  if (!__baActive) return;
+  const rect = __baActive.getBoundingClientRect();
+  const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+  __baSet(__baActive, (x / rect.width) * 100);
+}
+window.addEventListener("mouseup", () => { __baActive = null; });
+window.addEventListener("mousemove", __baMove);
+window.addEventListener("touchend", () => { __baActive = null; });
+window.addEventListener("touchmove", __baMove, {passive:true});
+function initBaSliders(){
+  document.querySelectorAll(".ba-wrap").forEach(wrap => {
+    wrap.addEventListener("mousedown", () => { __baActive = wrap; });
+    wrap.addEventListener("touchstart", () => { __baActive = wrap; }, {passive:true});
+    wrap.addEventListener("keydown", e => {
+      const now = parseFloat(wrap.getAttribute("aria-valuenow")) || 50;
+      if (e.key === "ArrowLeft"){ __baSet(wrap, now - 5); e.preventDefault(); }
+      if (e.key === "ArrowRight"){ __baSet(wrap, now + 5); e.preventDefault(); }
+    });
+  });
 }
 function renderAll(){
   const ar = LANG === "ar";
@@ -1050,9 +1106,15 @@ function renderAll(){
      <div class="cusdis-box" data-host="https://cusdis.com" data-app-id="${CONFIG.cusdisAppId}" data-page-id="case-${ci+1}" data-page-url="${location.origin}${location.pathname}?case=${ci+1}" data-page-title="${c.title}" data-theme="light"></div></div>` :
      `<div class="case-comment"><div class="cc-head"><b>💬 ${pick("Comments","التعليقات")}</b></div>
      <div class="cc-soon">${pick("Comments coming soon - Share your thoughts","التعليقات قريبًا - شاركنا رأيك")}</div></div>`);
-    return `<div class="case"><div class="thumb">${c.photos && c.photos.length ? '<img src="' + c.photos[0] + '" alt="' + c.title + '" loading="' + (ci === 0 ? "eager" : "lazy") + '">' + (c.photos.length > 1 ? '<span class="ph-count">✚ ' + (c.photos.length - 1) + '</span>' : "") : pick(c.tag + "<br>Case 0" + (ci+1), c.tag + "<br>حالة 0" + (ci+1))}</div>
+    const enC = CONFIG.cases[ci] || {};
+    const beforeUrl = c.before || enC.before, afterUrl = c.after || enC.after;
+    const thumbHtml = (beforeUrl && afterUrl)
+      ? baSliderHTML(beforeUrl, afterUrl, ar)
+      : `<div class="thumb">${c.photos && c.photos.length ? '<img src="' + c.photos[0] + '" alt="' + c.title + '" loading="' + (ci === 0 ? "eager" : "lazy") + '">' + (c.photos.length > 1 ? '<span class="ph-count">✚ ' + (c.photos.length - 1) + '</span>' : "") : pick(c.tag + "<br>Case 0" + (ci+1), c.tag + "<br>حالة 0" + (ci+1))}</div>`;
+    return `<div class="case">${thumbHtml}
      <div class="body"><span class="tag">${c.tag}</span><h3>${c.title}</h3><p>${c.text}</p><div class="rate-row" data-rate-open="case-${ci+1}" data-rate-target="case-${ci+1}">${pick("☆ Rate this case","☆ قيّم الحالة")}<span class="cavg"></span></div>${cm}</div></div>`;
   }).join("");
+  initBaSliders();
   /* hero stats (advisor spec): real case count from the page + rating from CONFIG.heroReviews */
   const totalCases = document.querySelectorAll("#casesGrid .case").length;
   const reviews = CONFIG.heroReviews || [];
