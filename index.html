@@ -326,6 +326,44 @@ footer{padding-bottom:110px}
 }
 .skill .name{font-weight:700;font-size:14.5px}
 .skill .note{font-size:12.5px;color:var(--ink-soft)}
+.skill-link{cursor:pointer;position:relative;transition:transform .3s, box-shadow .3s}
+.skill-link:hover{transform:translateY(-6px);box-shadow:0 18px 34px rgba(31,42,44,.16)}
+.skill-link:active{transform:translateY(-1px) scale(.97)}
+.skill-link .icon{
+  width:56px;height:56px;border-radius:50%;margin:0 auto 12px;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:24px;
+}
+.skill-link .count{margin-top:8px;font-size:12.5px;font-weight:700;color:var(--ink-soft)}
+.skill-link .arrow{
+  position:absolute;top:12px;inset-inline-end:14px;font-size:16px;
+  color:var(--ink-soft);transition:transform .3s;
+}
+.skill-link:hover .arrow{transform:translateX(4px)}
+[dir="rtl"] .skill-link:hover .arrow{transform:translateX(-4px)}
+.spec-En{background:#eaf4ff;border-color:#c9e2ff}
+.spec-En .icon{background:#1E90FF}
+.spec-Es{background:#fdeef5;border-color:#f6d3e4}
+.spec-Es .icon{background:#ec5f9e}
+.spec-Re{background:#e9f8ef;border-color:#cbeeda}
+.spec-Re .icon{background:#2fae5f}
+.spec-Pe{background:#fdf1e3;border-color:#f6dfc3}
+.spec-Pe .icon{background:#f08c1e}
+.spec-Dc{background:#eef0f3;border-color:#d7dbe2}
+.spec-Dc .icon{background:#4b5563}
+.case-filter{
+  display:flex;align-items:center;gap:12px;justify-content:center;
+  margin:6px 0 18px;font-weight:700;font-size:14.5px;color:var(--deep);
+}
+.case-filter button{
+  border:1.5px solid var(--deep);background:#fff;color:var(--deep);
+  border-radius:999px;padding:6px 16px;font-size:13px;font-weight:700;
+  cursor:pointer;font-family:inherit;
+}
+.cases-empty{
+  text-align:center;color:var(--ink-soft);font-size:15.5px;
+  padding:36px 12px;border:1.5px dashed var(--line);border-radius:var(--radius);
+}
 
 /* ---------- services ---------- */
 .services-grid{display:grid;grid-template-columns:1fr;gap:20px}
@@ -712,6 +750,32 @@ const NAV = [
   ["contact","Contact","تواصل"]
 ];
 
+/* --- specialty cards -> cases filter --- */
+let specFilter = null; /* index into CONFIG.skills, or null = all */
+function specIsAll(i){ return CONFIG.skills[i] && CONFIG.skills[i].icon === "Dc"; }
+function tagMatches(tagEn, tagAr, i){
+  if (specIsAll(i)) return true;
+  const cand = [CONFIG.skills[i].name, (AR.skills && AR.skills[i]) ? AR.skills[i].name : ""];
+  const tags = [tagEn || "", tagAr || ""];
+  return cand.some(c => c && tags.some(t => t && (t === c || t.indexOf(c) > -1 || c.indexOf(t) > -1)));
+}
+function countSpecCases(i){
+  let n = 0;
+  CONFIG.cases.forEach((c, k) => {
+    const tagAr = AR.cases && AR.cases[k] ? AR.cases[k].tag : "";
+    if (tagMatches(c.tag, tagAr, i)) n++;
+  });
+  return n;
+}
+function arCaseWord(n){ return n === 1 ? "حالة" : (n === 2 ? "حالتين" : (n <= 10 ? "حالات" : "حالة")); }
+function applySpecFilter(code){
+  specFilter = null;
+  CONFIG.skills.forEach((x, i) => { if (x.icon === code && specFilter === null) specFilter = i; });
+  if (specFilter === null) return;
+  renderAll();
+  const sec = document.getElementById("cases");
+  if (sec) sec.scrollIntoView({ behavior: "smooth" });
+}
 function renderAll(){
   const ar = LANG === "ar";
   const g = key => (ar && AR[key] !== undefined) ? AR[key] : CONFIG[key];
@@ -747,8 +811,18 @@ function renderAll(){
   $("aboutBadge").textContent = g("aboutBadge");
   $("aboutTitle").innerHTML = `${g("aboutTitle")[0]} <span class="hl">${g("aboutTitle")[1]}</span>`;
   $("aboutText").innerHTML = g("aboutText").map(t => `<p>${t}</p>`).join("");
-  $("skills").innerHTML = g("skills").map(x =>
-    `<div class="skill"><div class="icon">${x.icon}</div><div class="name">${x.name}</div><div class="note">${x.note}</div></div>`).join("");
+  $("skills").innerHTML = g("skills").map((x, i) => {
+    const n = countSpecCases(i);
+    const cnt = specIsAll(i)
+      ? pick(CONFIG.cases.length + (CONFIG.cases.length === 1 ? " case" : " cases"), CONFIG.cases.length + " " + arCaseWord(CONFIG.cases.length))
+      : (n > 0 ? pick(n + (n === 1 ? " case" : " cases"), n + " " + arCaseWord(n)) : pick("Coming soon","قريباً"));
+    return `<div class="skill skill-link spec-${x.icon}" role="button" tabindex="0" data-spec="${x.icon}"><div class="icon">${x.icon}</div><div class="name">${x.name}</div><div class="note">${x.note}</div><div class="count">${cnt}</div><div class="arrow">${pick("→","←")}</div></div>`;
+  }).join("");
+  document.querySelectorAll(".skill-link").forEach(el => {
+    const go = () => applySpecFilter(el.getAttribute("data-spec"));
+    el.addEventListener("click", go);
+    el.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+  });
 
   /* services */
   $("servEyebrow").textContent = pick("What I do","اللي بقدمه");
@@ -779,7 +853,28 @@ function renderAll(){
   /* the Instinct-hosted viewer blocks all iframes, so comment threads only
      render on the GitHub Pages host (and any normal hosting). */
   const commentsOn = location.hostname.indexOf("instinctusercontent.com") === -1;
-  $("casesGrid").innerHTML = g("cases").map((c,ci) => {
+  const allCases = g("cases");
+  const shownIdx = [];
+  for (let ci = 0; ci < allCases.length; ci++){
+    if (specFilter === null || tagMatches(CONFIG.cases[ci] ? CONFIG.cases[ci].tag : "", AR.cases && AR.cases[ci] ? AR.cases[ci].tag : "", specFilter)) shownIdx.push(ci);
+  }
+  const filterBar = $("caseFilter"), emptyBox = $("casesEmpty");
+  if (specFilter === null){
+    filterBar.hidden = true;
+  } else {
+    filterBar.hidden = false;
+    $("caseFilterLabel").textContent = pick("Filter: ","فلتر: ") + g("skills")[specFilter].name;
+    $("caseFilterAll").textContent = pick("Show all","عرض الكل");
+  }
+  if (!shownIdx.length){
+    $("casesGrid").style.display = "none";
+    emptyBox.hidden = false;
+    emptyBox.textContent = pick("No cases in this specialty yet - coming soon","لا توجد حالات في هذا الفرع بعد - قريباً");
+  } else {
+    $("casesGrid").style.display = "";
+    emptyBox.hidden = true;
+  }
+  $("casesGrid").innerHTML = shownIdx.map((ci) => { const c = allCases[ci];
     const cm = !commentsOn ? "" :
      (CONFIG.cusdisAppId && CONFIG.cusdisAppId.indexOf("PASTE-") !== 0 ?
      `<div class="case-comment"><div class="cc-head"><b>💬 ${pick("Comments","التعليقات")}</b><span>${pick("Join the discussion — no account needed","شارك في النقاش — بدون حساب")}</span></div>
@@ -789,6 +884,7 @@ function renderAll(){
     return `<div class="case"><div class="thumb">${c.photos && c.photos.length ? '<img src="' + c.photos[0] + '" alt="' + c.title + '" loading="' + (ci === 0 ? "eager" : "lazy") + '">' + (c.photos.length > 1 ? '<span class="ph-count">✚ ' + (c.photos.length - 1) + '</span>' : "") : pick(c.tag + "<br>Case 0" + (ci+1), c.tag + "<br>حالة 0" + (ci+1))}</div>
      <div class="body"><span class="tag">${c.tag}</span><h3>${c.title}</h3><p>${c.text}</p>${cm}</div></div>`;
   }).join("");
+  if (window.__initCusdis) window.__initCusdis();
   /* comments: Cusdis widget, one thread per case (page-id case-N). Moderated: nothing shows until approved. */
 
   /* testimonial */
@@ -1097,6 +1193,7 @@ $("chatLangBtn").addEventListener("click", function(){
   try { localStorage.setItem("siteLang", LANG); } catch(e) {}
   renderAll();
 });
+$("caseFilterAll").addEventListener("click", function(){ specFilter = null; renderAll(); });
 $("chatSend").addEventListener("click", handleChatText);
 $("chatText").addEventListener("keydown", function(e){ if(e.key === "Enter") handleChatText(); });
 chatReset();
@@ -1370,6 +1467,11 @@ window.__initCusdis();
     <div class="eyebrow" id="casesEyebrow">The record</div>
     <h2 class="section-title" id="casesTitle"></h2>
     <p class="section-sub" id="casesSub"></p>
+    <div class="case-filter" id="caseFilter" hidden>
+      <span id="caseFilterLabel"></span>
+      <button type="button" id="caseFilterAll"></button>
+    </div>
+    <div class="cases-empty" id="casesEmpty" hidden></div>
     <div class="cases-grid" id="casesGrid"></div>
   </div>
 </section>
