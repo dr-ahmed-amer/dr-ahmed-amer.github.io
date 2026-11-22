@@ -551,7 +551,8 @@ html,body{height:100%;overflow:hidden}
 .case-comment .cc-head{display:flex;flex-direction:column;align-items:flex-start;gap:2px;margin-bottom:10px}
 .case-comment .cc-head b{font-size:16px}
 .case-comment .cc-head span{font-size:13px;color:var(--ink-soft)}
-.case-comment iframe.rb-frame{width:100%;height:430px;border:none;background:transparent;display:block}
+.case-comment .cusdis-box{display:block;min-height:300px}
+.case-comment .cc-soon{padding:18px 4px;color:#5a6b85;font-size:15px;text-align:center}
 @media (max-width:480px){.case-comment{padding:12px}}
 #epCode{font-family:monospace;font-size:11px}
 </style>
@@ -632,6 +633,9 @@ const CONFIG = {
     { n:"—", suffix:"", label:"Procedure Types", icon:"✦" },
     { n:"4", suffix:"", label:"Years of Training", icon:"★" }
   ],
+
+  /* --- Comments (Cusdis): website ID from the cusdis.com dashboard --- */
+  cusdisAppId: "PASTE-CUSDIS-APP-ID",
 
   /* --- Clinical cases (placeholders — replace with real cases) --- */
   cases: [
@@ -791,9 +795,12 @@ function renderAll(){
      render on the GitHub Pages host (and any normal hosting). */
   const commentsOn = location.hostname.indexOf("instinctusercontent.com") === -1;
   $("casesGrid").innerHTML = g("cases").map((c,ci) => {
-    const cm = commentsOn ?
+    const cm = !commentsOn ? "" :
+     (CONFIG.cusdisAppId && CONFIG.cusdisAppId.indexOf("PASTE-") !== 0 ?
      `<div class="case-comment"><div class="cc-head"><b>💬 ${pick("Comments","التعليقات")}</b><span>${pick("Join the discussion — no account needed","شارك في النقاش — بدون حساب")}</span></div>
-     <iframe class="rb-frame" loading="lazy" title="comments" src="https://my.remarkbox.com/embed?rb_owner_key=ed1144da-e5f9-11f1-8000-040140774501&thread_title=${encodeURIComponent(c.title)}&thread_uri=${encodeURIComponent("https://dr-ahmed-amer.github.io/?case=" + (ci + 1))}&mode=light"></iframe></div>` : "";
+     <div class="cusdis-box" data-host="https://cusdis.com" data-app-id="${CONFIG.cusdisAppId}" data-page-id="case-${ci+1}" data-page-url="${location.origin}${location.pathname}?case=${ci+1}" data-page-title="${c.title}" data-theme="light"></div></div>` :
+     `<div class="case-comment"><div class="cc-head"><b>💬 ${pick("Comments","التعليقات")}</b></div>
+     <div class="cc-soon">${pick("Comments coming soon - Stay tuned","التعليقات قريبًا - ترقّبوا")}</div></div>`);
     return `<div class="case"><div class="thumb">${c.photos && c.photos.length ? '<img src="' + c.photos[0] + '" alt="' + c.title + '" loading="' + (ci === 0 ? "eager" : "lazy") + '">' + (c.photos.length > 1 ? '<span class="ph-count">✚ ' + (c.photos.length - 1) + '</span>' : "") : pick(c.tag + "<br>Case 0" + (ci+1), c.tag + "<br>حالة 0" + (ci+1))}</div>
      <div class="body"><span class="tag">${c.tag}</span><h3>${c.title}</h3><p>${c.text}</p>${cm}</div></div>`;
   }).join("")
@@ -807,7 +814,7 @@ function renderAll(){
        <button class="edit-btn" id="pinCancel" type="button"></button>
      </div>
      <div class="ep-status" id="pinStatus" style="margin-top:8px;color:#c0392b;font-size:13px"></div></div></div>`;
-  /* comments: Remarkbox iframe embeds (no external JS needed). Threads are keyed by a stable per-case URI. */
+  /* comments: Cusdis widget, one thread per case (page-id case-N). Moderated: nothing shows until approved. */
 
   /* testimonial */
   $("testiEyebrow").textContent = pick("Kind words","كلام جميل");
@@ -1540,20 +1547,17 @@ $("casesGrid").addEventListener("keydown", function(e){
   if (e.key === "Enter" && e.target.closest("#pinCard")) submitPin();
 });
 
-/* Remarkbox auto-height: the embed iframe posts iframe-resizer messages;
-   handle them here since the external resizer script cannot load. */
-window.addEventListener("message", function(e){
-  if (e.origin !== "https://my.remarkbox.com") return;
-  if (typeof e.data !== "string" || e.data.indexOf("[iFrameSizer]") !== 0) return;
-  const parts = e.data.substr(13).split(":");
-  const h = parseInt(parts[1], 10);
-  if (!h || h < 80) return;
-  document.querySelectorAll("iframe.rb-frame").forEach(function(f){
-    if (f.contentWindow === e.source) f.style.height = (h + 8) + "px";
+/* Cusdis: mount one widget per case card (SDK loaded once below) */
+window.__initCusdis = function(){
+  if (!(window.CUSDIS && window.CUSDIS.renderTo)) return;
+  document.querySelectorAll(".cusdis-box").forEach(function(el){
+    if (!el.dataset.mounted) { el.dataset.mounted = "1"; window.CUSDIS.renderTo(el); }
   });
-});
+};
+window.__initCusdis();
 });
 </script>
+<script async defer src="https://cusdis.com/js/cusdis.es.js" onload="window.__initCusdis && window.__initCusdis()"></script>
 
 <!-- ============ SECTION: Curtain reveal (opening animation) ============ -->
 <div class="intro" id="intro">
