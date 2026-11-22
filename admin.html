@@ -1292,16 +1292,6 @@ async function __sha256(t){
     startDirty = true;
   }
   if (socOv && socOv.length){ CONFIG.socials = socOv; startDirty = true; }
-  let profileOv = null;
-  try { profileOv = JSON.parse(localStorage.getItem("profileOverrideV1") || "null"); } catch(e) {}
-  if (profileOv){
-    if (profileOv.name) CONFIG.name = profileOv.name;
-    if (profileOv.nameAr) AR.name = profileOv.nameAr;
-    if (profileOv.role) CONFIG.role = profileOv.role;
-    if (profileOv.roleAr) AR.role = profileOv.roleAr;
-    if (profileOv.whatsapp) CONFIG.whatsapp = profileOv.whatsapp;
-    startDirty = true;
-  }
   const PLATFORMS = [["ig","Instagram"],["f","Facebook"],["in","LinkedIn"],["tt","TikTok"],["x","X"],["yt","YouTube"],["wa","WhatsApp"],["web","Website"]];
   let soc = [];
   function freshSoc(){ return (CONFIG.socials || []).map(s => ({ icon: s.icon, url: s.url })); }
@@ -1315,17 +1305,20 @@ async function __sha256(t){
     panel.innerHTML =
       '<div class="ep-head"><b id="epTitle"></b><button type="button" id="epClose" aria-label="Close">✕</button></div>' +
       '<p class="ep-note" id="epNote"></p>' +
-      '<div class="ep-sec" id="epSecBioSettings"></div>' +
-      '<label id="lbNameEn"></label><input id="fNameEn" type="text">' +
-      '<label id="lbNameAr"></label><input id="fNameAr" type="text" dir="rtl">' +
-      '<label id="lbRoleEn"></label><input id="fRoleEn" type="text">' +
-      '<label id="lbRoleAr"></label><input id="fRoleAr" type="text" dir="rtl">' +
-      '<label id="lbWa"></label><input id="fWa" type="tel" inputmode="numeric" style="direction:ltr">' +
+      '<label id="lbTitleEn"></label><input id="fTitleEn" type="text">' +
+      '<label id="lbTitleAr"></label><input id="fTitleAr" type="text" dir="rtl">' +
+      '<label id="lbTag"></label><select id="fTag"></select>' +
+      '<label id="lbDescEn"></label><textarea id="fDescEn" rows="3"></textarea>' +
+      '<label id="lbDescAr"></label><textarea id="fDescAr" rows="3" dir="rtl"></textarea>' +
+      '<label id="lbPhotos"></label><input id="fPhotos" type="file" accept="image/*" multiple>' +
+      '<div class="edit-actions"><button type="button" class="edit-btn primary" id="epAdd"></button></div>' +
+      '<div class="ep-status" id="epStatus"></div>' +
+      '<div class="edit-list" id="epList"></div>' +
+      '<hr class="ep-hr">' +
+      '<div class="ep-sec" id="epSecBio"></div>' +
       '<label id="lbBioEn"></label><textarea id="fBioEn" rows="3"></textarea>' +
       '<label id="lbBioAr"></label><textarea id="fBioAr" rows="3" dir="rtl"></textarea>' +
-      '<div class="edit-actions"><button type="button" class="edit-btn primary" id="epSaveProfile"></button></div>' +
-      '<div class="edit-actions"><button type="button" class="edit-btn" id="epGoPublish"></button></div>' +
-      '<div class="ep-status" id="epStatusBio"></div>' +
+      '<div class="edit-actions"><button type="button" class="edit-btn primary" id="epSaveBio"></button></div>' +
       '<hr class="ep-hr">' +
       '<div class="ep-sec" id="epSecPhoto"></div>' +
       '<div id="photoPreview" style="margin:6px 0 10px;display:none"><img id="photoPreviewImg" style="width:96px;height:96px;object-fit:cover;border-radius:16px;border:1px solid #d7e4f5"></div>' +
@@ -1338,17 +1331,6 @@ async function __sha256(t){
       '  <button type="button" class="edit-btn" id="epAddSoc"></button>' +
       '  <button type="button" class="edit-btn primary" id="epSaveSoc"></button>' +
       '</div>' +
-      '<hr class="ep-hr">' +
-      '<div class="ep-sec" id="epSecCases"></div>' +
-      '<label id="lbTitleEn"></label><input id="fTitleEn" type="text">' +
-      '<label id="lbTitleAr"></label><input id="fTitleAr" type="text" dir="rtl">' +
-      '<label id="lbTag"></label><select id="fTag"></select>' +
-      '<label id="lbDescEn"></label><textarea id="fDescEn" rows="3"></textarea>' +
-      '<label id="lbDescAr"></label><textarea id="fDescAr" rows="3" dir="rtl"></textarea>' +
-      '<label id="lbPhotos"></label><input id="fPhotos" type="file" accept="image/*" multiple>' +
-      '<div class="edit-actions"><button type="button" class="edit-btn primary" id="epAdd"></button></div>' +
-      '<div class="ep-status" id="epStatus"></div>' +
-      '<div class="edit-list" id="epList"></div>' +
       '<hr class="ep-hr">' +
       '<p class="ep-note" id="epNote2"></p>' +
       '<div class="edit-actions">' +
@@ -1371,23 +1353,13 @@ async function __sha256(t){
       if (w.style.display === "block") panel.querySelector("#epCode").value = buildExport().text;
     });
     panel.querySelector("#epCopy").addEventListener("click", copyCode);
-    panel.querySelector("#epSaveProfile").addEventListener("click", saveProfile);
-    panel.querySelector("#epGoPublish").addEventListener("click", function(){
-      const dl = panel.querySelector("#epDownload");
-      if (dl && dl.scrollIntoView) dl.scrollIntoView({ behavior:"smooth", block:"center" });
-      doExport();
-    });
+    panel.querySelector("#epSaveBio").addEventListener("click", saveBio);
     panel.querySelector("#epSavePhoto").addEventListener("click", savePhoto);
     panel.querySelector("#fPhoto").addEventListener("change", previewPhoto);
     panel.querySelector("#epAddSoc").addEventListener("click", function(){ soc.push({ icon:"ig", url:"" }); renderSocRows(); });
     panel.querySelector("#epSaveSoc").addEventListener("click", saveSoc);
     panel.querySelector("#fBioEn").value = (CONFIG.aboutText || []).join("\n\n");
     panel.querySelector("#fBioAr").value = (AR.aboutText || []).join("\n\n");
-    panel.querySelector("#fNameEn").value = CONFIG.name || "";
-    panel.querySelector("#fNameAr").value = AR.name || "";
-    panel.querySelector("#fRoleEn").value = CONFIG.role || "";
-    panel.querySelector("#fRoleAr").value = AR.role || "";
-    panel.querySelector("#fWa").value = CONFIG.whatsapp || "";
     soc = freshSoc();
     renderSocRows();
     renderEditorLabels();
@@ -1412,17 +1384,10 @@ async function __sha256(t){
     panel.querySelector("#epDownload").textContent = P("⤓ Download updated site","⤓ نزّل الموقع المحدّث");
     panel.querySelector("#epShowCode").textContent = P("Show code / data to copy","أظهر الكود / البيانات للنسخ");
     panel.querySelector("#epCopy").textContent = P("Copy all code","انسخ الكود كله");
-    panel.querySelector("#epSecBioSettings").textContent = P("Bio Settings","إعدادات البايو");
-    panel.querySelector("#lbNameEn").textContent = P("Name (English) *","الاسم (إنجليزي) *");
-    panel.querySelector("#lbNameAr").textContent = P("Name (Arabic)","الاسم (عربي)");
-    panel.querySelector("#lbRoleEn").textContent = P("Specialty (English)","التخصص (إنجليزي)");
-    panel.querySelector("#lbRoleAr").textContent = P("Specialty (Arabic)","التخصص (عربي)");
-    panel.querySelector("#lbWa").textContent = P("WhatsApp number (international format, digits only)","رقم الواتساب (بالكود الدولي، أرقام بس)");
+    panel.querySelector("#epSecBio").textContent = P("Your bio (the About section):","البايو (قسم عني):");
     panel.querySelector("#lbBioEn").textContent = P("Bio (English) — blank line between paragraphs","البايو (إنجليزي) — سطر فاضي بين كل فقرة");
     panel.querySelector("#lbBioAr").textContent = P("Bio (Arabic)","البايو (عربي)");
-    panel.querySelector("#epSaveProfile").textContent = P("Save Bio Settings","احفظ إعدادات البايو");
-    panel.querySelector("#epGoPublish").textContent = P("⤓ Publish changes","⤓ انشر التعديلات");
-    panel.querySelector("#epSecCases").textContent = P("Cases","الحالات");
+    panel.querySelector("#epSaveBio").textContent = P("Save bio","احفظ البايو");
     panel.querySelector("#epSecPhoto").textContent = P("Profile photo (the About section):","صورة البروفايل (قسم عني):");
     panel.querySelector("#lbPhoto").textContent = P("Photo from your device (square looks best)","صورة من جهازك (المربعة شكلها أفضل)");
     panel.querySelector("#epSavePhoto").textContent = P("Save photo","احفظ الصورة");
@@ -1493,7 +1458,7 @@ async function __sha256(t){
     fr.readAsDataURL(f);
   }
   async function savePhoto(){
-    const st = panel.querySelector("#epStatusBio");
+    const st = panel.querySelector("#epStatus");
     const f = panel.querySelector("#fPhoto").files[0];
     if (!f){ st.textContent = P("Choose a photo first.","اختار صورة الأول."); return; }
     st.textContent = P("Processing photo...","بجهز الصورة...");
@@ -1504,31 +1469,19 @@ async function __sha256(t){
     applyProfilePhoto();
     st.textContent = P("Profile photo updated on the page now. Export below to publish it permanently.","صورة البروفايل اتحدثت في الصفحة دلوقتي. اعمل تصدير تحت عشان تتنشر بشكل دائم.");
   }
-  function saveProfile(){
-    const st = panel.querySelector("#epStatusBio");
-    const name = panel.querySelector("#fNameEn").value.trim();
-    const nameAr = panel.querySelector("#fNameAr").value.trim();
-    const role = panel.querySelector("#fRoleEn").value.trim();
-    const roleAr = panel.querySelector("#fRoleAr").value.trim();
-    const wa = panel.querySelector("#fWa").value.replace(/[^0-9]/g, "");
+  function saveBio(){
+    const st = panel.querySelector("#epStatus");
     const en = panel.querySelector("#fBioEn").value.split(/\n\s*\n/).map(s => s.trim()).filter(Boolean);
     const arT = panel.querySelector("#fBioAr").value.split(/\n\s*\n/).map(s => s.trim()).filter(Boolean);
-    if (!name){ st.textContent = P("The English name cannot be empty.","الاسم بالإنجليزي مينفعش يبقى فاضي."); return; }
     if (!en.length){ st.textContent = P("The English bio cannot be empty.","البايو الإنجليزي مينفعش يبقى فاضي."); return; }
-    CONFIG.name = name;
-    if (nameAr) AR.name = nameAr;
-    if (role) CONFIG.role = role;
-    if (roleAr) AR.role = roleAr;
-    if (wa) CONFIG.whatsapp = wa;
     CONFIG.aboutText = en;
     if (arT.length) AR.aboutText = arT;
-    try { localStorage.setItem("profileOverrideV1", JSON.stringify({ name:name, nameAr:nameAr, role:role, roleAr:roleAr, whatsapp:wa })); } catch(e) {}
     try { localStorage.setItem("bioOverrideV1", JSON.stringify({ en: en, ar: arT })); } catch(e) {}
     renderAll();
-    st.textContent = P("Bio Settings saved on the page now. Tap Publish changes to make them live for everyone.","إعدادات البايو اتحفظت في الصفحة دلوقتي. دوس «انشر التعديلات» عشان تظهر للكل.");
+    st.textContent = P("Bio updated on the page now. Export below to publish it permanently.","البايو اتحدث في الصفحة دلوقتي. اعمل تصدير تحت عشان يتنشر بشكل دائم.");
   }
   function saveSoc(){
-    const st = panel.querySelector("#epStatusBio");
+    const st = panel.querySelector("#epStatus");
     const list = soc.filter(s => (s.url || "").trim()).map(s => ({ icon: s.icon, url: s.url.trim() }));
     CONFIG.socials = list;
     try { localStorage.setItem("socialsOverrideV1", JSON.stringify(list)); } catch(e) {}
@@ -1640,20 +1593,6 @@ async function __sha256(t){
   function serializeSocials(arr){
     return "[\n    " + arr.map(s => JSON.stringify({ icon: s.icon, url: s.url })).join(",\n    ") + "\n  ]";
   }
-  function jsEsc(s){ return String(s == null ? "" : s).replace(/\\/g, "\\\\").replace(/"/g, '\\"'); }
-  function replaceQuotedAfter(src, keyAt, val){
-    if (keyAt < 0) return src;
-    const q1 = src.indexOf('"', keyAt); if (q1 < 0) return src;
-    let j = q1 + 1;
-    while (j < src.length){ if (src[j] === "\\"){ j += 2; continue; } if (src[j] === '"') break; j++; }
-    if (j >= src.length) return src;
-    return src.slice(0, q1 + 1) + jsEsc(val) + src.slice(j);
-  }
-  function bakeByComment(src, comment, key, val){
-    const c = src.indexOf(comment); if (c < 0) return src;
-    const k = src.lastIndexOf(key, c); if (k < 0) return src;
-    return replaceQuotedAfter(src, k, val);
-  }
   function buildExport(){
     /* standalone file: the full source is in the page, export a complete updated HTML.
        hosted viewer: no inline source, export just the owner's data to send to Instinct. */
@@ -1666,14 +1605,6 @@ async function __sha256(t){
       src = replaceNth(src, "aboutText:", 0, serializeStrArray(CONFIG.aboutText));
       src = replaceNth(src, "aboutText:", 1, serializeStrArray(AR.aboutText));
       src = replaceNth(src, "socials:", 0, serializeSocials(CONFIG.socials));
-      src = bakeByComment(src, "your full name", "name:", CONFIG.name);
-      src = bakeByComment(src, "shown under the name", "role:", CONFIG.role);
-      src = bakeByComment(src, "international format", "whatsapp:", CONFIG.whatsapp);
-      const arMark = src.indexOf("const AR = {");
-      if (arMark > -1){
-        src = replaceQuotedAfter(src, src.indexOf("name:", arMark), AR.name);
-        src = replaceQuotedAfter(src, src.indexOf("role:", arMark), AR.role);
-      }
       if (profilePhoto) src = src.replace(/(<div class="portrait"><img class="ph" src=")[^"]*(")/, "$1" + profilePhoto + "$2");
       return { kind: "html", text: src };
     }
@@ -1682,7 +1613,6 @@ async function __sha256(t){
       cases: stored,
       bio: { en: CONFIG.aboutText, ar: AR.aboutText },
       socials: CONFIG.socials,
-      profile: { name: CONFIG.name, nameAr: AR.name, role: CONFIG.role, roleAr: AR.role, whatsapp: CONFIG.whatsapp },
       profilePhoto: profilePhoto
     }, null, 2) };
   }
