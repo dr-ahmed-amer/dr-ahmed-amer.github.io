@@ -708,6 +708,17 @@ html,body{height:100%;overflow:hidden}
 .pin-box .ep-status{color:#c0392b}
 .edit-item .ep-edit,.edit-item .ep-del{border-radius:999px;width:auto;height:auto;padding:6px 14px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}
 .edit-item .ep-edit{background:#fff;border:1.5px solid var(--deep);color:var(--deep)}
+.cm-mod{border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;margin-bottom:10px;background:#fff}
+.cm-mod.pending{border-color:#f59e0b;background:#fffbeb}
+.cm-mod .cm-mod-top{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:13px;margin-bottom:6px}
+.cm-mod .cm-mod-name{font-weight:800;color:var(--deep)}
+.cm-mod .cm-mod-when{color:#94a3b8;font-size:12px}
+.cm-mod .cm-mod-text{font-size:14px;line-height:1.7;margin-bottom:8px}
+.cm-mod .cm-mod-reply{background:#f0f7ff;border-radius:10px;padding:8px 10px;font-size:13px;margin-bottom:8px}
+.cm-mod .cm-mod-actions{display:flex;gap:6px;flex-wrap:wrap}
+.cm-mod .cm-mod-actions button{border-radius:999px;padding:5px 12px;font-size:12.5px;font-weight:700;cursor:pointer;font-family:inherit;border:1.5px solid var(--deep);background:#fff;color:var(--deep)}
+.cm-mod .cm-mod-actions button.cm-approve{background:var(--accent);border-color:var(--accent);color:#fff}
+.cm-mod .cm-mod-actions button.cm-del{border-color:#dc2626;color:#dc2626}
 .edit-item .ep-del{background:#fde8e8;border:1.5px solid #f5c6c6;color:#b42318}
 /* ADMIN-END */
 /* visitor comments on cases */
@@ -2014,6 +2025,7 @@ async function __sha256(t){
       '<div class="edit-actions"><button type="button" class="edit-btn primary" id="epAdd"></button></div>' +
       '<div class="ep-status" id="epStatus"></div>' +
       '<div class="edit-list" id="epList"></div>' +
+      '<div class="edit-list" id="cmList" style="margin-top:24px"></div>' +
       '</div>' +
       '<hr class="ep-hr">' +
       '<div class="ep-sec" id="epSecBio"></div>' +
@@ -2137,6 +2149,54 @@ async function __sha256(t){
         '</span></div>').join("");
     el.querySelectorAll(".ep-edit").forEach(b => b.addEventListener("click", function(){ startEdit(+b.getAttribute("data-i")); }));
     el.querySelectorAll(".ep-del").forEach(b => b.addEventListener("click", function(){ deleteCase(+b.getAttribute("data-i")); }));
+    renderComments();
+  }
+  function cmEsc(x){ return String(x).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+  function renderComments(){
+    if (!panel) return;
+    const el = panel.querySelector("#cmList");
+    if (!el) return;
+    if (!authUser || !window.__fbDb || !window.__fbDb()) { el.innerHTML = ""; return; }
+    el.innerHTML = '<div class="ep-list-title">' + P("Comments:","التعليقات:") + '</div><div style="font-size:12.5px;color:#94a3b8">' + P("Loading...","بيجيب...") + '</div>';
+    window.__fbDb().collection("comments").get().then(function(q){
+      const items = [];
+      q.forEach(function(d){ const a = d.data(); items.push({ id: d.id, caseId: a.caseId, name: a.name, text: a.text, approved: !!a.approved, likeCount: a.likeCount || 0, reply: a.reply || "", ts: a.createdAt && a.createdAt.toMillis ? a.createdAt.toMillis() : 0 }); });
+      items.sort(function(a, b){ if (a.approved !== b.approved) return a.approved ? 1 : -1; return b.ts - a.ts; });
+      if (!items.length){
+        el.innerHTML = '<div class="ep-list-title">' + P("Comments:","التعليقات:") + '</div><div style="font-size:13px;color:#94a3b8">' + P("No comments yet.","مفيش تعليقات لسه.") + '</div>';
+        return;
+      }
+      const caseTitle = function(cid){
+        const c = CONFIG.cases.find(x => x.id === cid);
+        return c ? c.title : cid;
+      };
+      el.innerHTML = '<div class="ep-list-title">' + P("Comments:","التعليقات:") + '</div>' + items.map(function(it){
+        const when = it.ts ? new Date(it.ts).toLocaleString(LANG === "ar" ? "ar-EG" : "en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) : "";
+        const replyHtml = it.reply ? '<div class="cm-mod-reply"><b>' + P("Your reply: ","ردك: ") + '</b>' + cmEsc(it.reply) + '</div>' : "";
+        const approveBtn = it.approved ? "" : '<button type="button" class="cm-approve" data-id="' + it.id + '">' + P("Approve","اعتماد") + '</button>';
+        return '<div class="cm-mod' + (it.approved ? "" : " pending") + '"><div class="cm-mod-top"><span class="cm-mod-name">' + cmEsc(it.name || P("Guest","زائر")) + '</span><span style="font-size:12px;color:#64748b">' + cmEsc(caseTitle(it.caseId)) + '</span><span class="cm-mod-when">' + when + '</span></div>' +
+          '<div class="cm-mod-text" dir="auto">' + cmEsc(it.text) + '</div>' + replyHtml +
+          '<div class="cm-mod-actions">' + approveBtn +
+          '<button type="button" class="cm-replybtn" data-id="' + it.id + '">' + P("Reply","رد") + '</button>' +
+          '<button type="button" class="cm-del" data-id="' + it.id + '">✕ ' + P("Delete","مسح") + '</button>' +
+          '<span style="font-size:12px;color:#94a3b8;margin-inline-start:auto">♥ ' + it.likeCount + '</span></div></div>';
+      }).join("");
+      el.querySelectorAll(".cm-approve").forEach(function(b){ b.addEventListener("click", function(){
+        window.__fbDb().collection("comments").doc(b.getAttribute("data-id")).update({ approved: true }).then(renderComments);
+      }); });
+      el.querySelectorAll(".cm-replybtn").forEach(function(b){ b.addEventListener("click", function(){
+        const cur = items.find(x => x.id === b.getAttribute("data-id"));
+        const r = prompt(P("Your reply (shows under the comment):","ردك (هيظهر تحت التعليق):"), cur && cur.reply || "");
+        if (r === null) return;
+        window.__fbDb().collection("comments").doc(b.getAttribute("data-id")).update({ reply: r.trim().slice(0, 500) }).then(renderComments);
+      }); });
+      el.querySelectorAll(".cm-del").forEach(function(b){ b.addEventListener("click", function(){
+        if (!confirm(P("Delete this comment?","تمسح التعليق ده؟"))) return;
+        window.__fbDb().collection("comments").doc(b.getAttribute("data-id")).delete().then(renderComments);
+      }); });
+    }).catch(function(){
+      el.innerHTML = '<div class="ep-list-title">' + P("Comments:","التعليقات:") + '</div><div style="font-size:13px;color:#dc2626">' + P("Could not load comments.","معرفش يجيب التعليقات.") + '</div>';
+    });
   }
   function startEdit(i){
     const c = CONFIG.cases[i]; if (!c) return;
