@@ -1908,8 +1908,8 @@ async function __sha256(t){
 
 /* ============ EDIT MODE (owner only): add cases + export updated file ============
    Hidden on purpose: tap the footer line 5 times quickly, or open the site with #edit.
-   A static site cannot store data on a server: adding a case updates the page code,
-   and the updated file is exported (download where allowed, or copy the code). */
+   Signed in (Firebase owner): new cases publish to Firestore and load on every device.
+   Not signed in: changes stay in this browser's localStorage; export the file instead. */
 (function(){
   const P = (en, ar) => LANG === "ar" ? ar : en;
   const STORE_KEY = "addedCasesV1";
@@ -2062,8 +2062,8 @@ async function __sha256(t){
     if (!panel) return;
     panel.querySelector("#epTitle").textContent = P("Edit mode — add a case","وضع التعديل — أضف حالة");
     panel.querySelector("#epNote").textContent = P(
-      "This is a static site: nothing is stored on a server. Your case is added to the page code below, then you export the updated file and send it to Instinct on WhatsApp to publish it.",
-      "الموقع ده ثابت: مفيش حاجة بتتحفظ على سيرفر. الحالة بتتضاف لكود الصفحة تحت، وبعدين تصدّر الملف المحدّث وتبعته لإنستينكت على واتساب عشان يتنشر.");
+      "Two ways to publish: sign in below and new cases go live on every device instantly; or skip signing in and the case stays on this device only, then export the file and send it to Instinct on WhatsApp.",
+      "طريقتين للنشر: سجّل دخولك تحت والحالات الجديدة هتظهر لايف على كل الأجهزة فورًا؛ أو من غير تسجيل دخول الحالة بتفضل على الجهاز ده بس، وبعدين تصدّر الملف وتبعته لإنستينكت على واتساب.");
     panel.querySelector("#lbTitleEn").textContent = P("Case title (English) *","عنوان الحالة (إنجليزي) *");
     panel.querySelector("#lbTitleAr").textContent = P("Case title (Arabic, optional)","عنوان الحالة (عربي، اختياري)");
     panel.querySelector("#lbTag").textContent = P("Specialty","التخصص");
