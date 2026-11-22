@@ -1193,7 +1193,7 @@ async function __sha256(t){
   let storedHash = null;
   try { storedHash = localStorage.getItem("ownerPinShaV1"); } catch(e) {}
   const setMode = !storedHash;
-  $("pgTitle").textContent = pick(setMode ? "Create your editor PIN" : "Editor login", setMode ? "اعمل رقم سري للتعديل" : "دخول التعديل");
+  $("pgTitle").textContent = pick(setMode ? "Create your editor PIN" : "Editor login", setMode ? "أنشئ رقم سري للتعديل" : "دخول لوحة التعديل");
   $("pgHint").textContent = pick(
     setMode ? "First visit: choose 4 or more digits. Only a scrambled fingerprint (SHA-256) is kept on this device, never the PIN itself. On a new browser or device you will be asked to create it again." : "Enter your PIN to open the editor.",
     setMode ? "أول زيارة: اختار ٤ أرقام أو أكتر. بيتحفظ على الجهاز بصمة مشفّرة بس (SHA-256)، مش الرقم نفسه. على متصفح أو جهاز جديد هيتطلب منك تعمله تاني." : "اكتب الرقم السري عشان تفتح التعديل.");
