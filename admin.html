@@ -551,6 +551,9 @@ html,body{height:100%;overflow:hidden}
 .pin-box input{width:100%;padding:12px 14px;border:1.5px solid #d7e4f5;border-radius:10px;font:inherit;font-size:15px;background:#f7fbff;color:var(--ink);margin-top:8px}
 .pin-box .edit-actions{margin-top:14px}
 .pin-box .ep-status{color:#c0392b}
+.edit-item .ep-edit,.edit-item .ep-del{border-radius:999px;width:auto;height:auto;padding:6px 14px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit}
+.edit-item .ep-edit{background:#fff;border:1.5px solid var(--deep);color:var(--deep)}
+.edit-item .ep-del{background:#fde8e8;border:1.5px solid #f5c6c6;color:#b42318}
 /* ADMIN-END */
 /* visitor comments on cases */
 .case-comment{margin-top:16px;background:#FFF;border:1px solid #E5E7EB;border-radius:12px;padding:16px;box-shadow:0 4px 14px rgba(16,24,40,.06)}
@@ -657,7 +660,7 @@ const CONFIG = {
 
   /* --- Clinical cases (placeholders — replace with real cases) --- */
   cases: [
-    { tag:"Endodontics",  title:"Root Canal Treatment - Upper Molar", text:"Patient presented with severe pain. Root canal treatment was completed in 2 visits with excellent healing and no post-operative pain." }
+    { id:"case1", tag:"Endodontics",  title:"Root Canal Treatment - Upper Molar", text:"Patient presented with severe pain. Root canal treatment was completed in 2 visits with excellent healing and no post-operative pain." }
   ],
 
   /* --- Testimonial --- */
@@ -717,7 +720,7 @@ const AR = {
     { title:"الرعاية الوقائية",        text:"كشف دوري وتنظيف وتشخيص مبكر قبل ما المشاكل تبدأ." }
   ],
   cases: [
-    { tag:"علاج الجذور",  title:"علاج الجذور لضرس علوي", text:"المريض جاء بألم شديد. تم علاج الجذور على جلستين مع التئام ممتاز وبدون ألم بعد العملية." }
+    { id:"case1", tag:"علاج الجذور",  title:"علاج الجذور لضرس علوي", text:"المريض جاء بألم شديد. تم علاج الجذور على جلستين مع التئام ممتاز وبدون ألم بعد العملية." }
   ],
   testimonial: {
     quote: "للتعديل: اقتباس قصير من مريض أو مشرف عن شغلك.",
@@ -1242,6 +1245,25 @@ async function __sha256(t){
   let stored = [];
   try { stored = JSON.parse(localStorage.getItem(STORE_KEY) || "[]"); } catch(e) { stored = []; }
 
+  CONFIG.cases.forEach((c,i)=>{ if (!c.id) c.id = "baked" + i; });
+  AR.cases.forEach((c,i)=>{ if (!c.id) c.id = "baked" + i; });
+  let delIds = [], edits = {};
+  try { delIds = JSON.parse(localStorage.getItem("deletedCasesV1") || "[]"); } catch(e) {}
+  try { edits = JSON.parse(localStorage.getItem("editedCasesV1") || "{}"); } catch(e) {}
+  if (delIds.length){
+    CONFIG.cases = CONFIG.cases.filter(c => delIds.indexOf(c.id) === -1);
+    AR.cases = AR.cases.filter(c => delIds.indexOf(c.id) === -1);
+  }
+  Object.keys(edits).forEach(id => {
+    const e = edits[id];
+    let k = CONFIG.cases.findIndex(x => x.id === id);
+    if (k > -1) CONFIG.cases[k] = Object.assign({}, CONFIG.cases[k], { tag:e.tagEn, title:e.titleEn, text:e.textEn, photos:e.photos });
+    k = AR.cases.findIndex(x => x.id === id);
+    if (k > -1) AR.cases[k] = Object.assign({}, AR.cases[k], { tag:e.tagAr, title:e.titleAr, text:e.textAr, photos:e.photos });
+  });
+  function saveDeleted(){ try { localStorage.setItem("deletedCasesV1", JSON.stringify(delIds)); } catch(e) {} }
+  function saveEdits(){ try { localStorage.setItem("editedCasesV1", JSON.stringify(edits)); } catch(e) {} }
+
   /* drop cases already baked into the source, adopt the rest */
   const baked = {};
   CONFIG.cases.forEach(c => { if (c.id) baked[c.id] = true; });
@@ -1374,20 +1396,46 @@ async function __sha256(t){
     panel.querySelector("#epSaveSoc").textContent = P("Save links","احفظ اللينكات");
     renderList();
   }
+  let editingId = null;
   function renderList(){
     if (!panel) return;
     const el = panel.querySelector("#epList");
-    if (!stored.length){ el.innerHTML = ""; return; }
-    el.innerHTML = '<div class="ep-list-title">' + P("Added on this device:","اتضافوا على الجهاز ده:") + '</div>' +
-      stored.map((c,i) => '<div class="edit-item"><span>' + (c.titleEn || "") + '</span><button type="button" data-i="' + i + '" aria-label="Delete">✕</button></div>').join("");
-    el.querySelectorAll("button").forEach(b => b.addEventListener("click", function(){
-      const i = +b.getAttribute("data-i");
-      const c = stored[i];
-      stored.splice(i, 1);
-      let k = CONFIG.cases.findIndex(x => x.id === c.id); if (k > -1) CONFIG.cases.splice(k, 1);
-      k = AR.cases.findIndex(x => x.id === c.id); if (k > -1) AR.cases.splice(k, 1);
-      saveStored(); renderAll(); renderList();
-    }));
+    el.innerHTML = '<div class="ep-list-title">' + P("Manage cases:","إدارة الحالات:") + '</div>' +
+      CONFIG.cases.map((c,i) => '<div class="edit-item"><span>' + (c.title || "") + '</span><span style="display:flex;gap:6px;flex:none">' +
+        '<button type="button" class="ep-edit" data-i="' + i + '">' + P("Edit","تعديل") + '</button>' +
+        '<button type="button" class="ep-del" data-i="' + i + '">✕ ' + P("Delete","مسح") + '</button>' +
+        '</span></div>').join("");
+    el.querySelectorAll(".ep-edit").forEach(b => b.addEventListener("click", function(){ startEdit(+b.getAttribute("data-i")); }));
+    el.querySelectorAll(".ep-del").forEach(b => b.addEventListener("click", function(){ deleteCase(+b.getAttribute("data-i")); }));
+  }
+  function startEdit(i){
+    const c = CONFIG.cases[i]; if (!c) return;
+    const a = AR.cases.find(x => x.id === c.id) || {};
+    editingId = c.id;
+    panel.querySelector("#fTitleEn").value = c.title || "";
+    panel.querySelector("#fTitleAr").value = a.title || "";
+    panel.querySelector("#fDescEn").value = c.text || "";
+    panel.querySelector("#fDescAr").value = a.text || "";
+    const ti = TAGS.findIndex(t => t[0] === c.tag);
+    panel.querySelector("#fTag").value = ti > -1 ? ti : 0;
+    panel.querySelector("#epAdd").textContent = P("Save changes","احفظ التعديل");
+    panel.querySelector("#epStatus").textContent = P("Editing: " + (c.title || ""), "بتعدّل: " + (a.title || c.title || ""));
+    panel.querySelector("#fTitleEn").focus();
+  }
+  function deleteCase(i){
+    const c = CONFIG.cases[i]; if (!c) return;
+    if (!confirm(P("Delete this case? It disappears from the page immediately. Export below to publish the change.",
+                   "متأكد إنك عايز تمسح الحالة دي؟ هتختفي من الصفحة فورًا. اعمل تصدير تحت عشان المسح يتنشر."))) return;
+    const id = c.id;
+    const si = stored.findIndex(x => x.id === id);
+    if (si > -1){ stored.splice(si, 1); saveStored(); }
+    else { if (delIds.indexOf(id) === -1) delIds.push(id); saveDeleted(); }
+    delete edits[id]; saveEdits();
+    let k = CONFIG.cases.findIndex(x => x.id === id); if (k > -1) CONFIG.cases.splice(k, 1);
+    k = AR.cases.findIndex(x => x.id === id); if (k > -1) AR.cases.splice(k, 1);
+    if (editingId === id){ editingId = null; panel.querySelector("#epAdd").textContent = P("Add case to the page","ضيف الحالة للصفحة"); }
+    saveStored(); renderAll(); renderList();
+    panel.querySelector("#epStatus").textContent = P("Case deleted from the page. Export below to publish it.","الحالة اتمسحت من الصفحة. اعمل تصدير تحت عشان المسح يتنشر.");
   }
   function renderSocRows(){
     if (!panel) return;
@@ -1471,6 +1519,33 @@ async function __sha256(t){
     const photos = [];
     for (const f of files){ const d = await compress(f); if (d) photos.push(d); }
     const ti = +panel.querySelector("#fTag").value;
+    if (editingId){
+      const id = editingId;
+      const prevEn = CONFIG.cases.find(x => x.id === id) || {};
+      const upd = {
+        id: id,
+        titleEn: tEn,
+        titleAr: panel.querySelector("#fTitleAr").value.trim() || tEn,
+        textEn: panel.querySelector("#fDescEn").value.trim(),
+        textAr: panel.querySelector("#fDescAr").value.trim() || panel.querySelector("#fDescEn").value.trim(),
+        tagEn: TAGS[ti][0], tagAr: TAGS[ti][1],
+        photos: photos.length ? photos : (prevEn.photos || [])
+      };
+      const si = stored.findIndex(x => x.id === id);
+      if (si > -1){ stored[si] = upd; saveStored(); }
+      else { edits[id] = upd; saveEdits(); }
+      let k = CONFIG.cases.findIndex(x => x.id === id);
+      if (k > -1) CONFIG.cases[k] = Object.assign({}, CONFIG.cases[k], { tag:upd.tagEn, title:upd.titleEn, text:upd.textEn, photos:upd.photos });
+      k = AR.cases.findIndex(x => x.id === id);
+      if (k > -1) AR.cases[k] = Object.assign({}, AR.cases[k], { tag:upd.tagAr, title:upd.titleAr, text:upd.textAr, photos:upd.photos });
+      editingId = null;
+      panel.querySelector("#epAdd").textContent = P("Add case to the page","ضيف الحالة للصفحة");
+      ["fTitleEn","fTitleAr","fDescEn","fDescAr"].forEach(fid => panel.querySelector("#" + fid).value = "");
+      panel.querySelector("#fPhotos").value = "";
+      renderAll(); renderList();
+      st.textContent = P("Case updated on the page now. Export below to publish it.","الحالة اتحدثت في الصفحة دلوقتي. اعمل تصدير تحت عشان يتنشر.");
+      return;
+    }
     const c = {
       id: "uc" + Date.now(),
       titleEn: tEn,
