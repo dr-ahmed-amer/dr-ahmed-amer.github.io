@@ -147,6 +147,13 @@
   </div>
 </section>
 
+<style>
+.rv-form select.rv-treat{border:1.5px solid var(--line);border-radius:12px;padding:11px 14px;font-size:14.5px;font-family:inherit;width:100%;background:#fff;color:var(--ink)}
+.rv-form select.rv-treat:focus{outline:none;border-color:#0b6cff}
+.rv-status.rv-err{color:#dc2626;font-weight:700}
+.rv-flash{animation:rvFlash 2.2s ease}
+@keyframes rvFlash{0%,55%{box-shadow:0 0 0 4px rgba(11,108,255,.45)}100%{box-shadow:0 10px 28px rgba(15,42,107,.10)}}
+</style>
 <!-- ============ SECTION: Patient Reviews ============ -->
 <section class="section" id="reviews">
   <div class="wrap">
@@ -165,6 +172,7 @@
       <input type="text" id="rvName" maxlength="40" autocomplete="name">
       <div class="rv-rate" id="rvRate"><span data-star="1">&#9734;</span><span data-star="2">&#9734;</span><span data-star="3">&#9734;</span><span data-star="4">&#9734;</span><span data-star="5">&#9734;</span></div>
       <textarea id="rvText" maxlength="600" rows="3"></textarea>
+      <select id="rvTreat" class="rv-treat"><option value=""></option><option value="filling"></option><option value="extraction"></option><option value="cleaning"></option><option value="prosthetics"></option><option value="ortho"></option><option value="other"></option></select>
       <input type="text" class="rv-hp" id="rvHp" tabindex="-1" autocomplete="off" aria-hidden="true">
       <button type="button" class="btn btn-primary" id="rvSend"></button>
       <div class="rv-status" id="rvStatus"></div>
@@ -554,6 +562,7 @@ function initReviews(){
   let myReview = null;
   try { myReview = JSON.parse(localStorage.getItem("myReviewV1") || "null"); } catch(e) {}
   let sel = 0;
+  let lastItems = [];
   const rate = $("rvRate");
   function paint(){ rate.querySelectorAll("span").forEach(function(sp){ const n = +sp.getAttribute("data-star"); sp.textContent = n <= sel ? "\u2605" : "\u2606"; sp.classList.toggle("on", n <= sel); }); }
   rate.addEventListener("click", function(e){ const sp = e.target.closest("span"); if (!sp) return; sel = +sp.getAttribute("data-star"); paint(); });
@@ -563,6 +572,13 @@ function initReviews(){
     f.hidden = !f.hidden;
 
   });
+  window.__openReviewForm = function(){
+    const f = $("rvForm");
+    if (myReview) { f.hidden = false; $("rvSend").disabled = true; $("rvStatus").textContent = isAr() ? "لتعديل تقييمك، تواصل مع د. أحمد على واتساب" : "To change your review, contact Dr. Ahmed on WhatsApp"; return; }
+    f.hidden = false;
+    f.classList.remove("rv-flash"); void f.offsetWidth; f.classList.add("rv-flash");
+    setTimeout(function(){ $("rvName").focus(); }, 450);
+  };
   function rel(ts){
     const d = ts && ts.toDate ? ts.toDate() : new Date(ts || Date.now());
     const days = Math.floor((Date.now() - d.getTime()) / 86400000);
@@ -575,7 +591,7 @@ function initReviews(){
   }
   function stars(n){ let h = ""; for (let i = 1; i <= 5; i++) h += '<span class="' + (i <= n ? "" : "off") + '">\u2605</span>'; return h; }
   function render(items){
-    const mine = myReview && !items.some(it => it.id === myReview.id) ? [Object.assign({ pending: true }, myReview)] : [];
+    const mine = myReview && !items.some(it => it.id === myReview.id) ? [Object.assign({ pending: true, fresh: true }, myReview)] : [];
     const merged = mine.concat(items);
     const n = items.length;
     if (n){
@@ -594,8 +610,8 @@ function initReviews(){
       const name = (it.name || (isAr() ? "زائر" : "Guest")).trim();
       const initial = name.charAt(0).toUpperCase() || "G";
       const color = AV_COLORS[idx % AV_COLORS.length];
-      const pend = it.pending ? '<span class="rv-pending-tag">' + (isAr() ? "في انتظار المراجعة" : "Pending review") + '</span>' : "";
-      return '<div class="rv-card' + (it.pending ? " rv-pending" : "") + '"><div class="rv-top"><div class="rv-av" style="background:' + color + '">' + rvEsc(initial) + '</div><div><div class="rv-name" dir="auto">' + rvEsc(name) + '</div><div class="rv-when">' + rel(it.createdAt || it.ts) + '</div></div>' + pend + '</div><div class="rv-stars-sm">' + stars(it.rating || 0) + '</div><div class="rv-text" dir="auto">' + rvEsc(it.text) + '</div></div>';
+      const pend = it.pending ? '<span class="rv-pending-tag">' + (isAr() ? "تقييم جديد" : "New review") + '</span>' : "";
+      return '<div class="rv-card' + (it.pending ? " rv-pending" : "") + '"><div class="rv-top"><div class="rv-av" style="background:' + color + '">' + rvEsc(initial) + '</div><div><div class="rv-name" dir="auto">' + rvEsc(name) + '</div><div class="rv-when">' + (it.fresh ? (isAr() ? "اليوم" : "today") : rel(it.createdAt || it.ts)) + '</div></div>' + pend + '</div><div class="rv-stars-sm">' + stars(it.rating || 0) + '</div><div class="rv-text" dir="auto">' + rvEsc(it.text) + '</div></div>';
     }).join("");
   }
   function load(){
@@ -604,8 +620,9 @@ function initReviews(){
         const items = [];
         q.forEach(function(d){ const a = d.data(); items.push({ id: d.id, name: a.name, rating: a.rating, text: a.text, createdAt: a.createdAt }); });
         items.sort(function(a, b){ const ta = a.createdAt && a.createdAt.toMillis ? a.createdAt.toMillis() : 0, tb = b.createdAt && b.createdAt.toMillis ? b.createdAt.toMillis() : 0; return tb - ta; });
+        lastItems = items;
         render(items);
-      }).catch(function(){ render([]); });
+      }).catch(function(){ lastItems = []; render([]); });
     };
     if (window.__fbDb && window.__fbDb()) go(window.__fbDb());
     else if (window.__loadFS) window.__loadFS(function(){ if (window.__fbDb && window.__fbDb()) go(window.__fbDb()); });
@@ -616,8 +633,9 @@ function initReviews(){
     if ($("rvHp").value) { $("rvStatus").textContent = isAr() ? "تم الإرسال" : "Sent"; return; }
     const name = $("rvName").value.trim().slice(0, 40);
     const text = $("rvText").value.trim().slice(0, 600);
-    if (!sel) { $("rvStatus").textContent = isAr() ? "اختار عدد النجوم الأول" : "Pick a star rating first"; return; }
-    if (!text) { $("rvStatus").textContent = isAr() ? "اكتب التقييم الأول" : "Write your review first"; return; }
+    const st = $("rvStatus");
+    if (!name || !sel) { st.textContent = isAr() ? "من فضلك اكتب اسمك واختار عدد النجوم" : "Please enter your name and pick a star rating"; st.classList.add("rv-err"); return; }
+    st.classList.remove("rv-err");
     let last = 0;
     try { last = +localStorage.getItem("lastReviewTs") || 0; } catch(e) {}
     if (Date.now() - last < 60000 && !myReview) { $("rvStatus").textContent = isAr() ? "استنى دقيقة بين كل تقييم" : "Please wait a minute between reviews"; return; }
@@ -626,7 +644,9 @@ function initReviews(){
     $("rvStatus").textContent = isAr() ? "بيتم الإرسال..." : "Submitting...";
     const go = function(db){
       if (!db) { btn.disabled = false; $("rvStatus").textContent = isAr() ? "حصلت مشكلة، جرب تاني" : "Something went wrong, try again"; return; }
-      const data = { name: name, rating: sel, text: text, approved: false, voter: voter, createdAt: firebase.firestore.FieldValue.serverTimestamp() };
+      const treatSel = $("rvTreat");
+      const treatLabel = treatSel && treatSel.selectedIndex > 0 ? treatSel.options[treatSel.selectedIndex].textContent : "";
+      const data = { name: name, rating: sel, text: text, treat: treatLabel, approved: true, voter: voter, createdAt: firebase.firestore.FieldValue.serverTimestamp() };
       if (myReview) { btn.disabled = true; return; }
       const write = db.collection("reviews").add(data).then(function(ref){ return ref.id; });
       write.then(function(rid){
@@ -644,10 +664,12 @@ function initReviews(){
           });
         }).catch(function(){});
       }).then(function(){
-        btn.disabled = false;
-        $("rvStatus").textContent = isAr() ? "وصل! هيظهر للكل بعد المراجعة" : "Submitted! Public after review";
+        $("rvStatus").textContent = isAr() ? "شكراً! تقييمك اتضاف ✅" : "Thank you! Your review was added ✅";
+        $("rvName").value = ""; $("rvText").value = ""; if ($("rvTreat")) $("rvTreat").selectedIndex = 0; sel = 0; paint();
+        render(lastItems);
         if (window.__rateUpdate) window.__rateUpdate();
         load();
+        setTimeout(function(){ btn.disabled = false; }, 3000);
       }).catch(function(){
         btn.disabled = false;
         $("rvStatus").textContent = isAr() ? "حصلت مشكلة، جرب تاني" : "Something went wrong, try again";
@@ -976,11 +998,12 @@ function renderAll(){
   $("casesEyebrow").textContent = pick("The record","السجل");
   $("revEyebrow").textContent = pick("What patients say","رأي المرضى");
   $("revTitle").innerHTML = pick(`Patient <span class="hl">Reviews</span>`,`تقييمات <span class="hl">المرضى</span>`);
-  $("revSub").textContent = pick("Real reviews from real visitors - moderated before publishing.","تقييمات حقيقية من الزوار - بتنشر بعد المراجعة.");
+  $("revSub").textContent = pick("Real reviews from real visitors - published instantly.","تقييمات حقيقية من الزوار - بتنشر فورًا.");
   $("rvOpen").textContent = pick("Leave a Review","سيب تقييمك");
   $("rvName").placeholder = pick("Your name","اسمك");
   $("rvText").placeholder = pick("Write your review...","اكتب تقييمك...");
-  $("rvSend").textContent = pick("Submit Review","ابعت التقييم");
+  $("rvSend").textContent = pick("Post your review","انشر تقييمك");
+  (function(){ const labels = [["",pick("Treatment type (optional)","نوع العلاج (اختياري)")],["filling",pick("Filling","حشو")],["extraction",pick("Extraction","خلع")],["cleaning",pick("Cleaning","تنظيف")],["prosthetics",pick("Prosthetics","تركيبات")],["ortho",pick("Braces","تقويم")],["other",pick("Other","غيره")]]; const ts = $("rvTreat"); if (ts) ts.querySelectorAll("option").forEach(function(o,i){ o.value = labels[i][0]; o.textContent = labels[i][1]; }); })();
   $("casesTitle").innerHTML = pick(`Clinical <span class="hl">Cases</span>`,`الحالات <span class="hl">الإكلينيكية</span>`);
   $("casesSub").textContent = pick(
     "A documented sample of my work. Each case includes photos, diagnosis, treatment, and outcome.",
@@ -1228,7 +1251,11 @@ $("langToggle").addEventListener("click", function(){
     if (t) open(t.getAttribute("data-rate-open"));
   });
   const bar = document.getElementById("heroTrust");
-  if (bar) bar.addEventListener("click", function(){ open("page"); });
+  if (bar) bar.addEventListener("click", function(){
+    const rev = document.getElementById("reviews");
+    if (rev) rev.scrollIntoView({ behavior: "smooth", block: "start" });
+    setTimeout(function(){ if (window.__openReviewForm) window.__openReviewForm(); }, 500);
+  });
   window.__rateUpdate();
   window.__loadFS = loadFS;
   window.__fbDb = function(){ return db; };
