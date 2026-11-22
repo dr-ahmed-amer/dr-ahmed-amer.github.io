@@ -64,7 +64,7 @@ h1,h2,h3,.display{font-family:var(--font-display);letter-spacing:-.02em}
 
 /* ---------- curtain reveal ---------- */
 .intro{
-  position:fixed;inset:0;z-index:200;overflow:hidden;
+  position:fixed;inset:0;z-index:1000;overflow:hidden;
   background:var(--deep);
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
   animation:curtainUp .95s cubic-bezier(.7,0,.3,1) 4.6s forwards;
@@ -152,12 +152,18 @@ body>*:not(.intro){animation:pageIn .85s ease 5.2s both}
 .lang-btn:hover{background:var(--accent);transform:scale(1.03)}
 
 footer{padding-bottom:110px}
+#cases{padding-bottom:120px}
+.cases-grid>*:last-child{margin-bottom:80px}
 
 /* ---------- floating contact + chat widget ---------- */
 .float-contact{
-  position:fixed;right:16px;bottom:20px;z-index:50;
-  display:flex;flex-direction:column;gap:12px;align-items:flex-end;
+  position:fixed;right:16px;bottom:16px;z-index:999;
+  display:flex;flex-direction:column;gap:10px;align-items:flex-end;
+  padding-bottom:env(safe-area-inset-bottom);
+  transition:transform .3s ease,opacity .3s ease;
 }
+.float-contact.fab-hidden{transform:translateY(120px);opacity:0;pointer-events:none}
+@media (max-width:480px){.float-contact>a,.chat-fab{width:48px;height:48px;max-width:48px;max-height:48px}}
 .float-contact>a,.chat-fab{
   width:48px;height:48px;border-radius:50%;display:flex;align-items:center;
   justify-content:center;box-shadow:0 8px 22px rgba(31,42,44,.18);
@@ -526,7 +532,7 @@ html,body{height:100%;overflow:hidden}
 /* ---------- owner edit mode ---------- */
 .case .thumb{position:relative}
 .ph-count{position:absolute;bottom:10px;right:10px;background:rgba(10,42,94,.85);color:#fff;border-radius:999px;padding:3px 10px;font-size:12px;font-weight:700;text-transform:none}
-.edit-panel{position:fixed;left:10px;right:10px;bottom:10px;max-height:82vh;overflow-y:auto;z-index:300;background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 24px 60px rgba(10,42,94,.35);padding:20px;font-size:15px;color:var(--ink)}
+.edit-panel{position:fixed;left:10px;right:10px;bottom:10px;max-height:82vh;overflow-y:auto;z-index:1001;background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 24px 60px rgba(10,42,94,.35);padding:20px;font-size:15px;color:var(--ink)}
 .edit-panel label{display:block;margin:10px 0 4px;font-weight:600;color:var(--deep);font-size:13.5px}
 .edit-panel input,.edit-panel textarea,.edit-panel select{width:100%;padding:10px 12px;border:1.5px solid #d7e4f5;border-radius:10px;font:inherit;background:#f7fbff;color:var(--ink)}
 .ep-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
@@ -1096,7 +1102,7 @@ window.addEventListener("scroll", closeChatOnScroll, { passive: true });
     if (visB - visT < 100) return;
     var floats = $("chatFab") && document.querySelector(".float-contact");
     if (floats){
-      floats.style.bottom = Math.max(20, ih - visB + 20) + "px";
+      floats.style.bottom = Math.max(16, ih - visB + 16) + "px";
       /* keep the whole chat panel (header included) inside the visible area */
       var panel = $("chatPanel");
       if (panel) panel.style.maxHeight = Math.max(240, visB - visT - 170) + "px";
@@ -1110,6 +1116,36 @@ window.addEventListener("scroll", closeChatOnScroll, { passive: true });
       if (e && e.intersectionRect) apply(e.intersectionRect);
     }, {threshold: [0, .1, .25, .5, .75, .9, 1]}).observe(probe);
   }
+})();
+
+/* ---- FAB hide on scroll down / show on scroll up ---- */
+(function(){
+  var fab = document.querySelector(".float-contact");
+  if (!fab) return;
+  var sc = $("appScroll");
+  var getY = function(){ return sc ? sc.scrollTop : window.scrollY; };
+  var lastY = getY(), acc = 0;
+  var onScroll = function(){
+    var y = getY();
+    var nearTop = y < 100;
+    var nearBottom = sc ? (sc.clientHeight + y) >= (sc.scrollHeight - 10)
+                        : (window.innerHeight + y) >= (document.documentElement.scrollHeight - 10);
+    var chatOpen = $("chatPanel") && $("chatPanel").classList.contains("open");
+    var d = y - lastY;
+    lastY = y;
+    if (d > 0) acc = acc > 0 ? acc + d : d;
+    else if (d < 0) acc = acc < 0 ? acc + d : d;
+    if (nearTop || nearBottom || chatOpen){
+      acc = 0;
+      fab.classList.remove("fab-hidden");
+    } else if (acc > 10){
+      fab.classList.add("fab-hidden");
+    } else if (acc < -10){
+      fab.classList.remove("fab-hidden");
+    }
+  };
+  if (sc) sc.addEventListener("scroll", onScroll, {passive:true});
+  window.addEventListener("scroll", onScroll, {passive:true});
 })();
 
 /* ============ EDIT MODE (owner only): add cases + export updated file ============
