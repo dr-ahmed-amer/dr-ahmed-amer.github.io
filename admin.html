@@ -315,6 +315,11 @@ footer{padding-bottom:110px}
 .hero .btn:active{transform:scale(.97)}
 .hero .btn-line{border-color:#fff;color:#fff;padding:14px 30px}
 .hero .btn-line:hover{background:rgba(255,255,255,.14);color:#fff;transform:translateY(-2px) scale(1.05)}
+.hero .btn .btn-arrow{display:inline-block;margin-inline-start:8px;animation:arrowNudgeLtr 1.6s ease-in-out infinite}
+[dir="rtl"] .hero .btn .btn-arrow{animation-name:arrowNudgeRtl}
+@keyframes arrowNudgeLtr{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
+@keyframes arrowNudgeRtl{0%,100%{transform:translateX(0)}50%{transform:translateX(-5px)}}
+@media (prefers-reduced-motion:reduce){.hero .btn .btn-arrow{animation:none}}
 
 @media (max-width:600px){
   .hero h1{font-size:34px}
@@ -709,6 +714,10 @@ const CONFIG = {
   role:       "Dental Student",      // shown under the name
   tagline:    "Clinical work you can trust.",
   heroKicker: "Clinical Case Portfolio & CV",
+  heroReviews: [          // hero trust bar rating: add each real patient review as one line
+    // { name: "Case 01", rating: 5 },
+  ],
+
 
   /* --- Fast contact (the most important part) --- */
   whatsapp:   "201270402429",        // WhatsApp number, international format, no +
@@ -911,11 +920,10 @@ function renderAll(){
   $("heroKicker").textContent = g("heroKicker");
   $("heroRole").textContent = g("role");
   $("heroLead").textContent = g("tagline");
-  $("heroTrust").innerHTML = pick("⭐ 5.0 Patient rating &nbsp;|&nbsp; 1+ documented cases &nbsp;|&nbsp; 4 years of training","⭐ 5.0 تقييم المرضى | 1+ حالة موثقة | 4 سنين تدريب");
   $("navLinks").innerHTML = NAV.map(n => `<a href="#${n[0]}">${ar ? n[2] : n[1]}</a>`).join("");
   $("ctaTop").textContent = pick("WhatsApp Me","كلمني واتساب");
-  $("ctaDiagnosis").textContent = pick("Diagnosis for you","تشخيص من أجلك");
-  $("ctaCases").textContent = pick("View Clinical Cases","شوف الحالات الإكلينيكية");
+  $("ctaDiagnosis").innerHTML = pick('Diagnosis for you <span class="btn-arrow">→</span>','تشخيص من أجلك <span class="btn-arrow">←</span>');
+  $("ctaCases").innerHTML = pick('View Clinical Cases <span class="btn-arrow">→</span>','شوف الحالات الإكلينيكية <span class="btn-arrow">←</span>');
 
   /* links */
   const waLink = "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(CONFIG.waPrefill);
@@ -1058,6 +1066,17 @@ function renderAll(){
     return `<div class="case"><div class="thumb">${c.photos && c.photos.length ? '<img src="' + c.photos[0] + '" alt="' + c.title + '" loading="' + (ci === 0 ? "eager" : "lazy") + '">' + (c.photos.length > 1 ? '<span class="ph-count">✚ ' + (c.photos.length - 1) + '</span>' : "") : pick(c.tag + "<br>Case 0" + (ci+1), c.tag + "<br>حالة 0" + (ci+1))}</div>
      <div class="body"><span class="tag">${c.tag}</span><h3>${c.title}</h3><p>${c.text}</p>${cm}</div></div>`;
   }).join("");
+  /* hero stats (advisor spec): real case count from the page + rating from CONFIG.heroReviews */
+  const totalCases = document.querySelectorAll("#casesGrid .case").length;
+  const reviews = CONFIG.heroReviews || [];
+  let ratingVal = pick("New","جديد");
+  if (reviews.length > 0) {
+    const sum = reviews.reduce((a, b) => a + b.rating, 0);
+    ratingVal = (sum / reviews.length).toFixed(1) + " (" + reviews.length + ")";
+  }
+  $("heroTrust").innerHTML = pick(
+    '★ <span id="rating-value">' + ratingVal + '</span> Patient rating &nbsp;|&nbsp; <span id="cases-count">' + totalCases + '</span>+ documented cases &nbsp;|&nbsp; 4 years of training',
+    '★ <span id="rating-value">' + ratingVal + '</span> تقييم المرضى &nbsp;|&nbsp; <span id="cases-count">' + totalCases + '</span>+ حالة موثقة &nbsp;|&nbsp; 4 سنين تدريب');
   if (window.__initCusdis) window.__initCusdis();
   /* comments: Cusdis widget, one thread per case (page-id case-N). Moderated: nothing shows until approved. */
 
@@ -2073,7 +2092,7 @@ window.__initCusdis();
       <button class="btn btn-line" id="ctaDiagnosis" type="button">Diagnosis for you</button>
       <a class="btn btn-dark" id="ctaCases" href="#cases">View Clinical Cases</a>
     </div>
-    <div class="trustbar rv d6" id="heroTrust"></div>
+    <p class="hero-stats trustbar rv d6" id="heroTrust"></p>
   </div>
 <button class="scroll-down" id="scrollDown" type="button" aria-label="Scroll to specialties"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
 </header>
