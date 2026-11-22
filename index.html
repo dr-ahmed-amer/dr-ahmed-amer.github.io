@@ -299,6 +299,7 @@ footer{padding-bottom:110px}
   content:"";height:1px;width:60px;background:rgba(255,255,255,0.6);
 }
 .hero p.lead{max-width:620px;margin:22px auto 36px;font-size:19.5px;font-weight:600;color:rgba(255,255,255,.9);letter-spacing:.2px}
+.hero p.uni{margin:-27px auto 36px;font-size:13px;font-weight:600;color:rgba(255,255,255,.62);letter-spacing:.6px}
 .hero .btns{display:flex;gap:15px;justify-content:center;margin:30px 0 20px;flex-wrap:wrap}
 .btn{
   display:inline-flex;align-items:center;gap:10px;padding:15px 30px;
@@ -683,6 +684,7 @@ const CONFIG = {
   nameHi:     "AMER",                // the part shown in the accent color in the hero
   role:       "Dental Student",      // shown under the name
   tagline:    "Clinical work you can trust.",
+  university: "Suez Canal University",
   heroKicker: "Clinical Case Portfolio & CV",
   heroReviews: [          // hero trust bar rating: add each real patient review as one line
     // { name: "Case 01", rating: 5 },
@@ -785,6 +787,7 @@ const AR = {
   nameHi: "عامر",
   role: "طالب طب أسنان",
   tagline: "شغل إكلينيكي تقدر تثق فيه.",
+  university: "جامعة قناة السويس",
   heroKicker: "بورتفوليو حالات إكلينيكية وسيرة ذاتية",
   chatGreeting: "أهلاً! أنا مساعد د. أحمد لحد ما يكون متاح. اسألني عن طريقة علاج أو تشخيص مبدأي للي مضايقك، وهديك إرشادات آمنة ومؤقتة لحد ما يشوفك. دي إرشادات مبدئية بس، مش تشخيص نهائي.",
   chatHint: "اوصف إيه اللي مضايقك...",
@@ -897,6 +900,7 @@ function renderAll(){
   $("heroKicker").textContent = g("heroKicker");
   $("heroRole").textContent = g("role");
   $("heroLead").textContent = g("tagline");
+  $("heroUni").textContent = g("university");
   $("navLinks").innerHTML = NAV.map(n => `<a href="#${n[0]}">${ar ? n[2] : n[1]}</a>`).join("");
   $("ctaTop").textContent = pick("WhatsApp Me","كلمني واتساب");
   $("ctaDiagnosis").innerHTML = pick('Diagnosis for you <span class="btn-arrow">→</span>','تشخيص من أجلك <span class="btn-arrow">←</span>');
@@ -1680,6 +1684,7 @@ window.__initCusdis();
     <h1 class="rv d2" id="heroName"></h1>
     <div class="role rv d3" id="heroRole"></div>
     <p class="lead rv d4" id="heroLead"></p>
+    <p class="uni rv d4" id="heroUni"></p>
     <div class="btns rv d5">
       <button class="btn btn-line" id="ctaDiagnosis" type="button">Diagnosis for you</button>
       <a class="btn btn-dark" id="ctaCases" href="#cases">View Clinical Cases</a>
