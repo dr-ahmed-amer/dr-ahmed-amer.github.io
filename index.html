@@ -394,18 +394,43 @@ footer{padding-bottom:110px}
 .why-item p{color:var(--ink-soft);font-size:15.5px}
 
 /* ---------- stats ---------- */
-.stats{display:grid;grid-template-columns:1fr;gap:20px;margin-top:56px}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:56px}
 .stat{
-  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
-  padding:34px 20px;text-align:center;
+  position:relative;display:block;background:#fff;border:1px solid var(--line);border-radius:16px;
+  padding:26px 14px 22px;text-align:center;cursor:pointer;text-decoration:none;color:inherit;
+  box-shadow:0 4px 14px rgba(10,42,94,.06);overflow:hidden;
+  opacity:0;transform:translateY(28px);
+  transition:transform .3s ease,box-shadow .3s ease,opacity .5s ease;
 }
+.stat.stat-in{opacity:1;transform:none}
+.stat:hover{transform:translateY(-6px);box-shadow:0 14px 30px rgba(10,42,94,.14)}
+.stat:active{transform:translateY(2px)}
 .stat .ico{
-  width:54px;height:54px;border-radius:50%;background:var(--accent);color:#fff;
-  display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 14px;
+  width:48px;height:48px;border-radius:50%;color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:20px;margin:0 auto 12px;
+  transition:transform .3s ease;
 }
-.stat .n{font-family:var(--font-display);font-weight:800;font-size:44px;color:var(--ink)}
-.stat .n small{color:var(--accent)}
-.stat .l{color:var(--ink-soft);font-size:14px;font-weight:600}
+.stat:hover .ico{transform:scale(1.1)}
+.stat .n{font-family:var(--font-display);font-weight:800;font-size:32px;color:var(--ink)}
+.stat .n small{font-size:20px}
+.stat .l{color:var(--ink);font-size:14px;font-weight:700;margin-top:4px}
+.stat .s{color:var(--ink-soft);font-size:12px;margin-top:4px;line-height:1.5}
+.stat .bar{height:3px;border-radius:99px;background:var(--line);margin-top:14px;overflow:hidden}
+.stat .bar i{display:block;height:100%;width:0;border-radius:99px}
+.stat .tip{position:absolute;top:12px;left:50%;transform:translate(-50%,-6px);background:var(--ink);color:#fff;font-size:12px;font-weight:600;padding:7px 12px;border-radius:8px;width:max-content;max-width:150px;white-space:normal;line-height:1.4;opacity:0;pointer-events:none;transition:opacity .3s ease,transform .3s ease;z-index:5}
+.stat:hover .tip,.stat:focus-visible .tip{opacity:1;transform:translate(-50%,0)}
+.stat .newbadge{position:absolute;top:10px;inset-inline-end:10px;background:#E5484D;color:#fff;font-size:11px;font-weight:700;padding:3px 9px;border-radius:99px;animation:stat-pulse 1.6s ease-in-out infinite;z-index:6}
+@keyframes stat-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+.stat .ripple{position:absolute;border-radius:50%;background:rgba(10,42,94,.15);transform:scale(0);animation:stat-ripple .5s ease-out forwards;pointer-events:none}
+@keyframes stat-ripple{to{transform:scale(3);opacity:0}}
+.stats-updated{text-align:center;color:var(--ink-soft);font-size:12.5px;margin-top:22px}
+@media (min-width:1024px){.stats{grid-template-columns:repeat(4,1fr)}}
+@media (prefers-reduced-motion:reduce){
+  .stat{opacity:1;transform:none;transition:none}
+  .stat:hover{transform:none}
+  .stat .newbadge{animation:none}
+  .stat .ripple{display:none}
+}
 
 /* ---------- cases ---------- */
 .cases-grid{display:grid;grid-template-columns:1fr;gap:20px}
@@ -508,10 +533,10 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
 
 /* responsive bands: mobile 360-480, tablet 481-768, laptop 769-1280, desktop 1281+ */
 @media (min-width:481px){
-  .services-grid,.cases-grid,.stats{grid-template-columns:repeat(2,1fr)}
+  .services-grid,.cases-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media (min-width:769px){
-  .services-grid,.cases-grid,.stats{grid-template-columns:repeat(3,1fr)}
+  .services-grid,.cases-grid{grid-template-columns:repeat(3,1fr)}
   .nav{height:72px}
 }
 @media (max-width:768px){
@@ -651,10 +676,11 @@ const CONFIG = {
   ],
 
   /* --- Stats --- */
-  stats: [
-    { n:"—", suffix:"", label:"Cases Documented", icon:"✚" },  // EDIT: replace — with your real numbers
-    { n:"—", suffix:"", label:"Procedure Types", icon:"✦" },
-    { n:"4", suffix:"", label:"Years of Training", icon:"★" }
+  stats: [  // n: "auto-cases" counts your cases, "auto-services" counts your services, or type a number
+    { n:"auto-cases",    suffix:"", label:"Cases Documented",   sub:"Photographed before & after",     icon:"✚", color:"#1E90FF", link:"#cases",    tip:"Browse the clinical cases" },
+    { n:"auto-services", suffix:"", label:"Procedure Types",    sub:"Treatments I train on & perform", icon:"✦", color:"#2FA36B", link:"#services", tip:"See the services list" },
+    { n:"4",             suffix:"", label:"Years of Training",  sub:"Suez Canal University",           icon:"★", color:"#F5820B", link:"#about",    tip:"More about me" },
+    { n:"—", suffix:"", label:"Patient Satisfaction", sub:"Real reviews coming soon", icon:"♥", color:"#7C5CFC", link:"#cases", tip:"Reviews section coming soon" }  // EDIT: replace — with your number
   ],
 
   /* --- Comments (Cusdis): website ID from the cusdis.com dashboard --- */
@@ -709,9 +735,10 @@ const AR = {
     { title:"متواجد دايماً",   text:"ردود سريعة على واتساب للأسئلة والمتابعة." }
   ],
   stats: [
-    { n:"—", suffix:"", label:"حالة موثقة",   icon:"✚" },
-    { n:"—", suffix:"", label:"نوع إجراء",    icon:"✦" },
-    { n:"4", suffix:"", label:"سنين تدريب",   icon:"★" }
+    { n:"auto-cases",    suffix:"", label:"حالة موثقة",   sub:"مصورة قبل وبعد",            icon:"✚", color:"#1E90FF", link:"#cases",    tip:"تصفح الحالات الإكلينيكية" },
+    { n:"auto-services", suffix:"", label:"نوع إجراء",    sub:"إجراءات بتدرب عليها وبقدمها", icon:"✦", color:"#2FA36B", link:"#services", tip:"شوف قائمة الخدمات" },
+    { n:"4",             suffix:"", label:"سنين تدريب",   sub:"جامعة قناة السويس",          icon:"★", color:"#F5820B", link:"#about",    tip:"اعرف أكتر عني" },
+    { n:"—", suffix:"", label:"رضا المرضى", sub:"آراء حقيقية قريباً", icon:"♥", color:"#7C5CFC", link:"#cases", tip:"قسم آراء المرضى قريباً" }
   ],
   services: [
     { title:"الحشوات الترميمية",       text:"حشوات بلون السنة بترجع شكلها ووظيفتها." },
@@ -840,9 +867,67 @@ function renderAll(){
   $("whyList").innerHTML = g("why").map((w,i) =>
     `<div class="why-item"><div class="num">${String(i+1).padStart(2,"0")}</div>
      <div><h3>${w.title}</h3><p>${w.text}</p></div></div>`).join("");
-  $("stats").innerHTML = g("stats").map(x =>
-    `<div class="stat"><div class="ico">${x.icon}</div>
-     <div class="n">${x.n}<small>${x.suffix}</small></div><div class="l">${x.label}</div></div>`).join("");
+  const statsEl = $("stats");
+  const reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const statVal = x => x.n === "auto-cases" ? String(g("cases").length) : (x.n === "auto-services" ? String(g("services").length) : x.n);
+  const recentCase = g("cases").some(c => { const t = Date.parse(c.date || ""); return !isNaN(t) && Math.abs(Date.now() - t) <= 7 * 864e5; });
+  statsEl.innerHTML = g("stats").map((x, i) => {
+    const v = statVal(x), numeric = /^\d+$/.test(v);
+    return `<a class="stat" href="${x.link}" data-i="${i}">
+      ${i === 0 && recentCase ? `<span class="newbadge">${pick("New","جديد")}</span>` : ""}
+      <span class="tip">${x.tip}</span>
+      <div class="ico" style="background:${x.color}">${x.icon}</div>
+      <div class="n"><span class="cnt" data-v="${numeric ? v : ""}">${numeric ? "0" : v}</span><small>${x.suffix}</small></div>
+      <div class="l">${x.label}</div>
+      <div class="s">${x.sub}</div>
+      <div class="bar"><i style="background:${x.color}"></i></div>
+    </a>`;
+  }).join("");
+  const statCards = [].slice.call(statsEl.children);
+  const statFill = (el, animate) => {
+    const c = el.querySelector(".cnt"), bar = el.querySelector(".bar i");
+    const target = c && c.getAttribute("data-v") !== "" ? +c.getAttribute("data-v") : null;
+    if (!animate || target === null){ if (c && target !== null) c.textContent = target; if (bar) bar.style.width = "100%"; return; }
+    const t0 = performance.now();
+    const tick = t => {
+      const p = Math.min(1, (t - t0) / 1500), e = 1 - Math.pow(1 - p, 3);
+      c.textContent = Math.round(target * e);
+      if (bar) bar.style.width = (p * 100) + "%";
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+  if (window.__statObs) window.__statObs.disconnect();
+  if (reducedMotion){
+    statCards.forEach(el => { el.classList.add("stat-in"); statFill(el, false); });
+  } else {
+    window.__statObs = new IntersectionObserver(entries => {
+      entries.forEach(en => {
+        if (!en.isIntersecting) return;
+        window.__statObs.unobserve(en.target);
+        const el = en.target;
+        setTimeout(() => { el.classList.add("stat-in"); statFill(el, true); }, (+el.getAttribute("data-i")) * 100);
+      });
+    }, { threshold: .25 });
+    statCards.forEach(el => window.__statObs.observe(el));
+  }
+  statsEl.onpointerdown = e => {
+    const card = e.target.closest(".stat");
+    if (!card || reducedMotion) return;
+    const r = card.getBoundingClientRect(), d = Math.max(r.width, r.height);
+    const rip = document.createElement("span");
+    rip.className = "ripple";
+    rip.style.width = rip.style.height = d + "px";
+    rip.style.left = (e.clientX - r.left - d / 2) + "px";
+    rip.style.top = (e.clientY - r.top - d / 2) + "px";
+    card.appendChild(rip);
+    setTimeout(() => rip.remove(), 600);
+  };
+  const arMonths = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
+  const nowD = new Date();
+  $("statsUpdated").textContent = pick(
+    "Last updated: " + nowD.toLocaleString("en-US", { month: "long", year: "numeric" }),
+    "آخر تحديث: " + arMonths[nowD.getMonth()] + " " + nowD.getFullYear());
 
   /* cases */
   $("casesEyebrow").textContent = pick("The record","السجل");
@@ -1458,6 +1543,7 @@ window.__initCusdis();
     <p class="section-sub" id="whySub"></p>
     <div id="whyList"></div>
     <div class="stats" id="stats"></div>
+    <div class="stats-updated" id="statsUpdated"></div>
   </div>
 </section>
 
