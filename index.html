@@ -612,7 +612,7 @@ const CONFIG = {
 
   /* --- Clinical cases (placeholders — replace with real cases) --- */
   cases: [
-    { tag:"Endodontics",  title:"Root Canal Treatment - Upper Molar", text:"Patient presented with severe pain. Root canal treatment was completed in 2 visits with excellent healing and no post-operative pain." }
+    { id:"case1", tag:"Endodontics",  title:"Root Canal Treatment - Upper Molar", text:"Patient presented with severe pain. Root canal treatment was completed in 2 visits with excellent healing and no post-operative pain." }
   ],
 
   /* --- Testimonial --- */
@@ -672,7 +672,7 @@ const AR = {
     { title:"الرعاية الوقائية",        text:"كشف دوري وتنظيف وتشخيص مبكر قبل ما المشاكل تبدأ." }
   ],
   cases: [
-    { tag:"علاج الجذور",  title:"علاج الجذور لضرس علوي", text:"المريض جاء بألم شديد. تم علاج الجذور على جلستين مع التئام ممتاز وبدون ألم بعد العملية." }
+    { id:"case1", tag:"علاج الجذور",  title:"علاج الجذور لضرس علوي", text:"المريض جاء بألم شديد. تم علاج الجذور على جلستين مع التئام ممتاز وبدون ألم بعد العملية." }
   ],
   testimonial: {
     quote: "للتعديل: اقتباس قصير من مريض أو مشرف عن شغلك.",
@@ -1107,6 +1107,22 @@ window.addEventListener("scroll", closeChatOnScroll, { passive: true });
 
 /* ============ OWNER OVERRIDES (read-only): show cases/bio/links/photo added via admin.html ============ */
 (function(){
+  CONFIG.cases.forEach((c,i)=>{ if (!c.id) c.id = "baked" + i; });
+  AR.cases.forEach((c,i)=>{ if (!c.id) c.id = "baked" + i; });
+  let delIds = [], edits = {};
+  try { delIds = JSON.parse(localStorage.getItem("deletedCasesV1") || "[]"); } catch(e) {}
+  try { edits = JSON.parse(localStorage.getItem("editedCasesV1") || "{}"); } catch(e) {}
+  if (delIds.length){
+    CONFIG.cases = CONFIG.cases.filter(c => delIds.indexOf(c.id) === -1);
+    AR.cases = AR.cases.filter(c => delIds.indexOf(c.id) === -1);
+  }
+  Object.keys(edits).forEach(id => {
+    const e = edits[id];
+    let k = CONFIG.cases.findIndex(x => x.id === id);
+    if (k > -1) CONFIG.cases[k] = Object.assign({}, CONFIG.cases[k], { tag:e.tagEn, title:e.titleEn, text:e.textEn, photos:e.photos });
+    k = AR.cases.findIndex(x => x.id === id);
+    if (k > -1) AR.cases[k] = Object.assign({}, AR.cases[k], { tag:e.tagAr, title:e.titleAr, text:e.textAr, photos:e.photos });
+  });
   let stored = [];
   try { stored = JSON.parse(localStorage.getItem("addedCasesV1") || "[]"); } catch(e) { stored = []; }
   const baked = {};
@@ -1119,7 +1135,7 @@ window.addEventListener("scroll", closeChatOnScroll, { passive: true });
     });
     try { localStorage.setItem("addedCasesV1", JSON.stringify(stored)); } catch(e) {}
   }
-  let bioOv = null, socOv = null, profilePhoto = null, dirty = false;
+  let bioOv = null, socOv = null, profilePhoto = null, dirty = delIds.length > 0 || Object.keys(edits).length > 0;
   try { bioOv = JSON.parse(localStorage.getItem("bioOverrideV1") || "null"); } catch(e) {}
   try { socOv = JSON.parse(localStorage.getItem("socialsOverrideV1") || "null"); } catch(e) {}
   try { profilePhoto = localStorage.getItem("profilePhotoV1"); } catch(e) {}
