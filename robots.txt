@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://dr-ahmed-amer.github.io/dr-ahmed-amer/sitemap.xml
