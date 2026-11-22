@@ -784,9 +784,7 @@ const CONFIG = {
        { id:"case1", tag:"Endodontics", title:"...", text:"...",
          before:"photos/case1-before.jpg", after:"photos/case1-after.jpg" }
      Put the images in the repo (or any URL). Works with several sliders per page. --- */
-  cases: [
-    { id:"case1", tag:"Endodontics",  title:"Root Canal Treatment - Upper Molar", text:"Patient presented with severe pain. Root canal treatment was completed in 2 visits with excellent healing and no post-operative pain." }
-  ],
+  cases: [],  /* cases live in Firestore "cases" - loaded on every visit */
 
   /* --- Testimonial --- */
   testimonial: {
@@ -846,9 +844,7 @@ const AR = {
     { title:"فينير وتصميم الابتسامة",  text:"فينير تجميلي مخطط على ملامح وشك وابتسامتك." },
     { title:"الرعاية الوقائية",        text:"كشف دوري وتنظيف وتشخيص مبكر قبل ما المشاكل تبدأ." }
   ],
-  cases: [
-    { id:"case1", tag:"علاج الجذور",  title:"علاج الجذور لضرس علوي", text:"المريض جاء بألم شديد. تم علاج الجذور على جلستين مع التئام ممتاز وبدون ألم بعد العملية." }
-  ],
+  cases: [],
   testimonial: {
     quote: "للتعديل: اقتباس قصير من مريض أو مشرف عن شغلك.",
     who:   "اسم المريض — للتعديل",
