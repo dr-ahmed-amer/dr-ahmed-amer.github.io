@@ -702,6 +702,34 @@ html,body{height:100%;overflow:hidden}
   .nav .links{display:flex;flex-wrap:wrap;justify-content:center;order:3;width:100%;margin-top:6px;gap:8px}
   .nav .links a{font-size:14.5px;padding:9px 14px;min-height:0;min-width:0}
 }
+/* ---------- services colorful cards ---------- */
+#servicesGrid .service{position:relative;border:none;border-radius:20px;padding:28px 24px 22px;cursor:pointer;box-shadow:0 10px 26px rgba(15,42,107,.14);transition:transform .3s ease,box-shadow .3s ease;opacity:0;transform:translateY(26px);display:flex;flex-direction:column;overflow:hidden}
+#servicesGrid .service.svc-in{opacity:1;transform:translateY(0)}
+#servicesGrid .service:hover{transform:translateY(-8px) scale(1.03);box-shadow:0 22px 44px rgba(15,42,107,.26)}
+#servicesGrid .service:focus-visible{outline:3px solid #0b6cff;outline-offset:2px}
+#servicesGrid .svc-icon{width:64px;height:64px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;margin-bottom:16px;box-shadow:0 8px 20px rgba(0,0,0,.18);transition:transform .3s ease}
+#servicesGrid .svc-icon span{font-size:30px;line-height:1}
+#servicesGrid .service:hover .svc-icon{transform:rotate(-10deg) scale(1.1)}
+#servicesGrid .service .num{position:absolute;top:22px;inset-inline-end:22px;margin:0;border:none;width:auto;height:auto;font-size:15px;color:rgba(255,255,255,.85);background:rgba(255,255,255,.18);border-radius:999px;padding:5px 12px;backdrop-filter:blur(4px)}
+#servicesGrid .service h3{color:#fff;font-size:18.5px;margin-bottom:8px;text-shadow:0 1px 2px rgba(0,0,0,.15)}
+#servicesGrid .service p{color:rgba(255,255,255,.92);font-size:14.5px;line-height:1.65;flex:1;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+#servicesGrid .svc-wa{align-self:flex-start;margin-top:16px;background:#fff;color:#0a2540;font-size:13.5px;font-weight:800;border-radius:999px;padding:9px 18px;display:inline-flex;align-items:center;gap:6px;box-shadow:0 6px 16px rgba(0,0,0,.16);transition:transform .3s ease}
+#servicesGrid .service:hover .svc-wa{transform:scale(1.05)}
+#servicesGrid .svc-arrow{display:inline-block}
+[dir="rtl"] #servicesGrid .svc-arrow{transform:scaleX(-1)}
+#servicesGrid .svc-g1{background:linear-gradient(135deg,#3b82f6,#06b6d4)}
+#servicesGrid .svc-g2{background:linear-gradient(135deg,#8b5cf6,#ec4899)}
+#servicesGrid .svc-g3{background:linear-gradient(135deg,#14b8a6,#22c55e)}
+#servicesGrid .svc-g4{background:linear-gradient(135deg,#f97316,#fbbf24)}
+#servicesGrid .svc-g4 h3,#servicesGrid .svc-g4 p{color:#451a03;text-shadow:none}
+#servicesGrid .svc-g4 .num{color:#451a03;background:rgba(255,255,255,.45)}
+#servicesGrid .svc-g5{background:linear-gradient(135deg,#e11d48,#f472b6)}
+#servicesGrid .svc-g6{background:linear-gradient(135deg,#6366f1,#2563eb)}
+@media (prefers-reduced-motion:reduce){
+  #servicesGrid .service{opacity:1;transform:none;transition:none}
+  #servicesGrid .service:hover{transform:none}
+}
+
 /* ---------- native comments (Firestore) ---------- */
 .cm-list{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
 .cm-item{display:flex;gap:10px;align-items:flex-start}
@@ -1175,8 +1203,22 @@ function renderAll(){
   $("servSub").textContent = pick(
     "The treatments I train on and provide, explained clearly at every step.",
     "العلاجات اللي بتدرب عليها وبقدمها، بشرح واضح في كل خطوة.");
-  $("servicesGrid").innerHTML = g("services").map((x,i) =>
-    `<div class="service"><div class="num">${String(i+1).padStart(2,"0")}</div><h3>${x.title}</h3><p>${x.text}</p></div>`).join("");
+  const waNum = "201270402429";
+  const svcIcons = ["\u{1F9B7}","\u{1FA7A}","\u2728","\u{1F451}","\u{1F601}","\u{1F6E1}\uFE0F"];
+  $("servicesGrid").innerHTML = g("services").map((x,i) => {
+    const msg = encodeURIComponent("Hi Dr. Ahmed, I'm interested in " + (CONFIG.services[i] ? CONFIG.services[i].title : x.title) + ". Can you tell me more?");
+    const pill = LANG === "ar" ? "\u0627\u062D\u062C\u0632 \u0639\u0644\u0649 \u0648\u0627\u062A\u0633\u0627\u0628" : "Book on WhatsApp";
+    return `<div class="service svc-g${i+1}" data-wa="https://wa.me/${waNum}?text=${msg}" role="link" tabindex="0" aria-label="${esc(x.title)} - ${pill}" style="transition-delay:${(i%3)*0.12}s"><div class="svc-icon"><span>${svcIcons[i]||"\u{1F9B7}"}</span></div><div class="num">${String(i+1).padStart(2,"0")}</div><h3>${x.title}</h3><p>${x.text}</p><span class="svc-wa">${pill} <span class="svc-arrow">\u2192</span></span></div>`;
+  }).join("");
+  document.querySelectorAll("#servicesGrid .service").forEach(el => {
+    const go = () => window.open(el.getAttribute("data-wa"), "_blank", "noopener");
+    el.addEventListener("click", go);
+    el.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+  });
+  if (!window.__svcIO && "IntersectionObserver" in window){
+    window.__svcIO = new IntersectionObserver(entries => entries.forEach(en => { if (en.isIntersecting){ en.target.classList.add("svc-in"); window.__svcIO.unobserve(en.target); } }), { threshold: 0.15 });
+  }
+  document.querySelectorAll("#servicesGrid .service").forEach(el => { if (window.__svcIO) window.__svcIO.observe(el); else el.classList.add("svc-in"); });
 
   /* why + stats */
   $("whyEyebrow").textContent = pick("The promise","الوعد");
