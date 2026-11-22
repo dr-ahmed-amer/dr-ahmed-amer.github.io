@@ -1949,7 +1949,7 @@ $("langToggle").addEventListener("click", function(){
       const s2 = document.createElement("script");
       s2.src = "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js";
       s2.onload = () => {
-        try { firebase.initializeApp(CONFIG.firebase); db = firebase.firestore(); } catch(e) {}
+        try { if (!firebase.apps.length) firebase.initializeApp(CONFIG.firebase); db = firebase.firestore(); } catch(e) {}
         if (withAuth) loadAuthScript(cb); else cb();
       };
       s2.onerror = () => cb();
@@ -2584,4 +2584,4 @@ const LIBRARY_DEMOS = [
 
 </script>
 </body>
-     </html>
+                                                              </html>
