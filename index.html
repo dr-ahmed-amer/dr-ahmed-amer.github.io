@@ -355,7 +355,7 @@ const CONFIG = {
     { n:"auto-cases",    suffix:"", label:"Cases Documented",   sub:"Photographed before & after",     icon:"✚", color:"#1E90FF", link:"#cases",    tip:"Browse the clinical cases" },
     { n:"auto-services", suffix:"", label:"Procedure Types",    sub:"Treatments I train on & perform", icon:"✦", color:"#2FA36B", link:"#services", tip:"See the services list" },
     { n:"4",             suffix:"", label:"Years of Training",  sub:"Suez Canal University",           icon:"★", color:"#F5820B", link:"#about",    tip:"More about me" },
-    { n:"—", suffix:"", label:"Patient Satisfaction", sub:"Real reviews coming soon", icon:"♥", color:"#7C5CFC", link:"#cases", tip:"Reviews section coming soon" }  // EDIT: replace — with your number
+    { n:"auto-visits",  suffix:"", label:"Site Visits",         sub:"Live counter, updated daily",  icon:"◉", color:"#7C5CFC", link:"#stats",   tip:"Live visits to this site" }  // EDIT: replace — with your number
   ],
 
   /* --- Comments (Cusdis): website ID from the cusdis.com dashboard --- */
@@ -417,7 +417,7 @@ const AR = {
     { n:"auto-cases",    suffix:"", label:"حالة موثقة",   sub:"مصورة قبل وبعد",            icon:"✚", color:"#1E90FF", link:"#cases",    tip:"تصفح الحالات الإكلينيكية" },
     { n:"auto-services", suffix:"", label:"نوع إجراء",    sub:"إجراءات بتدرب عليها وبقدمها", icon:"✦", color:"#2FA36B", link:"#services", tip:"شوف قائمة الخدمات" },
     { n:"4",             suffix:"", label:"سنين تدريب",   sub:"جامعة قناة السويس",          icon:"★", color:"#F5820B", link:"#about",    tip:"اعرف أكتر عني" },
-    { n:"—", suffix:"", label:"رضا المرضى", sub:"آراء حقيقية قريباً", icon:"♥", color:"#7C5CFC", link:"#cases", tip:"قسم آراء المرضى قريباً" }
+    { n:"auto-visits",  suffix:"", label:"زيارات الموقع", sub:"عداد مباشر يتحدث يومياً", icon:"◉", color:"#7C5CFC", link:"#stats", tip:"عدد زيارات الموقع مباشر" }
   ],
   services: [
     { title:"الحشوات الترميمية",       text:"حشوات بلون السنة بترجع شكلها ووظيفتها." },
@@ -913,7 +913,7 @@ function renderAll(){
      <div><h3>${w.title}</h3><p>${w.text}</p></div></div>`).join("");
   const statsEl = $("stats");
   const reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const statVal = x => x.n === "auto-cases" ? String(g("cases").length) : (x.n === "auto-services" ? String(g("services").length) : x.n);
+  const statVal = x => x.n === "auto-cases" ? String(g("cases").length) : (x.n === "auto-services" ? String(g("services").length) : (x.n === "auto-visits" ? (window.__siteVisits != null ? String(window.__siteVisits) : "…") : x.n));
   const recentCase = g("cases").some(c => { const t = Date.parse(c.date || ""); return !isNaN(t) && Math.abs(Date.now() - t) <= 7 * 864e5; });
   statsEl.innerHTML = g("stats").map((x, i) => {
     const v = statVal(x), numeric = /^\d+$/.test(v);
@@ -921,7 +921,7 @@ function renderAll(){
       ${i === 0 && recentCase ? `<span class="newbadge">${pick("New","جديد")}</span>` : ""}
       <span class="tip">${x.tip}</span>
       <div class="ico" style="background:${x.color}">${x.icon}</div>
-      <div class="n"><span class="cnt" data-v="${numeric ? v : ""}">${numeric ? "0" : v}</span><small>${x.suffix}</small></div>
+      <div class="n"><span class="cnt"${x.n === "auto-visits" ? ' id="visitsCnt"' : ""} data-v="${numeric ? v : ""}">${numeric ? "0" : v}</span><small>${x.suffix}</small></div>
       <div class="l">${x.label}</div>
       <div class="s">${x.sub}</div>
       <div class="bar"><i style="background:${x.color}"></i></div>
@@ -1776,5 +1776,71 @@ window.addEventListener("scroll", closeChatOnScroll, { passive: true });
 <script>document.querySelector("[data-home-logo-copy]").src=document.querySelector(".nav .logo img").src;</script>
 <script>(function(){function navState(){const nav=document.querySelector('.nav'),menu=document.getElementById('navMenu');if(!nav||!menu)return;const ar=document.documentElement.lang==='ar',open=nav.classList.contains('nav-open');menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?(ar?'اقفل القائمة':'Close menu'):(ar?'افتح القائمة':'Open menu'));const isLibrary=/library\.html$/.test(location.pathname),line=nav.getBoundingClientRect().bottom+28,section=Array.from(document.querySelectorAll('#home,main>section,#appScroll>section')).find(s=>{const r=s.getBoundingClientRect();return r.top<=line&&r.bottom>line;}),current=section?'#'+section.id:'';document.querySelectorAll('#navLinks a').forEach(a=>{if(!isLibrary&&a.hash===current)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});}
 function close(){document.querySelector('.nav').classList.remove('nav-open');navState();}
-document.addEventListener('DOMContentLoaded',()=>{const nav=document.querySelector('.nav'),menu=document.getElementById('navMenu');menu.addEventListener('click',()=>{nav.classList.toggle('nav-open');navState();});document.getElementById('navLinks').addEventListener('click',e=>{if(e.target.closest('a'))close();});document.addEventListener('click',e=>{if(!nav.contains(e.target))close();});document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});window.addEventListener('hashchange',navState);let queued=false;const scrollRoot=document.getElementById('appScroll')||window;scrollRoot.addEventListener('scroll',()=>{if(!queued){queued=true;requestAnimationFrame(()=>{queued=false;navState();});}},{passive:true});window.addEventListener('resize',navState);new MutationObserver(navState).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});navState();});})();</script><script>(function(){if(!("IntersectionObserver" in window))return;var z=document.querySelectorAll(".hero,.marquee-band,.intro-band,.stat,.foot-cta");if(!z.length)return;var o=new IntersectionObserver(function(es){es.forEach(function(e){e.target.classList.toggle("anim-off",!e.isIntersecting)})},{rootMargin:"60px"});z.forEach(function(el){o.observe(el)});})();</script></body>
+document.addEventListener('DOMContentLoaded',()=>{const nav=document.querySelector('.nav'),menu=document.getElementById('navMenu');menu.addEventListener('click',()=>{nav.classList.toggle('nav-open');navState();});document.getElementById('navLinks').addEventListener('click',e=>{if(e.target.closest('a'))close();});document.addEventListener('click',e=>{if(!nav.contains(e.target))close();});document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});window.addEventListener('hashchange',navState);let queued=false;const scrollRoot=document.getElementById('appScroll')||window;scrollRoot.addEventListener('scroll',()=>{if(!queued){queued=true;requestAnimationFrame(()=>{queued=false;navState();});}},{passive:true});window.addEventListener('resize',navState);new MutationObserver(navState).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});navState();});})();</script><script>(function(){if(!("IntersectionObserver" in window))return;var z=document.querySelectorAll(".hero,.marquee-band,.intro-band,.stat,.foot-cta");if(!z.length)return;var o=new IntersectionObserver(function(es){es.forEach(function(e){e.target.classList.toggle("anim-off",!e.isIntersecting)})},{rootMargin:"60px"});z.forEach(function(el){o.observe(el)});})();</script><script>
+/* ---------- live site visits counter (Firestore stats/visits, once per browser per day) ---------- */
+(function(){
+  function show(n){
+    window.__siteVisits = n;
+    var el = document.getElementById("visitsCnt");
+    if (!el) return;
+    el.setAttribute("data-v", n);
+    var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced){ el.textContent = n; return; }
+    var t0 = performance.now();
+    var tick = function(t){
+      var p = Math.min(1, (t - t0) / 1500), e = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(n * e);
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+  function fail(){
+    var el = document.getElementById("visitsCnt");
+    if (el) el.textContent = "\u2014";
+  }
+  function withDb(cb){
+    if (window.__fbDb && window.__fbDb()) { cb(window.__fbDb()); return; }
+    if (typeof firebase !== "undefined" && firebase.firestore) {
+      try { if (!firebase.apps.length) firebase.initializeApp(CONFIG.firebase); } catch(e) {}
+      cb(firebase.firestore()); return;
+    }
+    var s1 = document.createElement("script");
+    s1.src = "https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js";
+    s1.onload = function(){
+      var s2 = document.createElement("script");
+      s2.src = "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js";
+      s2.onload = function(){
+        try { if (!firebase.apps.length) firebase.initializeApp(CONFIG.firebase); } catch(e) {}
+        window.__fbDb = window.__fbDb || function(){ return firebase.firestore(); };
+        cb(firebase.firestore());
+      };
+      s2.onerror = function(){ cb(null); };
+      document.head.appendChild(s2);
+    };
+    s1.onerror = function(){ cb(null); };
+    document.head.appendChild(s1);
+  }
+  function start(){
+    if (typeof CONFIG === "undefined" || !(CONFIG.firebase && CONFIG.firebase.apiKey)) { fail(); return; }
+    withDb(function(db){
+      if (!db) { fail(); return; }
+      var ref = db.collection("stats").doc("visits");
+      var today = new Date().toISOString().slice(0, 10);
+      var counted = false;
+      try { counted = localStorage.getItem("visitsCountedDay") === today; } catch(e) {}
+      var write = counted ? Promise.resolve() :
+        ref.set({ count: firebase.firestore.FieldValue.increment(1) }, { merge: true }).then(function(){
+          try { localStorage.setItem("visitsCountedDay", today); } catch(e) {}
+        });
+      write.then(function(){ return ref.get(); }).then(function(snap){
+        var d = snap.exists ? snap.data() : null;
+        show(d && typeof d.count === "number" ? d.count : 0);
+      }).catch(fail);
+    });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function(){ setTimeout(start, 800); });
+  else setTimeout(start, 800);
+})();
+</script>
+</body>
      </html>
