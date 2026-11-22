@@ -1836,7 +1836,10 @@ document.addEventListener('DOMContentLoaded',()=>{const nav=document.querySelect
       try { last = +localStorage.getItem("visitsLastTs") || 0; } catch(e) {}
       if (now - last > 60000){
         try { localStorage.setItem("visitsLastTs", String(now)); } catch(e) {}
-        ref.set({ count: firebase.firestore.FieldValue.increment(1) }, { merge: true }).catch(function(){});
+        var bump = function(){
+          return ref.set({ count: firebase.firestore.FieldValue.increment(1) }, { merge: true });
+        };
+        bump().catch(function(){ setTimeout(function(){ bump().catch(function(){}); }, 6000); });
       }
     });
   }
