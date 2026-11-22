@@ -738,7 +738,19 @@ function initComments(){
           const items = [];
           q.forEach(function(d){ const a = d.data(); items.push({ id: d.id, name: a.name, text: a.text, ts: a.createdAt, likeCount: a.likeCount || 0, reply: a.reply || "" }); });
           items.sort(function(a, b){ const ta = a.ts && a.ts.toMillis ? a.ts.toMillis() : 0, tb = b.ts && b.ts.toMillis ? b.ts.toMillis() : 0; return ta - tb; });
-          renderOne(box, items);
+          const mineIds = Object.keys(myComments).filter(function(id){ return myComments[id].caseId === caseId; });
+          if (mineIds.length){
+            Promise.all(mineIds.map(function(id){
+              return db.collection("comments").doc(id).get().then(function(snap){
+                if (!snap.exists) { delete myComments[id]; }
+              }).catch(function(){});
+            })).then(function(){
+              try { localStorage.setItem("myCommentsV1", JSON.stringify(myComments)); } catch(e) {}
+              renderOne(box, items);
+            });
+          } else {
+            renderOne(box, items);
+          }
         })
         .catch(function(){ renderOne(box, []); });
     });
