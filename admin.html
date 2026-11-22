@@ -108,7 +108,7 @@ h1,h2,h3,.display{font-family:var(--font-display);letter-spacing:-.02em}
 @keyframes heroIn{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
 
 /* page appears only after the curtain opens */
-body>*:not(.intro){animation:pageIn .85s ease 5.2s both}
+body>*:not(.intro):not(#rateModal){animation:pageIn .85s ease 5.2s both}
 @keyframes pageIn{from{opacity:0}to{opacity:1}}
 
 /* ---------- navbar ---------- */
@@ -320,6 +320,24 @@ footer{padding-bottom:110px}
 @keyframes arrowNudgeLtr{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
 @keyframes arrowNudgeRtl{0%,100%{transform:translateX(0)}50%{transform:translateX(-5px)}}
 @media (prefers-reduced-motion:reduce){.hero .btn .btn-arrow{animation:none}}
+
+/* ---------- visitor ratings ---------- */
+.hero .trustbar{cursor:pointer}
+.rate-hint{opacity:.7;font-weight:600}
+.rate-modal{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1000;display:none;align-items:center;justify-content:center;padding:16px}
+.rate-modal.open{display:flex}
+.rate-card{background:#fff;padding:25px;border-radius:20px;width:100%;max-width:350px;text-align:center;color:#111}
+.rate-card h3{margin:0}
+.rate-card .sub{font-size:13px;color:#666;margin:6px 0 0}
+.rate-stars{font-size:35px;cursor:pointer;margin:15px 0;direction:ltr}
+.rate-stars span.on{color:#f5a623}
+.rate-card input,.rate-card textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #ddd;margin-bottom:10px;font-family:inherit;box-sizing:border-box}
+.rate-card textarea{height:70px;resize:vertical}
+.rate-submit{width:100%;margin-top:6px;padding:12px;background:#0f2a6b;color:#fff;border:none;border-radius:12px;font-weight:bold;cursor:pointer;font-family:inherit}
+.rate-cancel{width:100%;margin-top:8px;padding:10px;background:#eee;border:none;border-radius:12px;cursor:pointer;font-family:inherit}
+.rate-thanks{display:none;padding:20px 0;font-weight:700}
+.case .rate-row{margin-top:10px;font-size:13px;font-weight:700;color:var(--accent);cursor:pointer}
+.case .rate-row .cavg{color:var(--ink-soft);font-weight:600;margin-inline-start:6px}
 
 @media (max-width:600px){
   .hero h1{font-size:34px}
@@ -599,7 +617,7 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
   .intro .who{animation:markIn .25s ease .1s both}
   .intro .what{animation:markIn .25s ease .18s both}
   .intro .intro-band{animation:bandUp .3s ease .25s forwards}
-  body>*:not(.intro){animation:pageIn .3s ease .7s both}
+  body>*:not(.intro):not(#rateModal){animation:pageIn .3s ease .7s both}
   .hero .rv{animation:heroIn .35s ease calc(.85s + var(--d,0s)) both}
   .hero{animation:none}
   .bubbles{display:none}
@@ -717,6 +735,13 @@ const CONFIG = {
   heroReviews: [          // hero trust bar rating: add each real patient review as one line
     // { name: "Case 01", rating: 5 },
   ],
+
+  firebase: {             // paste the Firebase web app config here to turn on live visitor ratings
+    apiKey: "AIzaSyCcY4GBf-MG0Dtu_yY0V1SZ-2THpKZAQhY",
+    authDomain: "dr-ahmed-portfolio.firebaseapp.com",
+    projectId: "dr-ahmed-portfolio",
+    appId: "1:245590666294:web:ddad844c6e2d72f22f3c97",
+  },
 
 
   /* --- Fast contact (the most important part) --- */
@@ -1064,7 +1089,7 @@ function renderAll(){
      `<div class="case-comment"><div class="cc-head"><b>💬 ${pick("Comments","التعليقات")}</b></div>
      <div class="cc-soon">${pick("Comments coming soon - Share your thoughts","التعليقات قريبًا - شاركنا رأيك")}</div></div>`);
     return `<div class="case"><div class="thumb">${c.photos && c.photos.length ? '<img src="' + c.photos[0] + '" alt="' + c.title + '" loading="' + (ci === 0 ? "eager" : "lazy") + '">' + (c.photos.length > 1 ? '<span class="ph-count">✚ ' + (c.photos.length - 1) + '</span>' : "") : pick(c.tag + "<br>Case 0" + (ci+1), c.tag + "<br>حالة 0" + (ci+1))}</div>
-     <div class="body"><span class="tag">${c.tag}</span><h3>${c.title}</h3><p>${c.text}</p>${cm}</div></div>`;
+     <div class="body"><span class="tag">${c.tag}</span><h3>${c.title}</h3><p>${c.text}</p><div class="rate-row" data-rate-open="case-${ci+1}" data-rate-target="case-${ci+1}">${pick("☆ Rate this case","☆ قيّم الحالة")}<span class="cavg"></span></div>${cm}</div></div>`;
   }).join("");
   /* hero stats (advisor spec): real case count from the page + rating from CONFIG.heroReviews */
   const totalCases = document.querySelectorAll("#casesGrid .case").length;
@@ -1075,8 +1100,16 @@ function renderAll(){
     ratingVal = (sum / reviews.length).toFixed(1) + " (" + reviews.length + ")";
   }
   $("heroTrust").innerHTML = pick(
-    '★ <span id="rating-value">' + ratingVal + '</span> Patient rating &nbsp;|&nbsp; <span id="cases-count">' + totalCases + '</span>+ documented cases &nbsp;|&nbsp; 4 years of training',
-    '★ <span id="rating-value">' + ratingVal + '</span> تقييم المرضى &nbsp;|&nbsp; <span id="cases-count">' + totalCases + '</span>+ حالة موثقة &nbsp;|&nbsp; 4 سنين تدريب');
+    '★ <span id="rating-value">' + ratingVal + '</span> Patient rating &nbsp;|&nbsp; <span id="cases-count">' + totalCases + '</span>+ documented cases &nbsp;|&nbsp; 4 years of training<br><small class="rate-hint">Tap to rate →</small>',
+    '★ <span id="rating-value">' + ratingVal + '</span> تقييم المرضى &nbsp;|&nbsp; <span id="cases-count">' + totalCases + '</span>+ حالة موثقة &nbsp;|&nbsp; 4 سنين تدريب<br><small class="rate-hint">دوس عشان تقيّم</small>');
+  if (window.__rateUpdate) window.__rateUpdate();
+  /* rating modal labels */
+  $("rateTitle").textContent = pick("Rate Your Experience","قيّم تجربتك");
+  $("rateSub").textContent = pick("With " + g("name"),"مع " + g("name"));
+  $("rateName").placeholder = pick("Your name (optional)","اسمك (اختياري)");
+  $("rateComment").placeholder = pick("Your comment (optional)","تعليقك (اختياري)");
+  $("rateSubmit").textContent = pick("Submit Rating","إرسال التقييم");
+  $("rateCancel").textContent = pick("Cancel","إلغاء");
   if (window.__initCusdis) window.__initCusdis();
   /* comments: Cusdis widget, one thread per case (page-id case-N). Moderated: nothing shows until approved. */
 
@@ -1146,6 +1179,90 @@ $("langToggle").addEventListener("click", function(){
   try { localStorage.setItem("siteLang", LANG); } catch(e) {}
   renderAll();
 });
+
+/* visitor ratings: Firestore-backed reviews (active when CONFIG.firebase is set) */
+(function(){
+  const modal = $("rateModal"), stars = $("rateStars"), thanks = $("rateThanks"), form = $("rateForm");
+  let target = "page", selected = 0, db = null;
+  let voter = "";
+  try { voter = localStorage.getItem("voterToken") || ""; } catch(e) {}
+  if (!voter) { voter = Math.random().toString(36).slice(2) + Date.now().toString(36); try { localStorage.setItem("voterToken", voter); } catch(e) {} }
+  const fbOn = () => !!(CONFIG.firebase && CONFIG.firebase.apiKey && CONFIG.firebase.apiKey.indexOf("PASTE-") !== 0);
+  const isAr = () => document.documentElement.lang === "ar";
+  function loadFS(cb){
+    if (db || !fbOn()) { cb(); return; }
+    const s1 = document.createElement("script");
+    s1.src = "https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js";
+    s1.onload = () => {
+      const s2 = document.createElement("script");
+      s2.src = "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js";
+      s2.onload = () => { try { firebase.initializeApp(CONFIG.firebase); db = firebase.firestore(); } catch(e) {} cb(); };
+      s2.onerror = () => cb();
+      document.head.appendChild(s2);
+    };
+    s1.onerror = () => cb();
+    document.head.appendChild(s1);
+  }
+  window.__rateUpdate = function(){
+    if (!fbOn()) return;
+    loadFS(function(){
+      if (!db) return;
+      db.collection("aggregates").get().then(function(q){
+        let sum = 0, cnt = 0; const per = {};
+        q.forEach(function(d){ const a = d.data(); per[d.id] = a; sum += (a.sum || 0); cnt += (a.count || 0); });
+        const el = document.getElementById("rating-value");
+        if (el) el.textContent = cnt ? ((sum / cnt).toFixed(1) + " (" + cnt + ")") : (isAr() ? "جديد" : "New");
+        document.querySelectorAll("[data-rate-target]").forEach(function(row){
+          const a = per[row.getAttribute("data-rate-target")];
+          const avg = row.querySelector(".cavg");
+          if (avg) avg.textContent = (a && a.count) ? ("★ " + (a.sum / a.count).toFixed(1) + " (" + a.count + ")") : "";
+        });
+      }).catch(function(){});
+    });
+  };
+  function paint(){ stars.querySelectorAll("span").forEach(function(s){ const n = +s.getAttribute("data-star"); s.textContent = n <= selected ? "★" : "☆"; s.classList.toggle("on", n <= selected); }); }
+  function open(t){ target = t; selected = 0; paint(); thanks.style.display = "none"; form.style.display = ""; modal.classList.add("open"); }
+  function close(){ modal.classList.remove("open"); }
+  stars.addEventListener("click", function(e){ const s = e.target.closest("span"); if (!s) return; selected = +s.getAttribute("data-star"); paint(); });
+  $("rateCancel").addEventListener("click", close);
+  modal.addEventListener("click", function(e){ if (e.target === modal) close(); });
+  $("rateSubmit").addEventListener("click", function(){
+    if (!selected) return;
+    const btn = $("rateSubmit");
+    if (!fbOn()) { form.style.display = "none"; thanks.style.display = ""; thanks.textContent = isAr() ? "التقييمات قريبًا" : "Ratings coming soon"; return; }
+    btn.disabled = true;
+    const name = $("rateName").value.trim().slice(0, 60), comment = $("rateComment").value.trim().slice(0, 500);
+    loadFS(function(){
+      if (!db) { btn.disabled = false; form.style.display = "none"; thanks.style.display = ""; thanks.textContent = isAr() ? "التقييمات قريبًا" : "Ratings coming soon"; return; }
+      const vRef = db.collection("ratings").doc(target + "_" + voter);
+      const aRef = db.collection("aggregates").doc(target);
+      db.runTransaction(function(tx){
+        return Promise.all([tx.get(vRef), tx.get(aRef)]).then(function(res){
+          const vDoc = res[0], aDoc = res[1];
+          const old = vDoc.exists ? (vDoc.data().rating || 0) : 0;
+          const agg = aDoc.exists ? aDoc.data() : { sum: 0, count: 0 };
+          tx.set(vRef, { target: target, rating: selected, name: name, comment: comment, updated: firebase.firestore.FieldValue.serverTimestamp() });
+          tx.set(aRef, { sum: (agg.sum || 0) - old + selected, count: (agg.count || 0) + (vDoc.exists ? 0 : 1) });
+        });
+      }).then(function(){
+        btn.disabled = false; form.style.display = "none"; thanks.style.display = "";
+        thanks.textContent = isAr() ? "شكرًا! تقييمك اتسجل." : "Thank you! Your rating was recorded.";
+        window.__rateUpdate();
+        setTimeout(close, 1600);
+      }).catch(function(){
+        btn.disabled = false; form.style.display = "none"; thanks.style.display = "";
+        thanks.textContent = isAr() ? "حصلت مشكلة، جرب تاني." : "Something went wrong, please try again.";
+      });
+    });
+  });
+  document.addEventListener("click", function(e){
+    const t = e.target.closest("[data-rate-open]");
+    if (t) open(t.getAttribute("data-rate-open"));
+  });
+  const bar = document.getElementById("heroTrust");
+  if (bar) bar.addEventListener("click", function(){ open("page"); });
+  window.__rateUpdate();
+})();
 
 /* top-level locale helpers for the chat assistant (renderAll keeps its own) */
 function g(key){ return (LANG === "ar" && AR[key] !== undefined) ? AR[key] : CONFIG[key]; }
@@ -2225,5 +2342,23 @@ window.__initCusdis();
 </footer>
 </div>
 
+
+<!-- visitor rating modal (advisor spec: tappable hero-stats bar opens this) -->
+<div class="rate-modal" id="rateModal" role="dialog" aria-modal="true">
+  <div class="rate-card">
+    <div id="rateForm">
+      <h3 id="rateTitle">Rate Your Experience</h3>
+      <p class="sub" id="rateSub"></p>
+      <div class="rate-stars" id="rateStars">
+        <span data-star="1">☆</span><span data-star="2">☆</span><span data-star="3">☆</span><span data-star="4">☆</span><span data-star="5">☆</span>
+      </div>
+      <input id="rateName" type="text" maxlength="60">
+      <textarea id="rateComment" maxlength="500"></textarea>
+      <button class="rate-submit" id="rateSubmit" type="button">Submit Rating</button>
+      <button class="rate-cancel" id="rateCancel" type="button">Cancel</button>
+    </div>
+    <div class="rate-thanks" id="rateThanks"></div>
+  </div>
+</div>
 </body>
 </html>
