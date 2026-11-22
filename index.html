@@ -1779,8 +1779,10 @@ function close(){document.querySelector('.nav').classList.remove('nav-open');nav
 document.addEventListener('DOMContentLoaded',()=>{const nav=document.querySelector('.nav'),menu=document.getElementById('navMenu');menu.addEventListener('click',()=>{nav.classList.toggle('nav-open');navState();});document.getElementById('navLinks').addEventListener('click',e=>{if(e.target.closest('a'))close();});document.addEventListener('click',e=>{if(!nav.contains(e.target))close();});document.addEventListener('keydown',e=>{if(e.key==='Escape')close();});window.addEventListener('hashchange',navState);let queued=false;const scrollRoot=document.getElementById('appScroll')||window;scrollRoot.addEventListener('scroll',()=>{if(!queued){queued=true;requestAnimationFrame(()=>{queued=false;navState();});}},{passive:true});window.addEventListener('resize',navState);new MutationObserver(navState).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});navState();});})();</script><script>(function(){if(!("IntersectionObserver" in window))return;var z=document.querySelectorAll(".hero,.marquee-band,.intro-band,.stat,.foot-cta");if(!z.length)return;var o=new IntersectionObserver(function(es){es.forEach(function(e){e.target.classList.toggle("anim-off",!e.isIntersecting)})},{rootMargin:"60px"});z.forEach(function(el){o.observe(el)});})();</script><script>
 /* ---------- live site visits counter (Firestore stats/visits: counts every page load, max once per 60s per browser; realtime listener) ---------- */
 (function(){
+  var VISITS_OFFSET = 184; /* display offset per owner request: shown = real Firestore count + offset; stored count untouched */
   var shown = null;
   function show(n){
+    n = n + VISITS_OFFSET;
     window.__siteVisits = n;
     var el = document.getElementById("visitsCnt");
     if (!el) return;
