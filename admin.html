@@ -2026,6 +2026,7 @@ async function __sha256(t){
       '<div class="ep-status" id="epStatus"></div>' +
       '<div class="edit-list" id="epList"></div>' +
       '<div class="edit-list" id="cmList" style="margin-top:24px"></div>' +
+      '<div class="edit-list" id="rvList" style="margin-top:24px"></div>' +
       '</div>' +
       '<hr class="ep-hr">' +
       '<div class="ep-sec" id="epSecBio"></div>' +
@@ -2150,6 +2151,7 @@ async function __sha256(t){
     el.querySelectorAll(".ep-edit").forEach(b => b.addEventListener("click", function(){ startEdit(+b.getAttribute("data-i")); }));
     el.querySelectorAll(".ep-del").forEach(b => b.addEventListener("click", function(){ deleteCase(+b.getAttribute("data-i")); }));
     renderComments();
+    renderReviews();
   }
   function cmEsc(x){ return String(x).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
   function renderComments(){
@@ -2196,6 +2198,46 @@ async function __sha256(t){
       }); });
     }).catch(function(){
       el.innerHTML = '<div class="ep-list-title">' + P("Comments:","التعليقات:") + '</div><div style="font-size:13px;color:#dc2626">' + P("Could not load comments.","معرفش يجيب التعليقات.") + '</div>';
+    });
+  }
+  function renderReviews(){
+    if (!panel) return;
+    const el = panel.querySelector("#rvList");
+    if (!el) return;
+    if (!authUser || !window.__fbDb || !window.__fbDb()) { el.innerHTML = ""; return; }
+    el.innerHTML = '<div class="ep-list-title">' + P("Patient reviews:","تقييمات المرضى:") + '</div><div style="font-size:12.5px;color:#94a3b8">' + P("Loading...","بيجيب...") + '</div>';
+    window.__fbDb().collection("reviews").get().then(function(q){
+      const items = [];
+      q.forEach(function(d){ const a = d.data(); items.push({ id: d.id, name: a.name, rating: a.rating, text: a.text, approved: !!a.approved, ts: a.createdAt && a.createdAt.toMillis ? a.createdAt.toMillis() : 0 }); });
+      items.sort(function(a, b){ if (a.approved !== b.approved) return a.approved ? 1 : -1; return b.ts - a.ts; });
+      if (!items.length){
+        el.innerHTML = '<div class="ep-list-title">' + P("Patient reviews:","تقييمات المرضى:") + '</div><div style="font-size:13px;color:#94a3b8">' + P("No reviews yet.","مفيش تقييمات لسه.") + '</div>';
+        return;
+      }
+      el.innerHTML = '<div class="ep-list-title">' + P("Patient reviews:","تقييمات المرضى:") + '</div>' + items.map(function(it){
+        const when = it.ts ? new Date(it.ts).toLocaleString(LANG === "ar" ? "ar-EG" : "en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) : "";
+        const approveBtn = it.approved ? "" : '<button type="button" class="cm-approve rv-approve" data-id="' + it.id + '">' + P("Approve","اعتماد") + '</button>';
+        return '<div class="cm-mod' + (it.approved ? "" : " pending") + '"><div class="cm-mod-top"><span class="cm-mod-name">' + cmEsc(it.name || P("Guest","زائر")) + '</span><span style="color:#f59e0b;font-size:13px">' + "\u2605".repeat(it.rating || 0) + '</span><span class="cm-mod-when">' + when + '</span></div>' +
+          '<div class="cm-mod-text" dir="auto">' + cmEsc(it.text) + '</div>' +
+          '<div class="cm-mod-actions">' + approveBtn +
+          '<button type="button" class="rv-editbtn" data-id="' + it.id + '">' + P("Edit","تعديل") + '</button>' +
+          '<button type="button" class="cm-del rv-del" data-id="' + it.id + '">✕ ' + P("Delete","مسح") + '</button></div></div>';
+      }).join("");
+      el.querySelectorAll(".rv-approve").forEach(function(b){ b.addEventListener("click", function(){
+        window.__fbDb().collection("reviews").doc(b.getAttribute("data-id")).update({ approved: true }).then(renderReviews);
+      }); });
+      el.querySelectorAll(".rv-editbtn").forEach(function(b){ b.addEventListener("click", function(){
+        const cur = items.find(x => x.id === b.getAttribute("data-id"));
+        const t = prompt(P("Edit review text:","عدّل نص التقييم:"), cur && cur.text || "");
+        if (t === null) return;
+        window.__fbDb().collection("reviews").doc(b.getAttribute("data-id")).update({ text: t.trim().slice(0, 600) }).then(renderReviews);
+      }); });
+      el.querySelectorAll(".rv-del").forEach(function(b){ b.addEventListener("click", function(){
+        if (!confirm(P("Delete this review?","تمسح التقييم ده؟"))) return;
+        window.__fbDb().collection("reviews").doc(b.getAttribute("data-id")).delete().then(renderReviews);
+      }); });
+    }).catch(function(){
+      el.innerHTML = '<div class="ep-list-title">' + P("Patient reviews:","تقييمات المرضى:") + '</div><div style="font-size:13px;color:#dc2626">' + P("Could not load reviews.","معرفش يجيب التقييمات.") + '</div>';
     });
   }
   function startEdit(i){
