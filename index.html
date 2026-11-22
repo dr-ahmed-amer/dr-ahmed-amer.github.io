@@ -547,13 +547,13 @@ html,body{height:100%;overflow:hidden}
 .soc-row input{flex:1;min-width:0;padding:9px 12px;border:1.5px solid #d7e4f5;border-radius:10px;font:inherit;font-size:13.5px;background:#f7fbff;color:var(--ink)}
 .soc-row button{border:none;background:#fde8e8;color:#b42318;border-radius:50%;width:30px;height:30px;cursor:pointer;flex:none}
 /* visitor comments on cases */
-.case-comment{margin-top:16px;background:#fff;border:1px solid #E5E7EB;border-radius:16px;padding:16px;box-shadow:0 4px 14px rgba(16,24,40,.06)}
+.case-comment{margin-top:16px;background:#FFF;border:1px solid #E5E7EB;border-radius:12px;padding:16px;box-shadow:0 4px 14px rgba(16,24,40,.06)}
 .case-comment .cc-head{display:flex;flex-direction:column;align-items:flex-start;gap:2px;margin-bottom:10px}
 .case-comment .cc-head b{font-size:16px}
 .case-comment .cc-head span{font-size:13px;color:var(--ink-soft)}
 .case-comment .cusdis-box{display:block;min-height:300px}
 .case-comment .cc-soon{padding:18px 4px;color:#5a6b85;font-size:15px;text-align:center}
-@media (max-width:480px){.case-comment{padding:12px}}
+@media (max-width:480px){.case-comment{padding:16px}}
 #epCode{font-family:monospace;font-size:11px}
 </style>
 </head>
@@ -800,7 +800,7 @@ function renderAll(){
      `<div class="case-comment"><div class="cc-head"><b>💬 ${pick("Comments","التعليقات")}</b><span>${pick("Join the discussion — no account needed","شارك في النقاش — بدون حساب")}</span></div>
      <div class="cusdis-box" data-host="https://cusdis.com" data-app-id="${CONFIG.cusdisAppId}" data-page-id="case-${ci+1}" data-page-url="${location.origin}${location.pathname}?case=${ci+1}" data-page-title="${c.title}" data-theme="light"></div></div>` :
      `<div class="case-comment"><div class="cc-head"><b>💬 ${pick("Comments","التعليقات")}</b></div>
-     <div class="cc-soon">${pick("Comments coming soon - Stay tuned","التعليقات قريبًا - ترقّبوا")}</div></div>`);
+     <div class="cc-soon">${pick("Comments coming soon - Share your thoughts","التعليقات قريبًا - شاركنا رأيك")}</div></div>`);
     return `<div class="case"><div class="thumb">${c.photos && c.photos.length ? '<img src="' + c.photos[0] + '" alt="' + c.title + '" loading="' + (ci === 0 ? "eager" : "lazy") + '">' + (c.photos.length > 1 ? '<span class="ph-count">✚ ' + (c.photos.length - 1) + '</span>' : "") : pick(c.tag + "<br>Case 0" + (ci+1), c.tag + "<br>حالة 0" + (ci+1))}</div>
      <div class="body"><span class="tag">${c.tag}</span><h3>${c.title}</h3><p>${c.text}</p>${cm}</div></div>`;
   }).join("")
