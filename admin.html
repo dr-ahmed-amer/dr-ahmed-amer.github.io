@@ -760,6 +760,10 @@ const CONFIG = {
     projectId: "dr-ahmed-portfolio",
     appId: "1:245590666294:web:ddad844c6e2d72f22f3c97",
   },
+  cloudinary: {           // free-tier image hosting: unsigned upload preset (no secret in client code)
+    cloudName: "fd9acuyb",
+    uploadPreset: "dental_cases",
+  },
 
 
   /* --- Fast contact (the most important part) --- */
@@ -2242,23 +2246,61 @@ async function __sha256(t){
   }
   function compress(file){ return compressTo(file, 1200, 0.75); }
   function compressThumb(file){ return compressTo(file, 480, 0.7); }
+  function compressToBlob(file, maxDim, q){
+    return new Promise(function(resolve){
+      const fr = new FileReader();
+      fr.onload = function(){
+        const img = new Image();
+        img.onload = function(){
+          try {
+            const s = Math.min(1, maxDim / Math.max(img.width, img.height));
+            const cv = document.createElement("canvas");
+            cv.width = Math.max(1, Math.round(img.width * s)); cv.height = Math.max(1, Math.round(img.height * s));
+            cv.getContext("2d").drawImage(img, 0, 0, cv.width, cv.height);
+            cv.toBlob(function(b){ resolve(b || file); }, "image/webp", q);
+          } catch(e){ resolve(file); }
+        };
+        img.onerror = function(){ resolve(file); };
+        img.src = fr.result;
+      };
+      fr.onerror = function(){ resolve(null); };
+      fr.readAsDataURL(file);
+    });
+  }
+  async function uploadOne(file, maxDim, q){
+    const blob = await compressToBlob(file, maxDim, q);
+    if (!blob) return null;
+    const fd = new FormData();
+    fd.append("file", blob, "case.webp");
+    fd.append("upload_preset", CONFIG.cloudinary.uploadPreset);
+    const r = await fetch("https://api.cloudinary.com/v1_1/" + CONFIG.cloudinary.cloudName + "/image/upload", { method: "POST", body: fd });
+    if (!r.ok) throw new Error("upload " + r.status);
+    const j = await r.json();
+    return j.secure_url || null;
+  }
   async function addCase(){
     const tEn = panel.querySelector("#fTitleEn").value.trim();
     const st = panel.querySelector("#epStatus");
     if (!authUser){ st.textContent = P("Sign in above first - publishing needs the owner account.","سجل الدخول فوق الأول - النشر محتاج حساب المالك."); return; }
     if (!tEn){ st.textContent = P("Title (English) is required.","العنوان بالإنجليزي مطلوب."); return; }
-    st.textContent = P("Processing photos...","بجهز الصور...");
+    st.textContent = P("Uploading photos...","برفع الصور...");
     const files = Array.prototype.slice.call(panel.querySelector("#fPhotos").files || []).slice(0, 6);
     const photos = [];
     const photoThumbs = [];
-    for (const f of files){ const d = await compress(f); const t = await compressThumb(f); if (d) photos.push(d); if (t) photoThumbs.push(t); }
+    let beforeImg = null, afterImg = null, beforeThumb = null, afterThumb = null;
     const ti = +panel.querySelector("#fTag").value;
     const bf = panel.querySelector("#fBefore").files[0];
     const af = panel.querySelector("#fAfter").files[0];
-    const beforeImg = bf ? await compress(bf) : null;
-    const afterImg = af ? await compress(af) : null;
-    const beforeThumb = bf ? await compressThumb(bf) : null;
-    const afterThumb = af ? await compressThumb(af) : null;
+    try {
+      for (const f of files){ const d = await uploadOne(f, 1200, 0.75); const t = await uploadOne(f, 480, 0.7); if (d) photos.push(d); if (t) photoThumbs.push(t); }
+      beforeImg = bf ? await uploadOne(bf, 1200, 0.75) : null;
+      afterImg = af ? await uploadOne(af, 1200, 0.75) : null;
+      beforeThumb = bf ? await uploadOne(bf, 480, 0.7) : null;
+      afterThumb = af ? await uploadOne(af, 480, 0.7) : null;
+    } catch(e){
+      st.textContent = P("Photo upload failed - check your connection and try again.","رفع الصور فشل - اتأكد من النت وجرب تاني.");
+      return;
+    }
     const clearForm = function(){
       ["fTitleEn","fTitleAr","fDescEn","fDescAr"].forEach(id => panel.querySelector("#" + id).value = "");
       panel.querySelector("#fPhotos").value = "";
