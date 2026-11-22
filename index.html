@@ -1475,25 +1475,51 @@ function freeQAAnswer(q, raw){
 }
 function genericAnswer(raw){
   var l = chatMsgLang(raw);
-  botSay("<b>" + pickL(l, "Good question.","سؤال كويس.") + "</b><br>" +
+  botSay("<b>" + pickL(l, "Fair question.","سؤال وجيه.") + "</b><br>" +
     pickL(l,
-      "I can share general guidance, but every case is different, so I can't answer your specific situation here. In general: keep the area clean, rinse gently with warm salt water, and avoid whatever irritates it. For a real answer, Dr. Ahmed should take a look - he replies personally on WhatsApp:",
-      "أقدر أديك إرشادات عامة، بس كل حالة بتختلف، فمش هقدر أجاوب على حالتك بالتحديد هنا. بشكل عام: حافظ على نظافة المكان، مضمض برفق بمية دافية بالملح، وبعد عن أي حاجة بتهيجه. عشان إجابة حقيقية، لازم د. أحمد يشوف حالتك، وهو بيرد بنفسه على واتساب:") +
-    '<span class="note">' + pickL(l, "General guidance only, not a final diagnosis.","دي إرشادات عامة بس، مش تشخيص نهائي.") + "</span>",
+      "That's a bit outside what I can reliably answer as a dental assistant, so I won't guess. What I can genuinely help with: anything about teeth, treatments, or booking with Dr. Ahmed - and he answers specific questions personally on WhatsApp.",
+      "ده بره اللي أقدر أجاوب فيه بثقة كمساعد أسنان، فمش هخمن. اللي أقدر أساعدك فيه فعلاً: أي حاجة عن الأسنان أو العلاج أو الحجز مع د. أحمد، وهو بيرد على الأسئلة الخاصة بنفسه على واتساب."),
     pick(CONFIG.waPrefill, "أهلاً د. أحمد!"),
     pickL(l, "Ask Dr. Ahmed on WhatsApp","اسأل د. أحمد على واتساب"));
+}
+function specialIntent(raw, low){
+  var l = chatMsgLang(raw);
+  if (/who are you|your name|what are you/i.test(low) || /انت مين|إنت مين|مين انت|مين إنت|اسمك/.test(raw)){
+    botSay(pickL(l,
+      "I'm Dr. Ahmed's virtual assistant. I answer quick questions, share safe preliminary guidance, and help you book with him. Anything specific about your case goes straight to him on WhatsApp.",
+      "أنا المساعد الافتراضي بتاع د. أحمد. برد على الأسئلة السريعة، وبقدم إرشادات مبدئية آمنة، وبساعدك تحجز معاه. أي حاجة خاصة بحالتك بتوصله مباشرة على واتساب."),
+      pick(CONFIG.waPrefill, "أهلاً د. أحمد!"),
+      pickL(l, "Message Dr. Ahmed","كلّم د. أحمد"));
+    return true;
+  }
+  if (/(who is|about)\s+(dr|doctor)|tell me about/i.test(low) || /مين د|عن الدكتور|عن دكتور|عرفني ب|عرفيني ب/.test(raw)){
+    botSay(pickL(l,
+      g("name") + " is a " + g("role") + " at " + g("university") + ". " + g("tagline") + " You can browse his documented cases right here on the page, and reach him directly on WhatsApp.",
+      g("name") + "، " + g("role") + " في " + g("university") + ". " + g("tagline") + " تقدر تتصفح حالاته الموثقة هنا في الصفحة، وتوصله مباشرة على واتساب."),
+      pick(CONFIG.waPrefill, "أهلاً د. أحمد!"),
+      pickL(l, "Message Dr. Ahmed","كلّم د. أحمد"));
+    return true;
+  }
+  if (/how are you|how'?s it going|how do you feel/i.test(low) || /عامل ايه|عامل إيه|عاملة ايه|ازيك|إزيك|اخبارك|أخبارك|اخبارك ايه/.test(raw)){
+    botSay(pickL(l,
+      "All good here, thanks for asking! Ready to help with anything dental - or to connect you with Dr. Ahmed.",
+      "تمام والحمد لله، شكراً لسؤالك! جاهز أساعدك في أي حاجة تخص الأسنان، أو أوصلك بد. أحمد."));
+    return true;
+  }
+  return false;
 }
 function hasRedFlag(t){
   for (var i = 0; i < REDFLAG_RES.length; i++){ if (REDFLAG_RES[i].test(t)) return true; }
   return false;
 }
-function emergency(){
+function emergency(l){
+  l = l || LANG;
   chatStep = "emergency";
   showQuick([]);
-  botSay("<b>" + pick("⚠ This needs urgent care.","⚠ الحالة دي محتاجة تدخل عاجل.") + "</b><br>" +
-    pick("Please go to a dental emergency clinic immediately — don't wait for a reply here. You can also message Dr. Ahmed right now:",
+  botSay("<b>" + pickL(l, "⚠ This needs urgent care.","⚠ الحالة دي محتاجة تدخل عاجل.") + "</b><br>" +
+    pickL(l, "Please go to a dental emergency clinic immediately — don't wait for a reply here. You can also message Dr. Ahmed right now:",
          "روح لطوارئ الأسنان فوراً ومستنيش رد هنا. وتقدر تبعت لد. أحمد دلوقتي حالاً:"),
-    pick("Hello Dr. Ahmed, this is urgent — I have a dental emergency.","أهلاً د. أحمد، الموضوع طارئ — عندي حالة طوارئ أسنان."));
+    pickL(l, "Hello Dr. Ahmed, this is urgent — I have a dental emergency.","أهلاً د. أحمد، الموضوع طارئ — عندي حالة طوارئ أسنان."));
 }
 function askQ2(){
   chatStep = "q2";
@@ -1563,7 +1589,7 @@ function handleChatText(){
     /* a fresh question after the summary: reopen the open-question flow */
     chatStep = "choose"; chatIssue = null;
   }
-  if (hasRedFlag(msg)){ emergency(); return; }
+  if (hasRedFlag(msg)){ emergency(chatMsgLang(msg)); return; }
   if (chatStep === "choose"){
     var hit = null, low = msg.toLowerCase();
     ISSUES.forEach(function(s){
@@ -1573,6 +1599,7 @@ function handleChatText(){
     if (hit){ chooseIssue(hit, false); return; }
     var qa = matchFreeQA(low);
     if (qa){ freeQAAnswer(qa, msg); return; }
+    if (specialIntent(msg, low)) return;
     genericAnswer(msg);
     return;
   }
