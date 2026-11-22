@@ -768,11 +768,12 @@ html,body{height:100%;overflow:hidden}
 .rv-pending-tag{font-size:11.5px;font-weight:700;color:#b45309;background:#fef3c7;border-radius:999px;padding:3px 10px;margin-inline-start:auto}
 .rv-empty{text-align:center;font-size:15px;color:var(--ink-soft);padding:18px 0 6px}
 .rv-cta{text-align:center;margin-top:6px}
+.rv-form[hidden]{display:none}
 .rv-form{max-width:520px;margin:18px auto 0;background:#fff;border-radius:20px;box-shadow:0 10px 28px rgba(15,42,107,.10);padding:20px;display:flex;flex-direction:column;gap:12px}
 .rv-form input[type=text]:not(.rv-hp),.rv-form textarea{border:1.5px solid var(--line);border-radius:12px;padding:11px 14px;font-size:14.5px;font-family:inherit;width:100%;resize:vertical}
 .rv-form input:focus,.rv-form textarea:focus{outline:none;border-color:#0b6cff}
 .rv-rate{display:flex;gap:4px;justify-content:center;font-size:34px;cursor:pointer}
-.rv-rate span{color:#dbe3ee;transition:.15s;line-height:1}
+.rv-rate span{min-width:44px;min-height:44px;display:inline-flex;align-items:center;justify-content:center;color:#dbe3ee;transition:.15s;line-height:1}
 .rv-rate span.on{color:#FFC107}
 .rv-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 .rv-status{text-align:center;font-size:13.5px;color:var(--ink-soft);min-height:18px}
@@ -1269,8 +1270,8 @@ function applySpecFilter(code){
    Mouse + touch + arrow keys. Physical left/right, so it is identical in RTL. */
 function baSliderHTML(before, after, ar){
   return `<div class="ba-wrap" role="slider" tabindex="0" aria-label="${ar ? "المقارنة قبل وبعد" : "Before and after comparison"}" aria-valuemin="5" aria-valuemax="95" aria-valuenow="50">
-    <img src="${after}" alt="${ar ? "بعد" : "After"}" loading="lazy" draggable="false">
-    <div class="ba-before"><img src="${before}" alt="${ar ? "قبل" : "Before"}" loading="lazy" draggable="false"></div>
+    <img src="${after}" alt="${ar ? "بعد" : "After"}" loading="lazy" width="800" height="600" decoding="async" draggable="false">
+    <div class="ba-before"><img src="${before}" alt="${ar ? "قبل" : "Before"}" loading="lazy" width="800" height="600" decoding="async" draggable="false"></div>
     <div class="ba-line"><div class="ba-handle">↔️</div></div>
     <span class="ba-tag before">${ar ? "قبل" : "Before"}</span>
     <span class="ba-tag after">${ar ? "بعد" : "After"}</span>
@@ -1313,8 +1314,9 @@ function initReviews(){
   rate.addEventListener("click", function(e){ const sp = e.target.closest("span"); if (!sp) return; sel = +sp.getAttribute("data-star"); paint(); });
   $("rvOpen").addEventListener("click", function(){
     const f = $("rvForm");
+    if (myReview) { f.hidden = false; $("rvSend").disabled = true; $("rvStatus").textContent = isAr() ? "لتعديل تقييمك، تواصل مع د. أحمد على واتساب" : "To change your review, contact Dr. Ahmed on WhatsApp"; return; }
     f.hidden = !f.hidden;
-    if (!f.hidden && myReview){ $("rvName").value = myReview.name || ""; $("rvText").value = myReview.text || ""; sel = myReview.rating || 0; paint(); $("rvStatus").textContent = isAr() ? "عندك تقييم من الجهاز ده - عدّله وابعته تاني" : "You have a review from this device - edit and resubmit"; }
+
   });
   function rel(ts){
     const d = ts && ts.toDate ? ts.toDate() : new Date(ts || Date.now());
@@ -1380,9 +1382,8 @@ function initReviews(){
     const go = function(db){
       if (!db) { btn.disabled = false; $("rvStatus").textContent = isAr() ? "حصلت مشكلة، جرب تاني" : "Something went wrong, try again"; return; }
       const data = { name: name, rating: sel, text: text, approved: false, voter: voter, createdAt: firebase.firestore.FieldValue.serverTimestamp() };
-      const write = myReview && myReview.id
-        ? db.collection("reviews").doc(myReview.id).update({ name: data.name, rating: data.rating, text: data.text, approved: false }).then(function(){ return myReview.id; })
-        : db.collection("reviews").add(data).then(function(ref){ return ref.id; });
+      if (myReview) { btn.disabled = true; return; }
+      const write = db.collection("reviews").add(data).then(function(ref){ return ref.id; });
       write.then(function(rid){
         myReview = { id: rid, name: name, rating: sel, text: text, ts: Date.now() };
         try { localStorage.setItem("myReviewV1", JSON.stringify(myReview)); localStorage.setItem("lastReviewTs", String(Date.now())); } catch(e) {}
@@ -1763,7 +1764,7 @@ function renderAll(){
     const beforeUrl = c.before || enC.before, afterUrl = c.after || enC.after;
     const thumbHtml = (beforeUrl && afterUrl)
       ? baSliderHTML(cldOpt(beforeUrl, 800), cldOpt(afterUrl, 800), ar)
-      : `<div class="thumb">${c.photos && c.photos.length ? '<img class="zoomable" data-full="' + cldOpt(c.photos[0], 1600) + '" src="' + cldOpt((c.photoThumbs && c.photoThumbs[0]) || c.photos[0], 800) + '" alt="' + c.title + '" loading="' + (ci === 0 ? "eager" : "lazy") + '" style="cursor:zoom-in">' + (c.photos.length > 1 ? '<span class="ph-count">✚ ' + (c.photos.length - 1) + '</span>' : "") : pick(c.tag + "<br>Case 0" + (ci+1), c.tag + "<br>حالة 0" + (ci+1))}</div>`;
+      : `<div class="thumb">${c.photos && c.photos.length ? '<img class="zoomable" data-full="' + cldOpt(c.photos[0], 1600) + '" src="' + cldOpt((c.photoThumbs && c.photoThumbs[0]) || c.photos[0], 800) + '" alt="' + c.title + '" loading="lazy" width="800" height="600" decoding="async" style="cursor:zoom-in">' + (c.photos.length > 1 ? '<span class="ph-count">✚ ' + (c.photos.length - 1) + '</span>' : "") : pick(c.tag + "<br>Case 0" + (ci+1), c.tag + "<br>حالة 0" + (ci+1))}</div>`;
     return `<div class="case">${thumbHtml}
      <div class="body"><span class="tag">${c.tag}</span><h3>${c.title}</h3><p>${c.text}</p><div class="rate-row" data-rate-open="case-${ci+1}" data-rate-target="case-${ci+1}">${pick("☆ Rate this case","☆ قيّم الحالة")}<span class="cavg"></span></div>${cm}</div></div>`;
   }).join("");
@@ -2511,4 +2512,4 @@ window.addEventListener("scroll", closeChatOnScroll, { passive: true });
 </script>
 
 </body>
-                                                              </html>
+     </html>
