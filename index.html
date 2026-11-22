@@ -1110,11 +1110,26 @@ function renderAll(){
     const beforeUrl = c.before || enC.before, afterUrl = c.after || enC.after;
     const thumbHtml = (beforeUrl && afterUrl)
       ? baSliderHTML(beforeUrl, afterUrl, ar)
-      : `<div class="thumb">${c.photos && c.photos.length ? '<img src="' + c.photos[0] + '" alt="' + c.title + '" loading="' + (ci === 0 ? "eager" : "lazy") + '">' + (c.photos.length > 1 ? '<span class="ph-count">✚ ' + (c.photos.length - 1) + '</span>' : "") : pick(c.tag + "<br>Case 0" + (ci+1), c.tag + "<br>حالة 0" + (ci+1))}</div>`;
+      : `<div class="thumb">${c.photos && c.photos.length ? '<img class="zoomable" data-full="' + c.photos[0] + '" src="' + ((c.photoThumbs && c.photoThumbs[0]) || c.photos[0]) + '" alt="' + c.title + '" loading="' + (ci === 0 ? "eager" : "lazy") + '" style="cursor:zoom-in">' + (c.photos.length > 1 ? '<span class="ph-count">✚ ' + (c.photos.length - 1) + '</span>' : "") : pick(c.tag + "<br>Case 0" + (ci+1), c.tag + "<br>حالة 0" + (ci+1))}</div>`;
     return `<div class="case">${thumbHtml}
      <div class="body"><span class="tag">${c.tag}</span><h3>${c.title}</h3><p>${c.text}</p><div class="rate-row" data-rate-open="case-${ci+1}" data-rate-target="case-${ci+1}">${pick("☆ Rate this case","☆ قيّم الحالة")}<span class="cavg"></span></div>${cm}</div></div>`;
   }).join("");
   initBaSliders();
+  /* photo lightbox: tap a case photo to see the full image */
+  if (!document.getElementById("photoLightbox")){
+    const lb = document.createElement("div");
+    lb.id = "photoLightbox";
+    lb.style.cssText = "display:none;position:fixed;inset:0;z-index:9999;background:rgba(4,16,38,.88);align-items:center;justify-content:center;cursor:zoom-out;padding:16px";
+    lb.innerHTML = '<img style="max-width:100%;max-height:100%;border-radius:14px;box-shadow:0 18px 60px rgba(0,0,0,.5)" alt="">';
+    lb.addEventListener("click", function(){ lb.style.display = "none"; });
+    document.body.appendChild(lb);
+    document.addEventListener("click", function(e){
+      const t = e.target.closest("img.zoomable");
+      if (!t) return;
+      lb.querySelector("img").src = t.getAttribute("data-full") || t.src;
+      lb.style.display = "flex";
+    });
+  }
   /* hero stats (advisor spec): real case count from the page + rating from CONFIG.heroReviews */
   const totalCases = document.querySelectorAll("#casesGrid .case").length;
   const reviews = CONFIG.heroReviews || [];
@@ -1307,14 +1322,22 @@ $("langToggle").addEventListener("click", function(){
     if (!fbOn()) return;
     loadFS(function(){
       if (!db) return;
-      db.collection("casesPublished").orderBy("created", "asc").get().then(function(q){
+      db.collection("cases").get().then(function(q){
+        const docs = [];
+        q.forEach(function(doc){ docs.push(doc); });
+        docs.sort(function(a,b){
+          const da = a.data(), dbb = b.data();
+          const ta = (da.createdAt && da.createdAt.toMillis) ? da.createdAt.toMillis() : 0;
+          const tb = (dbb.createdAt && dbb.createdAt.toMillis) ? dbb.createdAt.toMillis() : 0;
+          return tb - ta;
+        });
         let added = 0;
-        q.forEach(function(doc){
+        docs.forEach(function(doc){
           const c = doc.data();
           const id = "pub-" + doc.id;
-          if (CONFIG.cases.some(function(x){ return x.id === id; })) return;
-          CONFIG.cases.push({ id:id, tag:c.tagEn, title:c.titleEn, text:c.textEn, photos:c.photos || [], before:c.before || null, after:c.after || null });
-          AR.cases.push({ id:id, tag:c.tagAr || c.tagEn, title:c.titleAr || c.titleEn, text:c.textAr || c.textEn, photos:c.photos || [], before:c.before || null, after:c.after || null });
+          if (CONFIG.cases.some(function(x){ return x.id === id || (x.title && c.titleEn && x.title === c.titleEn); })) return;
+          CONFIG.cases.push({ id:id, tag:c.tagEn, title:c.titleEn, text:c.textEn, photos:c.photos || [], photoThumbs:c.photoThumbs || [], before:c.before || null, after:c.after || null, beforeThumb:c.beforeThumb || null, afterThumb:c.afterThumb || null });
+          AR.cases.push({ id:id, tag:c.tagAr || c.tagEn, title:c.titleAr || c.titleEn, text:c.textAr || c.textEn, photos:c.photos || [], photoThumbs:c.photoThumbs || [], before:c.before || null, after:c.after || null, beforeThumb:c.beforeThumb || null, afterThumb:c.afterThumb || null });
           added++;
         });
         if (added) renderAll();
