@@ -771,7 +771,7 @@ function renderAll(){
   $("casesGrid").innerHTML = g("cases").map((c,ci) => {
     const cm = commentsOn ?
      `<div class="case-comment"><label>💬 ${pick("Comments on this case — visible to everyone","التعليقات على الحالة — ظاهرة للجميع")}</label>
-     <iframe class="rb-frame" loading="lazy" title="comments" src="https://my.remarkbox.com/embed?rb_owner_key=e7465431-e5f6-11f1-8000-040140774501&thread_title=${encodeURIComponent(c.title)}&thread_uri=${encodeURIComponent("https://dr-ahmed-amer.github.io/?case=" + (ci + 1))}&mode=light"></iframe></div>` : "";
+     <iframe class="rb-frame" loading="lazy" title="comments" src="https://my.remarkbox.com/embed?rb_owner_key=ed1144da-e5f9-11f1-8000-040140774501&thread_title=${encodeURIComponent(c.title)}&thread_uri=${encodeURIComponent("https://dr-ahmed-amer.github.io/?case=" + (ci + 1))}&mode=light"></iframe></div>` : "";
     return `<div class="case"><div class="thumb"${c.photos && c.photos.length ? ' style="background-image:url(' + c.photos[0] + ');background-size:cover;background-position:center"' : ""}>${c.photos && c.photos.length ? (c.photos.length > 1 ? '<span class="ph-count">✚ ' + (c.photos.length - 1) + '</span>' : "") : pick("Case photo<br>EDIT","صورة الحالة<br>للتعديل")}</div>
      <div class="body"><span class="tag">${c.tag}</span><h3>${c.title}</h3><p>${c.text}</p>${cm}</div></div>`;
   }).join("")
