@@ -744,6 +744,36 @@ html,body{height:100%;overflow:hidden}
   #servicesGrid .service:hover{transform:none}
 }
 
+/* ---------- patient reviews ---------- */
+.rv-summary{display:flex;align-items:center;justify-content:center;gap:14px;margin:18px 0 24px;flex-wrap:wrap}
+.rv-avg{font-size:46px;font-weight:800;color:var(--deep);line-height:1}
+.rv-stars{position:relative;font-size:26px;line-height:1;letter-spacing:2px}
+.rv-stars-bg{color:#dbe3ee}
+.rv-stars-fg{position:absolute;inset:0;color:#FFC107;overflow:hidden;white-space:nowrap;width:0}
+.rv-based{font-size:13.5px;color:var(--ink-soft);width:100%;text-align:center}
+.rv-grid{display:grid;grid-template-columns:1fr;gap:18px;margin-bottom:26px}
+@media (min-width:769px){ .rv-grid{grid-template-columns:repeat(3,1fr)} }
+.rv-card{background:#fff;border-radius:20px;box-shadow:0 10px 28px rgba(15,42,107,.10);padding:20px 20px 16px;display:flex;flex-direction:column;gap:8px}
+.rv-card.rv-pending{border:1.5px dashed #f59e0b}
+.rv-top{display:flex;align-items:center;gap:10px}
+.rv-av{width:40px;height:40px;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;flex:none}
+.rv-name{font-weight:800;color:var(--deep);font-size:15px}
+.rv-when{font-size:12px;color:#94a3b8}
+.rv-stars-sm{color:#FFC107;font-size:15px;letter-spacing:1px}
+.rv-stars-sm .off{color:#dbe3ee}
+.rv-text{font-size:14.5px;line-height:1.7;color:var(--ink)}
+.rv-pending-tag{font-size:11.5px;font-weight:700;color:#b45309;background:#fef3c7;border-radius:999px;padding:3px 10px;margin-inline-start:auto}
+.rv-empty{text-align:center;font-size:15px;color:var(--ink-soft);padding:18px 0 6px}
+.rv-cta{text-align:center;margin-top:6px}
+.rv-form{max-width:520px;margin:18px auto 0;background:#fff;border-radius:20px;box-shadow:0 10px 28px rgba(15,42,107,.10);padding:20px;display:flex;flex-direction:column;gap:12px}
+.rv-form input[type=text]:not(.rv-hp),.rv-form textarea{border:1.5px solid var(--line);border-radius:12px;padding:11px 14px;font-size:14.5px;font-family:inherit;width:100%;resize:vertical}
+.rv-form input:focus,.rv-form textarea:focus{outline:none;border-color:#0b6cff}
+.rv-rate{display:flex;gap:4px;justify-content:center;font-size:34px;cursor:pointer}
+.rv-rate span{color:#dbe3ee;transition:.15s;line-height:1}
+.rv-rate span.on{color:#FFC107}
+.rv-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.rv-status{text-align:center;font-size:13.5px;color:var(--ink-soft);min-height:18px}
+
 /* ---------- native comments (Firestore) ---------- */
 .cm-list{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
 .cm-item{display:flex;gap:10px;align-items:flex-start}
@@ -1011,6 +1041,125 @@ window.addEventListener("mouseup", () => { __baActive = null; });
 window.addEventListener("mousemove", __baMove);
 window.addEventListener("touchend", () => { __baActive = null; });
 window.addEventListener("touchmove", __baMove, {passive:true});
+/* ---------- patient reviews (Firestore, moderated) ---------- */
+function initReviews(){
+  const grid = $("rvGrid");
+  if (!grid) return;
+  if (window.__rvInit) { if (window.__reloadReviews) window.__reloadReviews(); return; }
+  window.__rvInit = true;
+  if (!(CONFIG.firebase && CONFIG.firebase.apiKey && CONFIG.firebase.apiKey.indexOf("PASTE-") !== 0)) return;
+  const isAr = () => document.documentElement.lang === "ar";
+  const rvEsc = (x) => String(x).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; });
+  const AV_COLORS = ["#2563eb","#9333ea","#0d9488","#ea580c","#e11d48","#4f46e5"];
+  let voter = "";
+  try { voter = localStorage.getItem("voterToken") || ""; } catch(e) {}
+  let myReview = null;
+  try { myReview = JSON.parse(localStorage.getItem("myReviewV1") || "null"); } catch(e) {}
+  let sel = 0;
+  const rate = $("rvRate");
+  function paint(){ rate.querySelectorAll("span").forEach(function(sp){ const n = +sp.getAttribute("data-star"); sp.textContent = n <= sel ? "\u2605" : "\u2606"; sp.classList.toggle("on", n <= sel); }); }
+  rate.addEventListener("click", function(e){ const sp = e.target.closest("span"); if (!sp) return; sel = +sp.getAttribute("data-star"); paint(); });
+  $("rvOpen").addEventListener("click", function(){
+    const f = $("rvForm");
+    f.hidden = !f.hidden;
+    if (!f.hidden && myReview){ $("rvName").value = myReview.name || ""; $("rvText").value = myReview.text || ""; sel = myReview.rating || 0; paint(); $("rvStatus").textContent = isAr() ? "عندك تقييم من الجهاز ده - عدّله وابعته تاني" : "You have a review from this device - edit and resubmit"; }
+  });
+  function rel(ts){
+    const d = ts && ts.toDate ? ts.toDate() : new Date(ts || Date.now());
+    const days = Math.floor((Date.now() - d.getTime()) / 86400000);
+    if (days <= 0) return isAr() ? "النهارده" : "today";
+    if (days === 1) return isAr() ? "إمبارح" : "yesterday";
+    if (days < 7) return isAr() ? "من " + days + " أيام" : days + " days ago";
+    if (days < 30) { const w = Math.floor(days / 7); return isAr() ? (w === 1 ? "من أسبوع" : "من " + w + " أسابيع") : w + (w === 1 ? " week ago" : " weeks ago"); }
+    const m = Math.floor(days / 30);
+    return isAr() ? (m === 1 ? "من شهر" : "من " + m + " شهور") : m + (m === 1 ? " month ago" : " months ago");
+  }
+  function stars(n){ let h = ""; for (let i = 1; i <= 5; i++) h += '<span class="' + (i <= n ? "" : "off") + '">\u2605</span>'; return h; }
+  function render(items){
+    const mine = myReview && !items.some(it => it.id === myReview.id) ? [Object.assign({ pending: true }, myReview)] : [];
+    const merged = mine.concat(items);
+    const n = items.length;
+    if (n){
+      const avg = items.reduce((a, b) => a + (b.rating || 0), 0) / n;
+      $("rvSummary").hidden = false;
+      $("rvAvg").textContent = avg.toFixed(1);
+      $("rvStarsFg").style.width = (avg / 5 * 100) + "%";
+      $("rvBased").textContent = isAr() ? "بناءً على " + n + " تقييم" + (n > 2 ? "" : "") : "Based on " + n + " patient review" + (n === 1 ? "" : "s");
+      $("rvEmpty").hidden = true;
+    } else {
+      $("rvSummary").hidden = true;
+      $("rvEmpty").hidden = false;
+      $("rvEmpty").textContent = isAr() ? "لسه مفيش تقييمات - كون أول واحد" : "No reviews yet - be the first to review";
+    }
+    grid.innerHTML = merged.map(function(it, idx){
+      const name = (it.name || (isAr() ? "زائر" : "Guest")).trim();
+      const initial = name.charAt(0).toUpperCase() || "G";
+      const color = AV_COLORS[idx % AV_COLORS.length];
+      const pend = it.pending ? '<span class="rv-pending-tag">' + (isAr() ? "في انتظار المراجعة" : "Pending review") + '</span>' : "";
+      return '<div class="rv-card' + (it.pending ? " rv-pending" : "") + '"><div class="rv-top"><div class="rv-av" style="background:' + color + '">' + rvEsc(initial) + '</div><div><div class="rv-name" dir="auto">' + rvEsc(name) + '</div><div class="rv-when">' + rel(it.createdAt || it.ts) + '</div></div>' + pend + '</div><div class="rv-stars-sm">' + stars(it.rating || 0) + '</div><div class="rv-text" dir="auto">' + rvEsc(it.text) + '</div></div>';
+    }).join("");
+  }
+  function load(){
+    const go = function(db){
+      db.collection("reviews").where("approved", "==", true).get().then(function(q){
+        const items = [];
+        q.forEach(function(d){ const a = d.data(); items.push({ id: d.id, name: a.name, rating: a.rating, text: a.text, createdAt: a.createdAt }); });
+        items.sort(function(a, b){ const ta = a.createdAt && a.createdAt.toMillis ? a.createdAt.toMillis() : 0, tb = b.createdAt && b.createdAt.toMillis ? b.createdAt.toMillis() : 0; return tb - ta; });
+        render(items);
+      }).catch(function(){ render([]); });
+    };
+    if (window.__fbDb && window.__fbDb()) go(window.__fbDb());
+    else if (window.__loadFS) window.__loadFS(function(){ if (window.__fbDb && window.__fbDb()) go(window.__fbDb()); });
+  }
+  load();
+  window.__reloadReviews = load;
+  $("rvSend").addEventListener("click", function(){
+    if ($("rvHp").value) { $("rvStatus").textContent = isAr() ? "تم الإرسال" : "Sent"; return; }
+    const name = $("rvName").value.trim().slice(0, 40);
+    const text = $("rvText").value.trim().slice(0, 600);
+    if (!sel) { $("rvStatus").textContent = isAr() ? "اختار عدد النجوم الأول" : "Pick a star rating first"; return; }
+    if (!text) { $("rvStatus").textContent = isAr() ? "اكتب التقييم الأول" : "Write your review first"; return; }
+    let last = 0;
+    try { last = +localStorage.getItem("lastReviewTs") || 0; } catch(e) {}
+    if (Date.now() - last < 60000 && !myReview) { $("rvStatus").textContent = isAr() ? "استنى دقيقة بين كل تقييم" : "Please wait a minute between reviews"; return; }
+    const btn = $("rvSend");
+    btn.disabled = true;
+    $("rvStatus").textContent = isAr() ? "بيتم الإرسال..." : "Submitting...";
+    const go = function(db){
+      if (!db) { btn.disabled = false; $("rvStatus").textContent = isAr() ? "حصلت مشكلة، جرب تاني" : "Something went wrong, try again"; return; }
+      const data = { name: name, rating: sel, text: text, approved: false, voter: voter, createdAt: firebase.firestore.FieldValue.serverTimestamp() };
+      const write = myReview && myReview.id
+        ? db.collection("reviews").doc(myReview.id).update({ name: data.name, rating: data.rating, text: data.text, approved: false }).then(function(){ return myReview.id; })
+        : db.collection("reviews").add(data).then(function(ref){ return ref.id; });
+      write.then(function(rid){
+        myReview = { id: rid, name: name, rating: sel, text: text, ts: Date.now() };
+        try { localStorage.setItem("myReviewV1", JSON.stringify(myReview)); localStorage.setItem("lastReviewTs", String(Date.now())); } catch(e) {}
+        const vRef = db.collection("ratings").doc("page_" + voter);
+        const aRef = db.collection("aggregates").doc("page");
+        return db.runTransaction(function(tx){
+          return Promise.all([tx.get(vRef), tx.get(aRef)]).then(function(res){
+            const vDoc = res[0], aDoc = res[1];
+            const old = vDoc.exists ? (vDoc.data().rating || 0) : 0;
+            const agg = aDoc.exists ? aDoc.data() : { sum: 0, count: 0 };
+            tx.set(vRef, { target: "page", rating: sel, name: name, comment: "", updated: firebase.firestore.FieldValue.serverTimestamp() });
+            tx.set(aRef, { sum: (agg.sum || 0) - old + sel, count: (agg.count || 0) + (vDoc.exists ? 0 : 1) });
+          });
+        }).catch(function(){});
+      }).then(function(){
+        btn.disabled = false;
+        $("rvStatus").textContent = isAr() ? "وصل! هيظهر للكل بعد المراجعة" : "Submitted! Public after review";
+        if (window.__rateUpdate) window.__rateUpdate();
+        load();
+      }).catch(function(){
+        btn.disabled = false;
+        $("rvStatus").textContent = isAr() ? "حصلت مشكلة، جرب تاني" : "Something went wrong, try again";
+      });
+    };
+    if (window.__fbDb && window.__fbDb()) go(window.__fbDb());
+    else if (window.__loadFS) window.__loadFS(function(){ go(window.__fbDb && window.__fbDb()); });
+  });
+}
+
 /* ---------- native Firestore comments + likes ---------- */
 function initComments(){
   const boxes = document.querySelectorAll(".case-comment[data-cm-case]");
@@ -1313,6 +1462,13 @@ function renderAll(){
 
   /* cases */
   $("casesEyebrow").textContent = pick("The record","السجل");
+  $("revEyebrow").textContent = pick("What patients say","رأي المرضى");
+  $("revTitle").innerHTML = pick(`Patient <span class="hl">Reviews</span>`,`تقييمات <span class="hl">المرضى</span>`);
+  $("revSub").textContent = pick("Real reviews from real visitors - moderated before publishing.","تقييمات حقيقية من الزوار - بتنشر بعد المراجعة.");
+  $("rvOpen").textContent = pick("Leave a Review","سيب تقييمك");
+  $("rvName").placeholder = pick("Your name","اسمك");
+  $("rvText").placeholder = pick("Write your review...","اكتب تقييمك...");
+  $("rvSend").textContent = pick("Submit Review","ابعت التقييم");
   $("casesTitle").innerHTML = pick(`Clinical <span class="hl">Cases</span>`,`الحالات <span class="hl">الإكلينيكية</span>`);
   $("casesSub").textContent = pick(
     "A documented sample of my work. Each case includes photos, diagnosis, treatment, and outcome.",
@@ -1361,6 +1517,7 @@ function renderAll(){
   }).join("");
   initBaSliders();
   initComments();
+  initReviews();
   /* photo lightbox: tap a case photo to see the full image */
   if (!document.getElementById("photoLightbox")){
     const lb = document.createElement("div");
@@ -2221,6 +2378,31 @@ window.addEventListener("scroll", closeChatOnScroll, { passive: true });
     </div>
     <div class="cases-empty" id="casesEmpty" hidden></div>
     <div class="cases-grid" id="casesGrid"></div>
+  </div>
+</section>
+
+<!-- ============ SECTION: Patient Reviews ============ -->
+<section class="section" id="reviews">
+  <div class="wrap">
+    <div class="eyebrow" id="revEyebrow"></div>
+    <h2 class="section-title" id="revTitle"></h2>
+    <p class="section-sub" id="revSub"></p>
+    <div class="rv-summary" id="rvSummary" hidden>
+      <div class="rv-avg" id="rvAvg"></div>
+      <div class="rv-stars" id="rvStars"><span class="rv-stars-bg">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="rv-stars-fg" id="rvStarsFg">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
+      <div class="rv-based" id="rvBased"></div>
+    </div>
+    <div class="rv-empty" id="rvEmpty" hidden></div>
+    <div class="rv-grid" id="rvGrid"></div>
+    <div class="rv-cta"><button class="btn btn-primary" id="rvOpen" type="button"></button></div>
+    <form class="rv-form" id="rvForm" hidden novalidate>
+      <input type="text" id="rvName" maxlength="40" autocomplete="name">
+      <div class="rv-rate" id="rvRate"><span data-star="1">&#9734;</span><span data-star="2">&#9734;</span><span data-star="3">&#9734;</span><span data-star="4">&#9734;</span><span data-star="5">&#9734;</span></div>
+      <textarea id="rvText" maxlength="600" rows="3"></textarea>
+      <input type="text" class="rv-hp" id="rvHp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button type="button" class="btn btn-primary" id="rvSend"></button>
+      <div class="rv-status" id="rvStatus"></div>
+    </form>
   </div>
 </section>
 
