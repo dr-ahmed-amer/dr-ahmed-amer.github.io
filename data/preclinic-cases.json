@@ -1,0 +1,104 @@
+[
+  {
+    "id": "pc-operative",
+    "title": "Class I preparation exercise",
+    "subject": "Operative",
+    "level": "Easy",
+    "cover": "/library/assets/demo-before.svg",
+    "tools": [
+      "Demo template. Materials and instruments are not specified."
+    ],
+    "steps": [
+      "Review the fictional scenario with your supervisor.",
+      "Record the findings and questions in the teaching template.",
+      "Discuss the plan and assessment criteria before any practical work."
+    ],
+    "mistakes": [
+      "Treating a demo illustration as a real clinical photograph or an approved treatment protocol."
+    ],
+    "images": [
+      "/library/assets/demo-before.svg",
+      "/library/assets/demo-after.svg"
+    ],
+    "demo": true,
+    "titleAr": "تدريب تحضير حفرة من الصنف الأول",
+    "diagnosisAr": "سيناريو تجريبي. لا يتضمن تشخيصًا لمريض.",
+    "treatmentPlanAr": "قالب تعليمي فقط. يضع المشرف المؤهل خطة مناسبة للحالة ويراجعها.",
+    "stepsAr": [
+      "راجع السيناريو الافتراضي مع المشرف.",
+      "سجل الملاحظات والأسئلة في القالب التعليمي.",
+      "ناقش الخطة ومعايير التقييم قبل أي تدريب عملي."
+    ],
+    "materialsAr": "قالب تجريبي. لم يتم تحديد مواد أو أدوات.",
+    "doctorTipAr": "استخدم الصفحة لتنظيم التعلم تحت الإشراف، وليس لتوجيه علاج المرضى.",
+    "commonMistakesAr": "اعتبار الرسم التجريبي صورة لحالة حقيقية أو بروتوكول علاج معتمد."
+  },
+  {
+    "id": "pc-anatomy",
+    "title": "Molar morphology study",
+    "subject": "Anatomy",
+    "level": "Medium",
+    "cover": "/library/assets/demo-before.svg",
+    "tools": [
+      "Demo template. Materials and instruments are not specified."
+    ],
+    "steps": [
+      "Review the fictional scenario with your supervisor.",
+      "Record the findings and questions in the teaching template.",
+      "Discuss the plan and assessment criteria before any practical work."
+    ],
+    "mistakes": [
+      "Treating a demo illustration as a real clinical photograph or an approved treatment protocol."
+    ],
+    "images": [
+      "/library/assets/demo-before.svg",
+      "/library/assets/demo-after.svg"
+    ],
+    "demo": true,
+    "titleAr": "دراسة تشريح الضرس",
+    "diagnosisAr": "سيناريو تجريبي. لا يتضمن تشخيصًا لمريض.",
+    "treatmentPlanAr": "قالب تعليمي فقط. يضع المشرف المؤهل خطة مناسبة للحالة ويراجعها.",
+    "stepsAr": [
+      "راجع السيناريو الافتراضي مع المشرف.",
+      "سجل الملاحظات والأسئلة في القالب التعليمي.",
+      "ناقش الخطة ومعايير التقييم قبل أي تدريب عملي."
+    ],
+    "materialsAr": "قالب تجريبي. لم يتم تحديد مواد أو أدوات.",
+    "doctorTipAr": "استخدم الصفحة لتنظيم التعلم تحت الإشراف، وليس لتوجيه علاج المرضى.",
+    "commonMistakesAr": "اعتبار الرسم التجريبي صورة لحالة حقيقية أو بروتوكول علاج معتمد."
+  },
+  {
+    "id": "pc-prosthesis",
+    "title": "Crown preparation simulation",
+    "subject": "Prosthesis",
+    "level": "Hard",
+    "cover": "/library/assets/demo-before.svg",
+    "tools": [
+      "Demo template. Materials and instruments are not specified."
+    ],
+    "steps": [
+      "Review the fictional scenario with your supervisor.",
+      "Record the findings and questions in the teaching template.",
+      "Discuss the plan and assessment criteria before any practical work."
+    ],
+    "mistakes": [
+      "Treating a demo illustration as a real clinical photograph or an approved treatment protocol."
+    ],
+    "images": [
+      "/library/assets/demo-before.svg",
+      "/library/assets/demo-after.svg"
+    ],
+    "demo": true,
+    "titleAr": "محاكاة تحضير تاج",
+    "diagnosisAr": "سيناريو تجريبي. لا يتضمن تشخيصًا لمريض.",
+    "treatmentPlanAr": "قالب تعليمي فقط. يضع المشرف المؤهل خطة مناسبة للحالة ويراجعها.",
+    "stepsAr": [
+      "راجع السيناريو الافتراضي مع المشرف.",
+      "سجل الملاحظات والأسئلة في القالب التعليمي.",
+      "ناقش الخطة ومعايير التقييم قبل أي تدريب عملي."
+    ],
+    "materialsAr": "قالب تجريبي. لم يتم تحديد مواد أو أدوات.",
+    "doctorTipAr": "استخدم الصفحة لتنظيم التعلم تحت الإشراف، وليس لتوجيه علاج المرضى.",
+    "commonMistakesAr": "اعتبار الرسم التجريبي صورة لحالة حقيقية أو بروتوكول علاج معتمد."
+  }
+]

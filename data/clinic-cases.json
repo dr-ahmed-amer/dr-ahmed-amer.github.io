@@ -1,0 +1,95 @@
+[
+  {
+    "id": "cl-diagnosis",
+    "title": "Diagnostic reasoning workshop",
+    "category": "Diagnosis",
+    "diagnosis": "Demonstration scenario. No patient diagnosis is provided.",
+    "xray": "",
+    "before": "/library/assets/demo-before.svg",
+    "after": "/library/assets/demo-after.svg",
+    "treatmentPlan": "Teaching template only. A qualified supervisor must supply and review a case-specific plan.",
+    "steps": [
+      "Review the fictional scenario with your supervisor.",
+      "Record the findings and questions in the teaching template.",
+      "Discuss the plan and assessment criteria before any practical work."
+    ],
+    "materials": [
+      "Demo template. Materials and instruments are not specified."
+    ],
+    "doctorTip": "Use this page to organize supervised learning, not to guide patient care.",
+    "demo": true,
+    "titleAr": "ورشة التفكير التشخيصي",
+    "diagnosisAr": "سيناريو تجريبي. لا يتضمن تشخيصًا لمريض.",
+    "treatmentPlanAr": "قالب تعليمي فقط. يضع المشرف المؤهل خطة مناسبة للحالة ويراجعها.",
+    "stepsAr": [
+      "راجع السيناريو الافتراضي مع المشرف.",
+      "سجل الملاحظات والأسئلة في القالب التعليمي.",
+      "ناقش الخطة ومعايير التقييم قبل أي تدريب عملي."
+    ],
+    "materialsAr": "قالب تجريبي. لم يتم تحديد مواد أو أدوات.",
+    "doctorTipAr": "استخدم الصفحة لتنظيم التعلم تحت الإشراف، وليس لتوجيه علاج المرضى.",
+    "commonMistakesAr": "اعتبار الرسم التجريبي صورة لحالة حقيقية أو بروتوكول علاج معتمد."
+  },
+  {
+    "id": "cl-endo",
+    "title": "Endodontic planning exercise",
+    "category": "Endo",
+    "diagnosis": "Demonstration scenario. No patient diagnosis is provided.",
+    "xray": "",
+    "before": "/library/assets/demo-before.svg",
+    "after": "/library/assets/demo-after.svg",
+    "treatmentPlan": "Teaching template only. A qualified supervisor must supply and review a case-specific plan.",
+    "steps": [
+      "Review the fictional scenario with your supervisor.",
+      "Record the findings and questions in the teaching template.",
+      "Discuss the plan and assessment criteria before any practical work."
+    ],
+    "materials": [
+      "Demo template. Materials and instruments are not specified."
+    ],
+    "doctorTip": "Use this page to organize supervised learning, not to guide patient care.",
+    "demo": true,
+    "titleAr": "تدريب تخطيط علاج الجذور",
+    "diagnosisAr": "سيناريو تجريبي. لا يتضمن تشخيصًا لمريض.",
+    "treatmentPlanAr": "قالب تعليمي فقط. يضع المشرف المؤهل خطة مناسبة للحالة ويراجعها.",
+    "stepsAr": [
+      "راجع السيناريو الافتراضي مع المشرف.",
+      "سجل الملاحظات والأسئلة في القالب التعليمي.",
+      "ناقش الخطة ومعايير التقييم قبل أي تدريب عملي."
+    ],
+    "materialsAr": "قالب تجريبي. لم يتم تحديد مواد أو أدوات.",
+    "doctorTipAr": "استخدم الصفحة لتنظيم التعلم تحت الإشراف، وليس لتوجيه علاج المرضى.",
+    "commonMistakesAr": "اعتبار الرسم التجريبي صورة لحالة حقيقية أو بروتوكول علاج معتمد."
+  },
+  {
+    "id": "cl-crown",
+    "title": "Crown planning discussion",
+    "category": "Crown",
+    "diagnosis": "Demonstration scenario. No patient diagnosis is provided.",
+    "xray": "",
+    "before": "/library/assets/demo-before.svg",
+    "after": "/library/assets/demo-after.svg",
+    "treatmentPlan": "Teaching template only. A qualified supervisor must supply and review a case-specific plan.",
+    "steps": [
+      "Review the fictional scenario with your supervisor.",
+      "Record the findings and questions in the teaching template.",
+      "Discuss the plan and assessment criteria before any practical work."
+    ],
+    "materials": [
+      "Demo template. Materials and instruments are not specified."
+    ],
+    "doctorTip": "Use this page to organize supervised learning, not to guide patient care.",
+    "demo": true,
+    "titleAr": "مناقشة تخطيط تاج",
+    "diagnosisAr": "سيناريو تجريبي. لا يتضمن تشخيصًا لمريض.",
+    "treatmentPlanAr": "قالب تعليمي فقط. يضع المشرف المؤهل خطة مناسبة للحالة ويراجعها.",
+    "stepsAr": [
+      "راجع السيناريو الافتراضي مع المشرف.",
+      "سجل الملاحظات والأسئلة في القالب التعليمي.",
+      "ناقش الخطة ومعايير التقييم قبل أي تدريب عملي."
+    ],
+    "materialsAr": "قالب تجريبي. لم يتم تحديد مواد أو أدوات.",
+    "doctorTipAr": "استخدم الصفحة لتنظيم التعلم تحت الإشراف، وليس لتوجيه علاج المرضى.",
+    "commonMistakesAr": "اعتبار الرسم التجريبي صورة لحالة حقيقية أو بروتوكول علاج معتمد."
+  }
+]
