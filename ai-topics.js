@@ -911,34 +911,33 @@ window.AI_TOPICS = [
   },
   {
     "title_en": "Clear aligners",
-    "title_ar": "التقويم الشفاف",
-    "description_en": "Removable nearly-invisible trays that straighten teeth in stages. They must be worn 20-22 hours daily to work; not suitable for every case.",
-    "description_ar": "قوالب شفافة شبه مخفية بتتحرك وبتعدل الأسنان على مراحل. لازم تتلبس ٢٠-٢٢ ساعة يوميًا عشان تدي نتيجة؛ ومش مناسبة لكل الحالات.",
+    "title_ar": "تقويم شفاف",
+    "description_en": "Clear aligners use removable trays to move teeth gradually.\nThey need consistent daily wear and regular checks.\nAn orthodontist decides whether trays or fixed braces suit your case.",
+    "description_ar": "التقويم الشفاف قوالب متحركة بتحرك الأسنان تدريجياً.\nمحتاج التزام يومي باللبس ومتابعة منتظمة.\nالأخصائي يحدد إذا كانت القوالب أو التقويم الثابت أنسب لحالتك.",
     "symptoms": {
-      "en": "",
-      "ar": ""
+      "en": "Crowded, spaced or misaligned teeth.",
+      "ar": "تزاحم أو فراغات أو عدم انتظام الأسنان."
     },
     "treatment": {
-      "en": "",
-      "ar": ""
+      "en": "A series of custom trays following an orthodontic assessment.",
+      "ar": "قوالب على المقاس بعد تقييم التقويم."
     },
     "prevention": {
-      "en": "",
-      "ar": ""
+      "en": "Clean trays daily and follow the prescribed wear schedule.",
+      "ar": "نضف القوالب يومياً والتزم بجدول اللبس المحدد."
     },
     "category": "Orthodontics",
-    "source_name": null,
-    "source_url": null,
-    "last_updated": null,
-    "verification_status": "pending_review",
+    "source_name": "Cleveland Clinic",
+    "source_url": "https://my.clevelandclinic.org/health/treatments/24601-teeth-braces",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
     "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
-    "legacy_source_url": "https://www.mouthhealthy.org/all-topics-a-z/invisalign",
     "en": "Clear aligners",
-    "ar": "التقويم الشفاف",
-    "sen": "Removable nearly-invisible trays that straighten teeth in stages. They must be worn 20-22 hours daily to work; not suitable for every case.",
-    "sar": "قوالب شفافة شبه مخفية بتتحرك وبتعدل الأسنان على مراحل. لازم تتلبس ٢٠-٢٢ ساعة يوميًا عشان تدي نتيجة؛ ومش مناسبة لكل الحالات.",
+    "ar": "تقويم شفاف",
     "cat": "Orthodontics",
-    "src": null
+    "sen": "Clear aligners use removable trays to move teeth gradually.\nThey need consistent daily wear and regular checks.\nAn orthodontist decides whether trays or fixed braces suit your case.",
+    "sar": "التقويم الشفاف قوالب متحركة بتحرك الأسنان تدريجياً.\nمحتاج التزام يومي باللبس ومتابعة منتظمة.\nالأخصائي يحدد إذا كانت القوالب أو التقويم الثابت أنسب لحالتك.",
+    "src": "https://my.clevelandclinic.org/health/treatments/24601-teeth-braces"
   },
   {
     "title_en": "Retainers",
@@ -1096,97 +1095,94 @@ window.AI_TOPICS = [
     "src": null
   },
   {
-    "title_en": "Bone graft (dental)",
+    "title_en": "Dental bone graft",
     "title_ar": "ترقيع عظم الفك",
-    "description_en": "Adding bone material where the jaw has shrunk, usually to allow an implant. It needs months to integrate before the next step.",
-    "description_ar": "إضافة مادة عظمية في مكان عظم الفك اللي ضمر، غالبًا عشان نقدر نزرع. محتاجة شهور عشان تلتحم قبل الخطوة اللي بعدها.",
+    "description_en": "A graft adds material where jawbone is missing or thin.\nIt may prepare an area for implants or support other dental care.\nHealing takes time; a surgeon explains the material, risks and follow-up.",
+    "description_ar": "الترقيع بيضيف مادة في أماكن عظم الفك المفقود أو الضعيف.\nممكن يجهز مكان للزرعات أو يدعم علاج أسنان تاني.\nالالتئام بياخد وقت؛ الجراح يشرح المادة والمخاطر والمتابعة.",
     "symptoms": {
-      "en": "",
-      "ar": ""
+      "en": "Jawbone loss is assessed with a dental examination.",
+      "ar": "فقدان عظم الفك بيتقيم بكشف أسنان."
     },
     "treatment": {
-      "en": "",
-      "ar": ""
+      "en": "Planned graft placement, sometimes before implant treatment.",
+      "ar": "وضع طعم بشكل مخطط وأحياناً قبل الزراعة."
     },
     "prevention": {
-      "en": "",
-      "ar": ""
+      "en": "Do not smoke or disturb the site; follow the surgeon’s instructions.",
+      "ar": "متدخنش ومتعبثش بمكان الجراحة واتبع تعليمات الجراح."
     },
-    "category": "Implants",
-    "source_name": null,
-    "source_url": null,
-    "last_updated": null,
-    "verification_status": "pending_review",
+    "category": "Surgery",
+    "source_name": "Cleveland Clinic",
+    "source_url": "https://my.clevelandclinic.org/health/treatments/21727-dental-bone-graft",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
     "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
-    "legacy_source_url": "https://www.mouthhealthy.org/all-topics-a-z/bone-graft",
-    "en": "Bone graft (dental)",
+    "en": "Dental bone graft",
     "ar": "ترقيع عظم الفك",
-    "sen": "Adding bone material where the jaw has shrunk, usually to allow an implant. It needs months to integrate before the next step.",
-    "sar": "إضافة مادة عظمية في مكان عظم الفك اللي ضمر، غالبًا عشان نقدر نزرع. محتاجة شهور عشان تلتحم قبل الخطوة اللي بعدها.",
-    "cat": "Implants",
-    "src": null
+    "cat": "Surgery",
+    "sen": "A graft adds material where jawbone is missing or thin.\nIt may prepare an area for implants or support other dental care.\nHealing takes time; a surgeon explains the material, risks and follow-up.",
+    "sar": "الترقيع بيضيف مادة في أماكن عظم الفك المفقود أو الضعيف.\nممكن يجهز مكان للزرعات أو يدعم علاج أسنان تاني.\nالالتئام بياخد وقت؛ الجراح يشرح المادة والمخاطر والمتابعة.",
+    "src": "https://my.clevelandclinic.org/health/treatments/21727-dental-bone-graft"
   },
   {
     "title_en": "Sinus lift",
     "title_ar": "رفع الجيب الفكي",
-    "description_en": "Raising the sinus floor in the upper back jaw to create bone height for implants when natural bone is too thin.",
-    "description_ar": "رفع قاع الجيب الفكي في الفك العلوي الخلفي عشان نوفر ارتفاع عظم كفاية للزراعة لما العظم الطبيعي رفيع.",
+    "description_en": "Some upper-jaw implant sites need extra bone near the sinus.\nA sinus lift is one type of grafting used in selected cases.\nAsk the surgeon why it is needed and what healing and risks to expect.",
+    "description_ar": "بعض أماكن الزراعة في الفك العلوي محتاجة عظم زيادة قرب الجيب الفكي.\nرفع الجيب نوع من الترقيع لحالات مختارة.\nاسأل الجراح عن سبب الاحتياج والالتئام والمخاطر المتوقعة.",
     "symptoms": {
-      "en": "",
-      "ar": ""
+      "en": "Not a symptom-based diagnosis; imaging and assessment guide planning.",
+      "ar": "مش تشخيص بالأعراض؛ الأشعة والتقييم أساس التخطيط."
     },
     "treatment": {
-      "en": "",
-      "ar": ""
+      "en": "A specialist plans whether sinus augmentation is suitable.",
+      "ar": "المختص بيحدد ملاءمة رفع الجيب الفكي."
     },
     "prevention": {
-      "en": "",
-      "ar": ""
+      "en": "Follow graft aftercare and attend review appointments.",
+      "ar": "اتبع عناية ما بعد الترقيع والتزم بالمتابعة."
     },
-    "category": "Implants",
-    "source_name": null,
-    "source_url": null,
-    "last_updated": null,
-    "verification_status": "pending_review",
+    "category": "Surgery",
+    "source_name": "Cleveland Clinic",
+    "source_url": "https://my.clevelandclinic.org/health/treatments/21727-dental-bone-graft",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
     "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
-    "legacy_source_url": "https://www.mouthhealthy.org/all-topics-a-z/sinus-lift",
     "en": "Sinus lift",
     "ar": "رفع الجيب الفكي",
-    "sen": "Raising the sinus floor in the upper back jaw to create bone height for implants when natural bone is too thin.",
-    "sar": "رفع قاع الجيب الفكي في الفك العلوي الخلفي عشان نوفر ارتفاع عظم كفاية للزراعة لما العظم الطبيعي رفيع.",
-    "cat": "Implants",
-    "src": null
+    "cat": "Surgery",
+    "sen": "Some upper-jaw implant sites need extra bone near the sinus.\nA sinus lift is one type of grafting used in selected cases.\nAsk the surgeon why it is needed and what healing and risks to expect.",
+    "sar": "بعض أماكن الزراعة في الفك العلوي محتاجة عظم زيادة قرب الجيب الفكي.\nرفع الجيب نوع من الترقيع لحالات مختارة.\nاسأل الجراح عن سبب الاحتياج والالتئام والمخاطر المتوقعة.",
+    "src": "https://my.clevelandclinic.org/health/treatments/21727-dental-bone-graft"
   },
   {
     "title_en": "Fluoride",
     "title_ar": "الفلورايد",
-    "description_en": "A mineral that strengthens enamel and reverses early decay. Use fluoride toothpaste twice daily; professional varnish helps high-caries-risk patients.",
-    "description_ar": "معدن بيقوي المينا وبيرجع التسوس المبكر. استخدم معجون فيه فلورايد مرتين يوميًا؛ والورنيش الموضعي عند الدكتور بيساعد اللي عندهم قابلية عالية للتسوس.",
+    "description_en": "Fluoride exposure helps prevent tooth decay.\nTwice-daily brushing with fluoride toothpaste is a key protective habit.\nAsk your dentist about a suitable toothpaste for you or your child.",
+    "description_ar": "الفلورايد بيساعد في الوقاية من التسوس.\nالغسيل مرتين يومياً بمعجون فلورايد عادة مهمة للحماية.\nاسأل دكتورك عن المعجون المناسب ليك أو لطفلك.",
     "symptoms": {
-      "en": "",
-      "ar": ""
+      "en": "Prevention is useful even without pain or visible decay.",
+      "ar": "الوقاية مهمة حتى من غير ألم أو تسوس ظاهر."
     },
     "treatment": {
-      "en": "",
-      "ar": ""
+      "en": "A dentist assesses decay and recommends appropriate preventive care.",
+      "ar": "الدكتور بيقيم التسوس ويوصي بالوقاية المناسبة."
     },
     "prevention": {
-      "en": "",
-      "ar": ""
+      "en": "Combine fluoride brushing with reducing free sugars.",
+      "ar": "اجمع غسيل الفلورايد مع تقليل السكريات الحرة."
     },
     "category": "Prevention",
-    "source_name": null,
-    "source_url": null,
-    "last_updated": null,
-    "verification_status": "pending_review",
+    "source_name": "WHO",
+    "source_url": "https://www.who.int/news-room/fact-sheets/detail/oral-health",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
     "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
-    "legacy_source_url": "https://www.mouthhealthy.org/all-topics-a-z/fluoride",
     "en": "Fluoride",
     "ar": "الفلورايد",
-    "sen": "A mineral that strengthens enamel and reverses early decay. Use fluoride toothpaste twice daily; professional varnish helps high-caries-risk patients.",
-    "sar": "معدن بيقوي المينا وبيرجع التسوس المبكر. استخدم معجون فيه فلورايد مرتين يوميًا؛ والورنيش الموضعي عند الدكتور بيساعد اللي عندهم قابلية عالية للتسوس.",
     "cat": "Prevention",
-    "src": null
+    "sen": "Fluoride exposure helps prevent tooth decay.\nTwice-daily brushing with fluoride toothpaste is a key protective habit.\nAsk your dentist about a suitable toothpaste for you or your child.",
+    "sar": "الفلورايد بيساعد في الوقاية من التسوس.\nالغسيل مرتين يومياً بمعجون فلورايد عادة مهمة للحماية.\nاسأل دكتورك عن المعجون المناسب ليك أو لطفلك.",
+    "src": "https://www.who.int/news-room/fact-sheets/detail/oral-health"
   },
   {
     "title_en": "Dental sealants",
@@ -1376,65 +1372,63 @@ window.AI_TOPICS = [
   },
   {
     "title_en": "Diabetes and gums",
-    "title_ar": "السكر وصحة اللثة",
-    "description_en": "Diabetes and gum disease worsen each other: high blood sugar fuels gum infection, and gum infection raises blood sugar. Tight sugar control plus regular cleanings protects both.",
-    "description_ar": "السكر والتهاب اللثة بيزودوا بعض: السكر العالي بيغذي التهاب اللثة، والتهاب اللثة بيرفع السكر. انتظام السكر مع تنضيف دوري بيحمي الاتنين.",
+    "title_ar": "السكري وصحة اللثة",
+    "description_en": "Diabetes and gum disease are linked in both directions.\nGum disease may cause bleeding, swelling and eventually loose teeth.\nTell your dentist about diabetes and follow both medical and dental care.",
+    "description_ar": "السكري وأمراض اللثة بينهم ارتباط في الاتجاهين.\nمرض اللثة ممكن يسبب نزيف وورم ومع الوقت حركة الأسنان.\nبلغ دكتور الأسنان بالسكري والتزم بالمتابعة الطبية والأسنان.",
     "symptoms": {
-      "en": "",
-      "ar": ""
+      "en": "Bleeding or swollen gums, pain or loose teeth.",
+      "ar": "نزيف أو ورم اللثة أو وجع أو حركة الأسنان."
     },
     "treatment": {
-      "en": "",
-      "ar": ""
+      "en": "Dental assessment and coordinated care for gum disease and diabetes.",
+      "ar": "تقييم أسنان ورعاية منسقة للثة والسكري."
     },
     "prevention": {
-      "en": "",
-      "ar": ""
+      "en": "Maintain oral hygiene, avoid tobacco and attend regular checks.",
+      "ar": "حافظ على نظافة الفم وتجنب التبغ والتزم بالمتابعة."
     },
-    "category": "Special care",
-    "source_name": null,
-    "source_url": null,
-    "last_updated": null,
-    "verification_status": "pending_review",
+    "category": "Gum disease",
+    "source_name": "WHO",
+    "source_url": "https://www.who.int/news-room/fact-sheets/detail/oral-health",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
     "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
-    "legacy_source_url": "https://www.mouthhealthy.org/all-topics-a-z/diabetes",
     "en": "Diabetes and gums",
-    "ar": "السكر وصحة اللثة",
-    "sen": "Diabetes and gum disease worsen each other: high blood sugar fuels gum infection, and gum infection raises blood sugar. Tight sugar control plus regular cleanings protects both.",
-    "sar": "السكر والتهاب اللثة بيزودوا بعض: السكر العالي بيغذي التهاب اللثة، والتهاب اللثة بيرفع السكر. انتظام السكر مع تنضيف دوري بيحمي الاتنين.",
-    "cat": "Special care",
-    "src": null
+    "ar": "السكري وصحة اللثة",
+    "cat": "Gum disease",
+    "sen": "Diabetes and gum disease are linked in both directions.\nGum disease may cause bleeding, swelling and eventually loose teeth.\nTell your dentist about diabetes and follow both medical and dental care.",
+    "sar": "السكري وأمراض اللثة بينهم ارتباط في الاتجاهين.\nمرض اللثة ممكن يسبب نزيف وورم ومع الوقت حركة الأسنان.\nبلغ دكتور الأسنان بالسكري والتزم بالمتابعة الطبية والأسنان.",
+    "src": "https://www.who.int/news-room/fact-sheets/detail/oral-health"
   },
   {
     "title_en": "Smoking and oral health",
     "title_ar": "التدخين وصحة الفم",
-    "description_en": "Smoking doubles gum disease risk, slows healing after extractions and implants, stains teeth and is the main risk factor for oral cancer. Quitting improves every one of these.",
-    "description_ar": "التدخين بيضاعف احتمال أمراض اللثة، وبيأخر الالتئام بعد الخلع والزراعة، وبيصبغ الأسنان، وهو أهم عامل خطورة لسرطان الفم. الإقلاع بيحسن كل دول.",
+    "description_en": "Tobacco increases the risk of gum disease and oral cancer.\nStopping tobacco supports oral and general health.\nAsk a healthcare professional for help quitting and keep dental checks.",
+    "description_ar": "التبغ بيزود خطر أمراض اللثة وسرطان الفم.\nالتوقف عنه بيدعم صحة الفم والصحة العامة.\nاطلب مساعدة مختص للإقلاع والتزم بكشوف الأسنان.",
     "symptoms": {
-      "en": "",
-      "ar": ""
+      "en": "Oral disease may not be obvious early; symptoms need assessment.",
+      "ar": "مرض الفم ممكن ميكونش واضح في البداية؛ الأعراض محتاجة تقييم."
     },
     "treatment": {
-      "en": "",
-      "ar": ""
+      "en": "A clinician can help with quitting and a dentist checks oral problems.",
+      "ar": "الطبيب يساعدك في الإقلاع والدكتور يفحص مشاكل الفم."
     },
     "prevention": {
-      "en": "",
-      "ar": ""
+      "en": "Avoid all forms of tobacco and maintain daily cleaning.",
+      "ar": "تجنب كل أشكال التبغ وحافظ على التنظيف اليومي."
     },
-    "category": "Special care",
-    "source_name": null,
-    "source_url": null,
-    "last_updated": null,
-    "verification_status": "pending_review",
+    "category": "Prevention",
+    "source_name": "WHO",
+    "source_url": "https://www.who.int/news-room/fact-sheets/detail/oral-health",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
     "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
-    "legacy_source_url": "https://www.mouthhealthy.org/all-topics-a-z/smoking",
     "en": "Smoking and oral health",
     "ar": "التدخين وصحة الفم",
-    "sen": "Smoking doubles gum disease risk, slows healing after extractions and implants, stains teeth and is the main risk factor for oral cancer. Quitting improves every one of these.",
-    "sar": "التدخين بيضاعف احتمال أمراض اللثة، وبيأخر الالتئام بعد الخلع والزراعة، وبيصبغ الأسنان، وهو أهم عامل خطورة لسرطان الفم. الإقلاع بيحسن كل دول.",
-    "cat": "Special care",
-    "src": null
+    "cat": "Prevention",
+    "sen": "Tobacco increases the risk of gum disease and oral cancer.\nStopping tobacco supports oral and general health.\nAsk a healthcare professional for help quitting and keep dental checks.",
+    "sar": "التبغ بيزود خطر أمراض اللثة وسرطان الفم.\nالتوقف عنه بيدعم صحة الفم والصحة العامة.\nاطلب مساعدة مختص للإقلاع والتزم بكشوف الأسنان.",
+    "src": "https://www.who.int/news-room/fact-sheets/detail/oral-health"
   },
   {
     "title_en": "Oral cancer signs",
@@ -3533,5 +3527,185 @@ window.AI_TOPICS = [
     "sen": "Grinding during sleep may be noticed by a partner before you notice symptoms.\nA regular bedtime and a quiet, dark bedroom can support better sleep.\nSee a dentist for damage or pain, and a clinician for persistent sleep problems.",
     "sar": "الجز أثناء النوم ممكن شريكك يلاحظه قبل ما تحس بأعراض.\nميعاد نوم منتظم وغرفة هادية وضلمة بيساعدوا النوم.\nاكشف أسنان لو فيه ضرر أو وجع وراجع طبيب لو مشاكل النوم مستمرة.",
     "src": "https://www.nhs.uk/symptoms/teeth-grinding/"
+  },
+  {
+    "title_en": "Sugar and tooth decay",
+    "title_ar": "السكر وتسوس الأسنان",
+    "description_en": "Plaque bacteria turn free sugars into acids that damage teeth.\nFrequent high sugar intake increases the risk of decay.\nChoose a balanced diet and ask your dentist about personal risk.",
+    "description_ar": "بكتيريا البلاك بتحول السكريات الحرة لأحماض بتضر الأسنان.\nاستهلاك سكر كتير باستمرار بيزود احتمال التسوس.\nاختار أكل متوازن واسأل دكتورك عن عوامل الخطورة عندك.",
+    "symptoms": {
+      "en": "Early decay can be painless; a dental check can identify it.",
+      "ar": "التسوس المبكر ممكن ميوجعش؛ الكشف يقدر يكتشفه."
+    },
+    "treatment": {
+      "en": "Dental care depends on the stage of decay.",
+      "ar": "علاج الأسنان حسب مرحلة التسوس."
+    },
+    "prevention": {
+      "en": "Reduce free sugars and brush twice daily with fluoride toothpaste.",
+      "ar": "قلل السكريات الحرة واغسل مرتين بمعجون فلورايد."
+    },
+    "category": "Prevention",
+    "source_name": "WHO",
+    "source_url": "https://www.who.int/news-room/fact-sheets/detail/oral-health",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
+    "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
+    "en": "Sugar and tooth decay",
+    "ar": "السكر وتسوس الأسنان",
+    "cat": "Prevention",
+    "sen": "Plaque bacteria turn free sugars into acids that damage teeth.\nFrequent high sugar intake increases the risk of decay.\nChoose a balanced diet and ask your dentist about personal risk.",
+    "sar": "بكتيريا البلاك بتحول السكريات الحرة لأحماض بتضر الأسنان.\nاستهلاك سكر كتير باستمرار بيزود احتمال التسوس.\nاختار أكل متوازن واسأل دكتورك عن عوامل الخطورة عندك.",
+    "src": "https://www.who.int/news-room/fact-sheets/detail/oral-health"
+  },
+  {
+    "title_en": "Water and oral health",
+    "title_ar": "المياه وصحة الفم",
+    "description_en": "Water is a good main drink in a tooth-friendly diet.\nIt avoids the free sugars found in many sweetened drinks.\nDrinking water does not replace fluoride brushing or dental care.",
+    "description_ar": "المياه اختيار مناسب كمشروب أساسي في أكل يحافظ على الأسنان.\nبتجنبك السكريات الحرة الموجودة في مشروبات محلاة كتير.\nشرب المياه مش بديل لغسيل الفلورايد أو علاج الأسنان.",
+    "symptoms": {
+      "en": "This is prevention advice, not a treatment for tooth pain.",
+      "ar": "دي نصيحة وقاية مش علاج لوجع الأسنان."
+    },
+    "treatment": {
+      "en": "See a dentist for pain or signs of decay.",
+      "ar": "اكشف لو فيه وجع أو علامات تسوس."
+    },
+    "prevention": {
+      "en": "Prefer water and limit sugary drinks.",
+      "ar": "فضل المياه وقلل المشروبات السكرية."
+    },
+    "category": "Prevention",
+    "source_name": "WHO",
+    "source_url": "https://www.who.int/news-room/fact-sheets/detail/oral-health",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
+    "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
+    "en": "Water and oral health",
+    "ar": "المياه وصحة الفم",
+    "cat": "Prevention",
+    "sen": "Water is a good main drink in a tooth-friendly diet.\nIt avoids the free sugars found in many sweetened drinks.\nDrinking water does not replace fluoride brushing or dental care.",
+    "sar": "المياه اختيار مناسب كمشروب أساسي في أكل يحافظ على الأسنان.\nبتجنبك السكريات الحرة الموجودة في مشروبات محلاة كتير.\nشرب المياه مش بديل لغسيل الفلورايد أو علاج الأسنان.",
+    "src": "https://www.who.int/news-room/fact-sheets/detail/oral-health"
+  },
+  {
+    "title_en": "Ceramic braces",
+    "title_ar": "التقويم السيراميك",
+    "description_en": "Ceramic braces use tooth-coloured parts to be less noticeable.\nThey move teeth similarly to metal braces but can be more fragile.\nDiscuss appearance, care and suitability with an orthodontist.",
+    "description_ar": "التقويم السيراميك أجزاؤه بلون الأسنان عشان يكون أقل ظهوراً.\nبيحرك الأسنان زي المعدني لكن ممكن يكون أكثر قابلية للكسر.\nناقش الشكل والعناية والملاءمة مع أخصائي التقويم.",
+    "symptoms": {
+      "en": "Crowding, gaps or bite concerns need an assessment.",
+      "ar": "التزاحم والفراغات ومشاكل العضة محتاجة تقييم."
+    },
+    "treatment": {
+      "en": "Custom orthodontic planning and regular adjustments.",
+      "ar": "خطة تقويم مناسبة وتعديلات منتظمة."
+    },
+    "prevention": {
+      "en": "Clean around brackets and avoid hard or sticky foods.",
+      "ar": "نضف حوالين الحاصرات وتجنب الأكل الصلب واللزق."
+    },
+    "category": "Orthodontics",
+    "source_name": "Cleveland Clinic",
+    "source_url": "https://my.clevelandclinic.org/health/treatments/24601-teeth-braces",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
+    "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
+    "en": "Ceramic braces",
+    "ar": "التقويم السيراميك",
+    "cat": "Orthodontics",
+    "sen": "Ceramic braces use tooth-coloured parts to be less noticeable.\nThey move teeth similarly to metal braces but can be more fragile.\nDiscuss appearance, care and suitability with an orthodontist.",
+    "sar": "التقويم السيراميك أجزاؤه بلون الأسنان عشان يكون أقل ظهوراً.\nبيحرك الأسنان زي المعدني لكن ممكن يكون أكثر قابلية للكسر.\nناقش الشكل والعناية والملاءمة مع أخصائي التقويم.",
+    "src": "https://my.clevelandclinic.org/health/treatments/24601-teeth-braces"
+  },
+  {
+    "title_en": "Lingual braces",
+    "title_ar": "التقويم الداخلي خلف الأسنان",
+    "description_en": "Lingual braces attach to the back surfaces of teeth.\nThey are less visible from the front than conventional braces.\nAn orthodontist can explain whether they suit your teeth and goals.",
+    "description_ar": "التقويم الداخلي بيتركب على السطح الخلفي للأسنان.\nبيكون أقل ظهوراً من قدام مقارنة بالتقويم المعتاد.\nالأخصائي يشرح إذا كان مناسب لأسنانك وأهدافك.",
+    "symptoms": {
+      "en": "Misaligned teeth or bite concerns require evaluation.",
+      "ar": "عدم انتظام الأسنان أو مشاكل العضة محتاجة تقييم."
+    },
+    "treatment": {
+      "en": "Brackets and wires placed behind the teeth by a clinician.",
+      "ar": "حاصرات وأسلاك خلف الأسنان عند المختص."
+    },
+    "prevention": {
+      "en": "Follow the orthodontist’s cleaning and diet instructions.",
+      "ar": "اتبع تعليمات الأخصائي للتنظيف والأكل."
+    },
+    "category": "Orthodontics",
+    "source_name": "Cleveland Clinic",
+    "source_url": "https://my.clevelandclinic.org/health/treatments/24601-teeth-braces",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
+    "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
+    "en": "Lingual braces",
+    "ar": "التقويم الداخلي خلف الأسنان",
+    "cat": "Orthodontics",
+    "sen": "Lingual braces attach to the back surfaces of teeth.\nThey are less visible from the front than conventional braces.\nAn orthodontist can explain whether they suit your teeth and goals.",
+    "sar": "التقويم الداخلي بيتركب على السطح الخلفي للأسنان.\nبيكون أقل ظهوراً من قدام مقارنة بالتقويم المعتاد.\nالأخصائي يشرح إذا كان مناسب لأسنانك وأهدافك.",
+    "src": "https://my.clevelandclinic.org/health/treatments/24601-teeth-braces"
+  },
+  {
+    "title_en": "Self-ligating braces",
+    "title_ar": "التقويم ذاتي الربط",
+    "description_en": "Self-ligating braces have a built-in system holding the wire.\nThey do not use the same small ties as standard metal braces.\nYour orthodontist chooses an appliance for your needs, not a guaranteed faster result.",
+    "description_ar": "التقويم ذاتي الربط فيه نظام مدمج لتثبيت السلك.\nمش بيستخدم نفس الرباط الصغير الموجود في التقويم المعدني التقليدي.\nالأخصائي يختار الجهاز لاحتياجك، مش لضمان نتيجة أسرع.",
+    "symptoms": {
+      "en": "Crowded, gapped or misaligned teeth.",
+      "ar": "تزاحم أو فراغات أو أسنان غير منتظمة."
+    },
+    "treatment": {
+      "en": "Individual orthodontic assessment and treatment planning.",
+      "ar": "تقييم وخطة علاج تقويم حسب الحالة."
+    },
+    "prevention": {
+      "en": "Maintain cleaning and attend scheduled adjustments.",
+      "ar": "حافظ على التنظيف والتزم بمواعيد التعديل."
+    },
+    "category": "Orthodontics",
+    "source_name": "Cleveland Clinic",
+    "source_url": "https://my.clevelandclinic.org/health/treatments/24601-teeth-braces",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
+    "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
+    "en": "Self-ligating braces",
+    "ar": "التقويم ذاتي الربط",
+    "cat": "Orthodontics",
+    "sen": "Self-ligating braces have a built-in system holding the wire.\nThey do not use the same small ties as standard metal braces.\nYour orthodontist chooses an appliance for your needs, not a guaranteed faster result.",
+    "sar": "التقويم ذاتي الربط فيه نظام مدمج لتثبيت السلك.\nمش بيستخدم نفس الرباط الصغير الموجود في التقويم المعدني التقليدي.\nالأخصائي يختار الجهاز لاحتياجك، مش لضمان نتيجة أسرع.",
+    "src": "https://my.clevelandclinic.org/health/treatments/24601-teeth-braces"
+  },
+  {
+    "title_en": "Bone graft recovery",
+    "title_ar": "التعافي بعد ترقيع عظم الفك",
+    "description_en": "Tenderness, swelling and bruising can occur after grafting.\nThe early recovery and bone healing times are different.\nContact the provider for severe pain, fever, pus or increasing swelling.",
+    "description_ar": "ممكن يحصل ألم بسيط وورم وكدمات بعد الترقيع.\nالتعافي الأولي ووقت التئام العظم مش نفس المدة.\nكلم الطبيب لو الألم شديد أو فيه حرارة أو صديد أو ورم بيزيد.",
+    "symptoms": {
+      "en": "Early tenderness or swelling; worsening symptoms need review.",
+      "ar": "ألم أو ورم أولي؛ زيادة الأعراض محتاجة مراجعة."
+    },
+    "treatment": {
+      "en": "Follow the surgeon’s aftercare and attend follow-up visits.",
+      "ar": "اتبع تعليمات الجراح والتزم بالمتابعة."
+    },
+    "prevention": {
+      "en": "Keep the area clean, avoid smoking and do not disturb the graft.",
+      "ar": "حافظ على نظافة المكان وتجنب التدخين ومتعبثش بالطعم."
+    },
+    "category": "Surgery",
+    "source_name": "Cleveland Clinic",
+    "source_url": "https://my.clevelandclinic.org/health/treatments/21727-dental-bone-graft",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
+    "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
+    "en": "Bone graft recovery",
+    "ar": "التعافي بعد ترقيع عظم الفك",
+    "cat": "Surgery",
+    "sen": "Tenderness, swelling and bruising can occur after grafting.\nThe early recovery and bone healing times are different.\nContact the provider for severe pain, fever, pus or increasing swelling.",
+    "sar": "ممكن يحصل ألم بسيط وورم وكدمات بعد الترقيع.\nالتعافي الأولي ووقت التئام العظم مش نفس المدة.\nكلم الطبيب لو الألم شديد أو فيه حرارة أو صديد أو ورم بيزيد.",
+    "src": "https://my.clevelandclinic.org/health/treatments/21727-dental-bone-graft"
   }
 ];
