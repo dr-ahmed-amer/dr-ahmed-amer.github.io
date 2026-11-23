@@ -31,35 +31,34 @@ window.AI_TOPICS = [
     "src": "https://www.nhs.uk/symptoms/toothache/"
   },
   {
-    "title_en": "Sensitive teeth",
+    "title_en": "Tooth sensitivity",
     "title_ar": "حساسية الأسنان",
-    "description_en": "Short sharp pain with cold, hot, sweet or brushing, usually from exposed dentin after enamel wear or gum recession. Desensitizing toothpaste helps mild cases; persistent sensitivity needs a dental check.",
-    "description_ar": "ألم قصير وحاد مع البارد أو السخن أو الحلويات أو غسل الأسنان، وغالبًا سببه انكشاف طبقة العاج بعد تآكل المينا أو انحسار اللثة. معجون مخصص للحساسية بيساعد الحالات البسيطة؛ الحساسية المستمرة محتاجة كشف.",
+    "description_en": "Cold, hot or sweet food can hurt when sensitive tooth layers are exposed.\nWorn enamel, gum recession, decay or a crack may be involved.\nSee a dentist to identify the cause instead of assuming all sensitivity is harmless.",
+    "description_ar": "البارد أو السخن أو الحلو ممكن يوجعوا لما طبقات السن الحساسة تتكشف.\nالسبب ممكن يكون تآكل المينا أو انحسار اللثة أو تسوس أو شرخ.\nاكشف عشان تعرف السبب ومتعتبرش كل حساسية بسيطة.",
     "symptoms": {
-      "en": "",
-      "ar": ""
+      "en": "Pain triggered by hot, cold, sweet or sour foods.",
+      "ar": "وجع مع السخن أو البارد أو الحلو أو الحمضي."
     },
     "treatment": {
-      "en": "",
-      "ar": ""
+      "en": "A dentist may recommend desensitizing toothpaste, fluoride varnish or covering exposed roots.",
+      "ar": "الدكتور ممكن ينصح بمعجون حساسية أو فلورايد أو تغطية الجذور المكشوفة."
     },
     "prevention": {
-      "en": "",
-      "ar": ""
+      "en": "Use a soft brush gently and limit acidic foods.",
+      "ar": "استخدم فرشاة ناعمة برفق وقلل الأكل الحمضي."
     },
-    "category": "Symptoms",
-    "source_name": null,
-    "source_url": null,
-    "last_updated": null,
-    "verification_status": "pending_review",
+    "category": "Oral health",
+    "source_name": "Cleveland Clinic",
+    "source_url": "https://my.clevelandclinic.org/health/symptoms/10954-teeth-sensitivity",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
     "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
-    "legacy_source_url": "https://www.mouthhealthy.org/all-topics-a-z/sensitive-teeth",
-    "en": "Sensitive teeth",
+    "en": "Tooth sensitivity",
     "ar": "حساسية الأسنان",
-    "sen": "Short sharp pain with cold, hot, sweet or brushing, usually from exposed dentin after enamel wear or gum recession. Desensitizing toothpaste helps mild cases; persistent sensitivity needs a dental check.",
-    "sar": "ألم قصير وحاد مع البارد أو السخن أو الحلويات أو غسل الأسنان، وغالبًا سببه انكشاف طبقة العاج بعد تآكل المينا أو انحسار اللثة. معجون مخصص للحساسية بيساعد الحالات البسيطة؛ الحساسية المستمرة محتاجة كشف.",
-    "cat": "Symptoms",
-    "src": null
+    "cat": "Oral health",
+    "sen": "Cold, hot or sweet food can hurt when sensitive tooth layers are exposed.\nWorn enamel, gum recession, decay or a crack may be involved.\nSee a dentist to identify the cause instead of assuming all sensitivity is harmless.",
+    "sar": "البارد أو السخن أو الحلو ممكن يوجعوا لما طبقات السن الحساسة تتكشف.\nالسبب ممكن يكون تآكل المينا أو انحسار اللثة أو تسوس أو شرخ.\nاكشف عشان تعرف السبب ومتعتبرش كل حساسية بسيطة.",
+    "src": "https://my.clevelandclinic.org/health/symptoms/10954-teeth-sensitivity"
   },
   {
     "title_en": "Bleeding gums",
@@ -856,33 +855,32 @@ window.AI_TOPICS = [
   {
     "title_en": "Teeth whitening",
     "title_ar": "تبييض الأسنان",
-    "description_en": "Peroxide gels lighten natural tooth color. Professional supervision gives the safest, most even result; whitening does not change the color of fillings or crowns. Temporary sensitivity is common.",
-    "description_ar": "جيلات بيروكسيد بتفتح لون الأسنان الطبيعي. التبييض تحت إشراف دكتور بيدي أأمن نتيجة وأكثرها تساويًا؛ التبييض مبيغيرش لون الحشوات أو التلبيسات. حساسية مؤقتة حاجة شائعة.",
+    "description_en": "Whitening lightens natural teeth using a bleaching gel.\nIt does not lighten crowns, dentures or implants.\nA dentist should check your teeth and gums first and explain temporary sensitivity risks.",
+    "description_ar": "التبييض بيفتح لون الأسنان الطبيعية بجل مخصص.\nمش بيفتح لون التيجان أو الأطقم أو الزرعات.\nالدكتور لازم يفحص الأسنان واللثة الأول ويوضح احتمال الحساسية المؤقتة.",
     "symptoms": {
-      "en": "",
-      "ar": ""
+      "en": "Stained or darker natural teeth; this is a cosmetic choice.",
+      "ar": "لون متغير أو أغمق للأسنان الطبيعية؛ ده اختيار تجميلي."
     },
     "treatment": {
-      "en": "",
-      "ar": ""
+      "en": "Dentist-supervised trays or in-clinic whitening after an examination.",
+      "ar": "قوالب بإشراف الدكتور أو تبييض بالعيادة بعد الكشف."
     },
     "prevention": {
-      "en": "",
-      "ar": ""
+      "en": "Follow your dentist’s instructions and avoid unregulated whitening.",
+      "ar": "التزم بتعليمات دكتورك وتجنب التبييض غير المضمون."
     },
     "category": "Cosmetic",
-    "source_name": null,
-    "source_url": null,
-    "last_updated": null,
-    "verification_status": "pending_review",
+    "source_name": "NHS",
+    "source_url": "https://www.nhs.uk/tests-and-treatments/teeth-whitening/",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
     "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
-    "legacy_source_url": "https://www.mouthhealthy.org/all-topics-a-z/teeth-whitening",
     "en": "Teeth whitening",
     "ar": "تبييض الأسنان",
-    "sen": "Peroxide gels lighten natural tooth color. Professional supervision gives the safest, most even result; whitening does not change the color of fillings or crowns. Temporary sensitivity is common.",
-    "sar": "جيلات بيروكسيد بتفتح لون الأسنان الطبيعي. التبييض تحت إشراف دكتور بيدي أأمن نتيجة وأكثرها تساويًا؛ التبييض مبيغيرش لون الحشوات أو التلبيسات. حساسية مؤقتة حاجة شائعة.",
     "cat": "Cosmetic",
-    "src": null
+    "sen": "Whitening lightens natural teeth using a bleaching gel.\nIt does not lighten crowns, dentures or implants.\nA dentist should check your teeth and gums first and explain temporary sensitivity risks.",
+    "sar": "التبييض بيفتح لون الأسنان الطبيعية بجل مخصص.\nمش بيفتح لون التيجان أو الأطقم أو الزرعات.\nالدكتور لازم يفحص الأسنان واللثة الأول ويوضح احتمال الحساسية المؤقتة.",
+    "src": "https://www.nhs.uk/tests-and-treatments/teeth-whitening/"
   },
   {
     "title_en": "Metal braces",
@@ -2096,33 +2094,32 @@ window.AI_TOPICS = [
   {
     "title_en": "Whitening safety",
     "title_ar": "أمان تبييض الأسنان",
-    "description_en": "Peroxide whitening is safe for enamel when supervised. Risks rise with unregulated high-concentration gels and salon whitening: burns to gums and severe sensitivity.",
-    "description_ar": "التبييض بالبيروكسيد آمن على المينا تحت إشراف. المخاطر بتزيد مع الجيلات المركزة غير المنظمة وتبييض الكوافيرات: حروق للثة وحساسية شديدة.",
+    "description_en": "Healthy teeth and gums should be checked before whitening.\nProducts can cause sensitive teeth, sore gums or temporary white gum patches.\nAsk a dentist about suitability and report side effects that bother you.",
+    "description_ar": "لازم تتأكد بالكشف إن الأسنان واللثة سليمة قبل التبييض.\nالمنتجات ممكن تسبب حساسية أو وجع لثة أو بقع مؤقتة عليها.\nاسأل الدكتور عن ملاءمتها وكلمه لو الأعراض مضايقاك.",
     "symptoms": {
-      "en": "",
-      "ar": ""
+      "en": "Sensitivity to cold or sweet foods, or sore gums after whitening.",
+      "ar": "حساسية للبارد أو الحلو أو وجع لثة بعد التبييض."
     },
     "treatment": {
-      "en": "",
-      "ar": ""
+      "en": "A dentist reviews side effects and advises on safe treatment.",
+      "ar": "الدكتور بيراجع الأعراض وينصح بالعلاج الآمن."
     },
     "prevention": {
-      "en": "",
-      "ar": ""
+      "en": "Use dentist-supervised products and the prescribed schedule.",
+      "ar": "استخدم منتجات بإشراف الدكتور وبالجدول المحدد."
     },
     "category": "Cosmetic",
-    "source_name": null,
-    "source_url": null,
-    "last_updated": null,
-    "verification_status": "pending_review",
+    "source_name": "NHS",
+    "source_url": "https://www.nhs.uk/tests-and-treatments/teeth-whitening/",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
     "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
-    "legacy_source_url": "https://www.mouthhealthy.org/all-topics-a-z/teeth-whitening",
     "en": "Whitening safety",
     "ar": "أمان تبييض الأسنان",
-    "sen": "Peroxide whitening is safe for enamel when supervised. Risks rise with unregulated high-concentration gels and salon whitening: burns to gums and severe sensitivity.",
-    "sar": "التبييض بالبيروكسيد آمن على المينا تحت إشراف. المخاطر بتزيد مع الجيلات المركزة غير المنظمة وتبييض الكوافيرات: حروق للثة وحساسية شديدة.",
     "cat": "Cosmetic",
-    "src": null
+    "sen": "Healthy teeth and gums should be checked before whitening.\nProducts can cause sensitive teeth, sore gums or temporary white gum patches.\nAsk a dentist about suitability and report side effects that bother you.",
+    "sar": "لازم تتأكد بالكشف إن الأسنان واللثة سليمة قبل التبييض.\nالمنتجات ممكن تسبب حساسية أو وجع لثة أو بقع مؤقتة عليها.\nاسأل الدكتور عن ملاءمتها وكلمه لو الأعراض مضايقاك.",
+    "src": "https://www.nhs.uk/tests-and-treatments/teeth-whitening/"
   },
   {
     "title_en": "Whitening for sensitive teeth",
@@ -3210,35 +3207,34 @@ window.AI_TOPICS = [
     "src": null
   },
   {
-    "title_en": "Sensitive after whitening",
+    "title_en": "Sensitivity after whitening",
     "title_ar": "حساسية بعد التبييض",
-    "description_en": "Temporary zingers for 24-48 hours after whitening are common. Desensitizing toothpaste with potassium nitrate and pausing sessions settles it.",
-    "description_ar": "نغزات مؤقتة ٢٤-٤٨ ساعة بعد التبييض حاجة شائعة. معجون فيه نيترات بوتاسيوم وإيقاف الجلسات فترة بيهديها.",
+    "description_en": "Teeth may become temporarily sensitive after whitening.\nGum soreness can also occur, even with professional treatment.\nSpeak to your dentist if the effects are painful or worrying.",
+    "description_ar": "الأسنان ممكن تبقى حساسة مؤقتاً بعد التبييض.\nممكن كمان يحصل وجع لثة حتى مع العلاج عند مختص.\nكلم دكتورك لو الأعراض مؤلمة أو مقلقاك.",
     "symptoms": {
-      "en": "",
-      "ar": ""
+      "en": "Cold or sweet sensitivity and sore gums.",
+      "ar": "حساسية للبارد أو الحلو ووجع في اللثة."
     },
     "treatment": {
-      "en": "",
-      "ar": ""
+      "en": "Ask the dentist who supervised the whitening for advice.",
+      "ar": "ارجع للدكتور المشرف على التبييض للنصيحة المناسبة."
     },
     "prevention": {
-      "en": "",
-      "ar": ""
+      "en": "Have a dental check before whitening and follow the instructions.",
+      "ar": "اكشف قبل التبييض والتزم بالتعليمات."
     },
-    "category": "Cosmetic",
-    "source_name": null,
-    "source_url": null,
-    "last_updated": null,
-    "verification_status": "pending_review",
+    "category": "Oral health",
+    "source_name": "NHS",
+    "source_url": "https://www.nhs.uk/tests-and-treatments/teeth-whitening/",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
     "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
-    "legacy_source_url": "https://www.mouthhealthy.org/all-topics-a-z/teeth-whitening",
-    "en": "Sensitive after whitening",
+    "en": "Sensitivity after whitening",
     "ar": "حساسية بعد التبييض",
-    "sen": "Temporary zingers for 24-48 hours after whitening are common. Desensitizing toothpaste with potassium nitrate and pausing sessions settles it.",
-    "sar": "نغزات مؤقتة ٢٤-٤٨ ساعة بعد التبييض حاجة شائعة. معجون فيه نيترات بوتاسيوم وإيقاف الجلسات فترة بيهديها.",
-    "cat": "Cosmetic",
-    "src": null
+    "cat": "Oral health",
+    "sen": "Teeth may become temporarily sensitive after whitening.\nGum soreness can also occur, even with professional treatment.\nSpeak to your dentist if the effects are painful or worrying.",
+    "sar": "الأسنان ممكن تبقى حساسة مؤقتاً بعد التبييض.\nممكن كمان يحصل وجع لثة حتى مع العلاج عند مختص.\nكلم دكتورك لو الأعراض مؤلمة أو مقلقاك.",
+    "src": "https://www.nhs.uk/tests-and-treatments/teeth-whitening/"
   },
   {
     "title_en": "Smile design",
@@ -3363,5 +3359,125 @@ window.AI_TOPICS = [
     "sar": "تجنب البوس ومشاركة الأدوات ولمس الفقاعة وهي نشطة؛ اغسل إيدك بعد الكريم. الأفضل تأجيل زيارة الأسنان لحد ما تنشف.",
     "cat": "Soft tissue",
     "src": null
+  },
+  {
+    "title_en": "Zirconia crowns",
+    "title_ar": "تركيبات الزيركون",
+    "description_en": "Zirconia is a strong ceramic material used to make dental crowns.\nA crown covers a prepared tooth to restore its shape and function.\nYour dentist checks your bite and tooth before recommending a material.",
+    "description_ar": "الزيركون مادة سيراميك قوية بتستخدم في تلبيسات الأسنان.\nالتلبيسة بتغطي السن بعد تحضيره عشان ترجع شكله ووظيفته.\nالدكتور بيفحص السن والعضة قبل اختيار المادة.",
+    "symptoms": {
+      "en": "A weak, broken or damaged tooth may need a crown.",
+      "ar": "السن الضعيف أو المكسور أو المتضرر ممكن يحتاج تلبيسة."
+    },
+    "treatment": {
+      "en": "Tooth preparation, impressions and fitting a custom crown.",
+      "ar": "تحضير السن ومقاسات وبعدها تركيب تلبيسة مناسبة."
+    },
+    "prevention": {
+      "en": "Clean around the crown and avoid biting very hard objects.",
+      "ar": "نضف حوالين التلبيسة ومتعضش على حاجات شديدة الصلابة."
+    },
+    "category": "Cosmetic",
+    "source_name": "Cleveland Clinic",
+    "source_url": "https://my.clevelandclinic.org/health/treatments/10923-dental-crowns",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
+    "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
+    "en": "Zirconia crowns",
+    "ar": "تركيبات الزيركون",
+    "cat": "Cosmetic",
+    "sen": "Zirconia is a strong ceramic material used to make dental crowns.\nA crown covers a prepared tooth to restore its shape and function.\nYour dentist checks your bite and tooth before recommending a material.",
+    "sar": "الزيركون مادة سيراميك قوية بتستخدم في تلبيسات الأسنان.\nالتلبيسة بتغطي السن بعد تحضيره عشان ترجع شكله ووظيفته.\nالدكتور بيفحص السن والعضة قبل اختيار المادة.",
+    "src": "https://my.clevelandclinic.org/health/treatments/10923-dental-crowns"
+  },
+  {
+    "title_en": "Surgical wisdom tooth extraction",
+    "title_ar": "خلع ضرس العقل جراحياً",
+    "description_en": "A problem wisdom tooth may need a surgical removal.\nThe dentist may open the gum and divide the tooth before removing it.\nAsk about the procedure, healing and nerve-injury risk before treatment.",
+    "description_ar": "ضرس العقل اللي مسبب مشكلة ممكن يحتاج خلع جراحي.\nالدكتور ممكن يفتح اللثة ويقسم الضرس قبل إخراجه.\nاسأل عن الخطوات والالتئام واحتمال إصابة الأعصاب قبل العلاج.",
+    "symptoms": {
+      "en": "Pain, infection or other problems around a wisdom tooth.",
+      "ar": "ألم أو التهاب أو مشاكل تانية حوالين ضرس العقل."
+    },
+    "treatment": {
+      "en": "Assessment, sometimes X-rays, then removal with appropriate anaesthesia.",
+      "ar": "تقييم وأحياناً أشعة وبعدها الخلع بالتخدير المناسب."
+    },
+    "prevention": {
+      "en": "Follow the surgeon’s cleaning and aftercare instructions; avoid smoking.",
+      "ar": "التزم بتعليمات الجراح للتنظيف والعناية وتجنب التدخين."
+    },
+    "category": "Surgery",
+    "source_name": "NHS",
+    "source_url": "https://www.nhs.uk/tests-and-treatments/wisdom-tooth-removal/",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
+    "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
+    "en": "Surgical wisdom tooth extraction",
+    "ar": "خلع ضرس العقل جراحياً",
+    "cat": "Surgery",
+    "sen": "A problem wisdom tooth may need a surgical removal.\nThe dentist may open the gum and divide the tooth before removing it.\nAsk about the procedure, healing and nerve-injury risk before treatment.",
+    "sar": "ضرس العقل اللي مسبب مشكلة ممكن يحتاج خلع جراحي.\nالدكتور ممكن يفتح اللثة ويقسم الضرس قبل إخراجه.\nاسأل عن الخطوات والالتئام واحتمال إصابة الأعصاب قبل العلاج.",
+    "src": "https://www.nhs.uk/tests-and-treatments/wisdom-tooth-removal/"
+  },
+  {
+    "title_en": "Dental crown materials",
+    "title_ar": "مواد تلبيسات الأسنان",
+    "description_en": "Crowns can be made from metal, resin or different ceramics.\nEach option has advantages and limitations in strength and appearance.\nDiscuss your tooth, bite, preferences and budget with the dentist.",
+    "description_ar": "التلبيسات ممكن تتعمل من معدن أو راتنج أو أنواع سيراميك.\nكل اختيار ليه مميزات وحدود في القوة والشكل.\nناقش مع الدكتور السن والعضة وتفضيلاتك والميزانية.",
+    "symptoms": {
+      "en": "A damaged or weak tooth may need coverage.",
+      "ar": "سن ضعيف أو متضرر ممكن يحتاج تغطية."
+    },
+    "treatment": {
+      "en": "The dentist selects a suitable crown design and material.",
+      "ar": "الدكتور بيختار تصميم ومادة مناسبة للتلبيسة."
+    },
+    "prevention": {
+      "en": "Regular cleaning and checks help maintain any crown type.",
+      "ar": "التنظيف والمتابعة بيساعدوا في الحفاظ على أي نوع تلبيسة."
+    },
+    "category": "Treatment",
+    "source_name": "Cleveland Clinic",
+    "source_url": "https://my.clevelandclinic.org/health/treatments/10923-dental-crowns",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
+    "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
+    "en": "Dental crown materials",
+    "ar": "مواد تلبيسات الأسنان",
+    "cat": "Treatment",
+    "sen": "Crowns can be made from metal, resin or different ceramics.\nEach option has advantages and limitations in strength and appearance.\nDiscuss your tooth, bite, preferences and budget with the dentist.",
+    "sar": "التلبيسات ممكن تتعمل من معدن أو راتنج أو أنواع سيراميك.\nكل اختيار ليه مميزات وحدود في القوة والشكل.\nناقش مع الدكتور السن والعضة وتفضيلاتك والميزانية.",
+    "src": "https://my.clevelandclinic.org/health/treatments/10923-dental-crowns"
+  },
+  {
+    "title_en": "Temporary crowns",
+    "title_ar": "التلبيسة المؤقتة",
+    "description_en": "A temporary crown may protect a prepared tooth while the final crown is made.\nIt is not the final restoration.\nContact your dentist if it loosens, breaks or causes a sharp edge.",
+    "description_ar": "التلبيسة المؤقتة ممكن تحمي السن المحضر لحد ما النهائية تجهز.\nهي مش التعويض النهائي.\nكلم الدكتور لو اتحركت أو اتكسرت أو بقت حادة.",
+    "symptoms": {
+      "en": "A prepared tooth waiting for its final crown.",
+      "ar": "سن محضر ومستني التلبيسة النهائية."
+    },
+    "treatment": {
+      "en": "Temporary coverage followed by the final crown fitting.",
+      "ar": "تغطية مؤقتة وبعدها تركيب التلبيسة النهائية."
+    },
+    "prevention": {
+      "en": "Avoid very sticky or hard foods and follow cleaning advice.",
+      "ar": "تجنب الأكل الشديد اللزوجة أو الصلابة واتبع تعليمات التنظيف."
+    },
+    "category": "Treatment",
+    "source_name": "Cleveland Clinic",
+    "source_url": "https://my.clevelandclinic.org/health/treatments/10923-dental-crowns",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
+    "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
+    "en": "Temporary crowns",
+    "ar": "التلبيسة المؤقتة",
+    "cat": "Treatment",
+    "sen": "A temporary crown may protect a prepared tooth while the final crown is made.\nIt is not the final restoration.\nContact your dentist if it loosens, breaks or causes a sharp edge.",
+    "sar": "التلبيسة المؤقتة ممكن تحمي السن المحضر لحد ما النهائية تجهز.\nهي مش التعويض النهائي.\nكلم الدكتور لو اتحركت أو اتكسرت أو بقت حادة.",
+    "src": "https://my.clevelandclinic.org/health/treatments/10923-dental-crowns"
   }
 ];
