@@ -25,6 +25,17 @@
 <link rel="stylesheet" href="responsive.css?v=1"><link rel="stylesheet" href="motion.css?v=1"><script src="motion.js?v=1" defer></script><link rel="preload" as="image" href="assets/366bbbe555d5.webp">
 <script>window.__sdkScripts={},window.__sdkLoad=function(e){return window.__sdkScripts[e]||(window.__sdkScripts[e]=new Promise(function(i,r){var n=document.createElement("script");n.src=e,n.onload=i,n.onerror=r,document.head.appendChild(n)}))},window.__sharedFS=function(){return window.__sharedFSPromise||(window.__sharedFSPromise=window.__sdkLoad("https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js").then(function(){return window.__sdkLoad("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js")}).then(function(){return firebase.apps.length||firebase.initializeApp(CONFIG.firebase),firebase.firestore()}).catch(function(e){throw window.__sharedFSPromise=null,e}))};</script><link rel="stylesheet" href="performance.css">
 <link rel="stylesheet" href="ux.css">
+<style id="about-panel-style">
+/* About text only: translucent white panel, with readable bilingual spacing. */
+#about .about-panel{min-width:0;padding:32px 36px;background:linear-gradient(135deg,rgba(255,255,255,.32),rgba(255,255,255,.12));border:1px solid rgba(255,255,255,.64);border-radius:20px;box-shadow:0 8px 28px rgba(18,47,77,.045),inset 0 1px 0 rgba(255,255,255,.5);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);text-align:start;color:#17334d}
+#about .about-panel .eyebrow{margin-bottom:12px}
+#about .about-panel .badge-pill{margin-bottom:18px}
+#about .about-panel .section-title{margin-top:0;margin-bottom:18px;color:#17334d}
+#about .about-panel #aboutText p{color:#263e53;line-height:1.85;max-width:58ch}
+#about .about-panel #aboutText p:last-child{margin-bottom:0}
+html[dir="rtl"] #about .about-panel #aboutText p{line-height:2}
+@media(max-width:600px){#about .about-panel{padding:24px 22px;border-radius:18px}#about .about-panel .section-title{font-size:clamp(25px,7vw,32px);line-height:1.35}#about .about-panel .badge-pill{font-size:13px;padding:7px 13px}}
+</style>
 </head>
 
 <body>
@@ -99,7 +110,7 @@
 <section class="section" id="about">
   <div class="wrap about-grid">
     <div class="portrait"><img loading="eager" decoding="async" class="ph" data-home-logo-copy="1" width="146" height="144" alt=""><!-- EDIT: replace with your photo, e.g. <img loading="lazy" decoding="async" src="portrait.jpg" alt="Dr. Ahmed Amer"> --></div>
-    <div>
+    <div class="about-panel">
       <div class="eyebrow" id="aboutEyebrow">Who am I</div>
       <span class="badge-pill" id="aboutBadge"></span>
       <h2 class="section-title" id="aboutTitle"></h2>
