@@ -107,7 +107,7 @@ body{background:#eef5f4}
 </style>
 <div class="ai-badge" id="aiBadge">AI</div>
 <h3 id="aiTitle">AI Dental Search</h3>
-<p class="ai-sub" id="aiSub">Search 100+ dental topics in English and Arabic - instant answers from our built-in library.</p>
+<p class="ai-sub" id="aiSub">Search 109 topics in English and Arabic. 21 source-verified; 88 older topics await source review.</p>
 <div class="ai-row"><input id="aiInput" type="search" placeholder="Try: toothache, تسوس, braces, whitening..." autocomplete="off"><button id="aiGo" type="button">Search</button></div>
 <div id="aiResults" aria-live="polite"></div>
 <p class="ai-note" id="aiNote">Educational information only - it does not replace a dental examination. AI answers coming soon.</p>
@@ -218,10 +218,22 @@ document.addEventListener('DOMContentLoaded',()=>{const nav=document.querySelect
         + '<a href="#" data-aid="' + esc(a.id) + '">' + (arUI ? "اقرأ المقالة ↗" : "Read article ↗") + "</a></div>";
     }).join("");
     html += topics.slice(0, 12).map(function(t){
-      return '<div class="ai-card"><h4>' + esc(ar ? t.ar : t.en) + "</h4>"
-        + '<span class="ai-cat">' + esc(t.cat) + "</span>"
-        + "<p>" + esc(ar ? t.sar : t.sen) + "</p>"
-        + '<a href="' + t.src + '" target="_blank" rel="noopener">' + (arUI ? "المصدر الموثوق ↗" : "Trusted source ↗") + "</a></div>";
+      var lang = ar ? "ar" : "en";
+      var verified = t.verification_status === "verified" && t.source_url;
+      function section(label, field){
+        var text = t[field] && t[field][lang];
+        return text ? '<p><strong>' + label + '</strong><br>' + esc(text) + '</p>' : '';
+      }
+      var source = verified
+        ? '<a href="' + esc(t.source_url) + '" target="_blank" rel="noopener noreferrer">' + (ar ? "المصدر: " : "Source: ") + esc(t.source_name) + (ar ? " - اضغط للتأكد ↗" : " - check the source ↗") + '</a><small style="display:block">' + (ar ? "تاريخ التحقق: " : "Verified: ") + esc(t.last_updated) + '</small>'
+        : '<small>' + (ar ? "موضوع قديم: مراجعة المصدر لم تكتمل بعد" : "Legacy topic: source review pending") + '</small>';
+      return '<div class="ai-card" dir="' + (ar ? "rtl" : "ltr") + '"><h4>' + esc(ar ? t.title_ar : t.title_en) + '</h4>'
+        + '<span class="ai-cat">' + esc(t.category) + '</span>'
+        + '<p style="white-space:pre-line">' + esc(ar ? t.description_ar : t.description_en) + '</p>'
+        + section(ar ? "الأعراض" : "Symptoms", "symptoms")
+        + section(ar ? "العلاج" : "Treatment", "treatment")
+        + section(ar ? "الوقاية والعناية" : "Prevention and care", "prevention")
+        + source + '<p class="ai-disclaimer" dir="rtl" lang="ar">' + esc(t.disclaimer) + '</p></div>';
     }).join("");
     if (!html){
       results.innerHTML = '<div class="ai-empty">' + (arUI ? "مفيش نتائج مطابقة. جرّب كلمة تانية، أو اسأل دكتور أحمد على واتساب." : "No matching topics. Try another word, or ask Dr. Ahmed on WhatsApp.") + "</div>";
@@ -237,13 +249,19 @@ document.addEventListener('DOMContentLoaded',()=>{const nav=document.querySelect
     if (a && window.__libShow) window.__libShow(a);
   });
   function search(){
+    var total = window.AI_TOPICS.length;
+    var checked = window.AI_TOPICS.filter(function(t){ return t.verification_status === "verified"; }).length;
+    document.getElementById("aiSub").textContent = isAr()
+      ? "ابحث في " + total + " موضوع بالعربي والإنجليزي. " + checked + " مصدر متحقق منه؛ " + (total - checked) + " موضوع قديم لسه تحت مراجعة المصدر."
+      : "Search " + total + " topics in English and Arabic. " + checked + " source-verified; " + (total - checked) + " older topics await source review.";
+    document.getElementById("aiGo").textContent = isAr() ? "بحث" : "Search";
     var q = input.value.trim();
     if (!q){ results.innerHTML = ""; lastArts = []; return; }
     var qn = norm(q);
     var cands = expand(qn);
     var qAr = /[؀-ۿ]/.test(q);
     var topics = window.AI_TOPICS.filter(function(t){
-      return matches(norm(t.en + " " + t.ar + " " + t.cat + " " + t.sen + " " + t.sar), cands);
+      return matches(norm([t.title_en, t.title_ar, t.category, t.description_en, t.description_ar, t.symptoms && t.symptoms.en, t.symptoms && t.symptoms.ar].join(" ")), cands);
     });
     var arts = (window.__libArticles ? window.__libArticles() : []).filter(function(a){
       return matches(norm([a.titleEn, a.titleAr, a.excerptEn, a.excerptAr, a.bodyEn, a.bodyAr, a.category].join(" ")), cands);
@@ -251,6 +269,7 @@ document.addEventListener('DOMContentLoaded',()=>{const nav=document.querySelect
     lastArts = arts;
     render(topics, arts, qAr);
   }
+  search();
   input.addEventListener("input", search);
   document.getElementById("aiGo").addEventListener("click", search);
   new MutationObserver(search).observe(document.documentElement, { attributes: true, attributeFilter: ["lang"] });
