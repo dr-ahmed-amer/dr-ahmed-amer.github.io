@@ -485,34 +485,33 @@ window.AI_TOPICS = [
   },
   {
     "title_en": "Oral thrush",
-    "title_ar": "القلاع الفموي",
-    "description_en": "A yeast (candida) overgrowth causing white patches that wipe off, common after antibiotics, with dentures, or in diabetes. Treated with antifungal drops or gel.",
-    "description_ar": "زيادة فطر الكانديدا وبتعمل بقع بيضا بتتشال، شائعة بعد المضادات الحيوية ومع طقم الأسنان وعند مرضى السكر. بتتعالج بنقط أو جل مضاد للفطريات.",
+    "title_ar": "فطريات الفم",
+    "description_en": "Oral thrush is a fungal infection that can cause white patches and soreness.\nIn adults, patches may leave red areas that bleed when wiped away.\nAsk a clinician or pharmacist about diagnosis and appropriate treatment.",
+    "description_ar": "فطريات الفم عدوى فطرية ممكن تعمل بقع بيضاء وألم.\nعند الكبار البقع ممكن تسيب مكان أحمر بينزف لما تتمسح.\nاسأل طبيب أو صيدلي عن التشخيص والعلاج المناسب.",
     "symptoms": {
-      "en": "",
-      "ar": ""
+      "en": "White patches, a red sore mouth or altered taste.",
+      "ar": "بقع بيضاء أو فم أحمر مؤلم أو تغير الطعم."
     },
     "treatment": {
-      "en": "",
-      "ar": ""
+      "en": "Antifungal treatment may be needed; seek medical advice for painful swallowing or weak immunity.",
+      "ar": "ممكن تحتاج مضاد فطريات؛ اطلب نصيحة طبية لو البلع مؤلم أو المناعة ضعيفة."
     },
     "prevention": {
-      "en": "",
-      "ar": ""
+      "en": "Clean teeth and dentures, remove dentures at night and do not smoke.",
+      "ar": "نضف الأسنان والأطقم وشيل الطقم بالليل ومتدخنش."
     },
-    "category": "Soft tissue",
-    "source_name": null,
-    "source_url": null,
-    "last_updated": null,
-    "verification_status": "pending_review",
+    "category": "Oral health",
+    "source_name": "NHS",
+    "source_url": "https://www.nhs.uk/conditions/oral-thrush-mouth-thrush/",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
     "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
-    "legacy_source_url": "https://www.mouthhealthy.org/all-topics-a-z/thrush",
     "en": "Oral thrush",
-    "ar": "القلاع الفموي",
-    "sen": "A yeast (candida) overgrowth causing white patches that wipe off, common after antibiotics, with dentures, or in diabetes. Treated with antifungal drops or gel.",
-    "sar": "زيادة فطر الكانديدا وبتعمل بقع بيضا بتتشال، شائعة بعد المضادات الحيوية ومع طقم الأسنان وعند مرضى السكر. بتتعالج بنقط أو جل مضاد للفطريات.",
-    "cat": "Soft tissue",
-    "src": null
+    "ar": "فطريات الفم",
+    "cat": "Oral health",
+    "sen": "Oral thrush is a fungal infection that can cause white patches and soreness.\nIn adults, patches may leave red areas that bleed when wiped away.\nAsk a clinician or pharmacist about diagnosis and appropriate treatment.",
+    "sar": "فطريات الفم عدوى فطرية ممكن تعمل بقع بيضاء وألم.\nعند الكبار البقع ممكن تسيب مكان أحمر بينزف لما تتمسح.\nاسأل طبيب أو صيدلي عن التشخيص والعلاج المناسب.",
+    "src": "https://www.nhs.uk/conditions/oral-thrush-mouth-thrush/"
   },
   {
     "title_en": "Plaque",
@@ -1186,65 +1185,63 @@ window.AI_TOPICS = [
   },
   {
     "title_en": "Dental sealants",
-    "title_ar": "الحشو الوقائي (سيلانت)",
-    "description_en": "A thin protective coating painted on the chewing grooves of back teeth, mainly for children, cutting cavity risk in those grooves sharply.",
-    "description_ar": "طبقة حماية رفيعة بتتحط على شقوق ضروس الطحن، أساسًا للأطفال، وبتقلل احتمال التسوس في الشقوق دي بشكل كبير.",
+    "title_ar": "سد شقوق الأسنان الوقائي",
+    "description_en": "Sealants coat the grooves on the chewing surfaces of back teeth.\nThey help keep cavity-causing bacteria out of deep pits.\nA dentist checks whether a tooth is suitable and reviews the sealant later.",
+    "description_ar": "المادة الوقائية بتغطي شقوق سطح المضغ في الأسنان الخلفية.\nبتساعد تمنع بكتيريا التسوس من دخول الحفر العميقة.\nالدكتور يحدد ملاءمة السن ويراجع المادة بعد كده.",
     "symptoms": {
-      "en": "",
-      "ar": ""
+      "en": "Deep tooth grooves or a higher decay risk; pain is not required.",
+      "ar": "شقوق عميقة أو قابلية أعلى للتسوس ومش لازم يكون فيه وجع."
     },
     "treatment": {
-      "en": "",
-      "ar": ""
+      "en": "A clinician cleans, dries and coats the tooth then hardens the material.",
+      "ar": "المختص ينضف ويجفف السن ويحط المادة ويصلبها."
     },
     "prevention": {
-      "en": "",
-      "ar": ""
+      "en": "Keep brushing and cleaning between teeth; sealants are not a substitute.",
+      "ar": "كمل الغسيل والتنظيف بين الأسنان؛ المادة مش بديل للنظافة."
     },
     "category": "Prevention",
-    "source_name": null,
-    "source_url": null,
-    "last_updated": null,
-    "verification_status": "pending_review",
+    "source_name": "Cleveland Clinic",
+    "source_url": "https://my.clevelandclinic.org/health/treatments/10912-sealants",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
     "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
-    "legacy_source_url": "https://www.mouthhealthy.org/all-topics-a-z/sealants",
     "en": "Dental sealants",
-    "ar": "الحشو الوقائي (سيلانت)",
-    "sen": "A thin protective coating painted on the chewing grooves of back teeth, mainly for children, cutting cavity risk in those grooves sharply.",
-    "sar": "طبقة حماية رفيعة بتتحط على شقوق ضروس الطحن، أساسًا للأطفال، وبتقلل احتمال التسوس في الشقوق دي بشكل كبير.",
+    "ar": "سد شقوق الأسنان الوقائي",
     "cat": "Prevention",
-    "src": null
+    "sen": "Sealants coat the grooves on the chewing surfaces of back teeth.\nThey help keep cavity-causing bacteria out of deep pits.\nA dentist checks whether a tooth is suitable and reviews the sealant later.",
+    "sar": "المادة الوقائية بتغطي شقوق سطح المضغ في الأسنان الخلفية.\nبتساعد تمنع بكتيريا التسوس من دخول الحفر العميقة.\nالدكتور يحدد ملاءمة السن ويراجع المادة بعد كده.",
+    "src": "https://my.clevelandclinic.org/health/treatments/10912-sealants"
   },
   {
     "title_en": "Dental X-rays",
     "title_ar": "أشعة الأسنان",
-    "description_en": "Low-dose images that reveal decay between teeth, bone loss and hidden problems. Modern digital X-rays use very low radiation; lead aprons protect the body.",
-    "description_ar": "صور بجرعة إشعاع قليلة بتكشف التسوس بين الأسنان وفقد العظم ومشاكل مخفية. الأشعة الديجيتال الحديثة إشعاعها قليل جدًا؛ والمريلة الرصاصية بتحمي الجسم.",
+    "description_en": "Dental X-rays show areas that a visual check cannot fully assess.\nThey can help find decay, bone loss or infections and plan treatment.\nYour dentist chooses the type and timing based on clinical need.",
+    "description_ar": "أشعة الأسنان بتوضح أماكن الكشف بالنظر مش بيقيمها بالكامل.\nبتساعد في اكتشاف التسوس أو فقدان العظم أو العدوى وتخطيط العلاج.\nالدكتور يختار النوع والموعد حسب الاحتياج الطبي.",
     "symptoms": {
-      "en": "",
-      "ar": ""
+      "en": "Sometimes needed without symptoms; pain or suspected hidden disease may prompt imaging.",
+      "ar": "ممكن تلزم من غير أعراض؛ الألم أو الشك في مشكلة مخفية ممكن يستدعيها."
     },
     "treatment": {
-      "en": "",
-      "ar": ""
+      "en": "Imaging supports diagnosis and does not itself treat the problem.",
+      "ar": "الأشعة بتدعم التشخيص ومش بتعالج المشكلة بنفسها."
     },
     "prevention": {
-      "en": "",
-      "ar": ""
+      "en": "Discuss prior images and pregnancy with your dentist; avoid unnecessary repeat imaging.",
+      "ar": "ناقش الأشعة السابقة والحمل مع دكتورك وتجنب التكرار غير الضروري."
     },
-    "category": "Diagnostics",
-    "source_name": null,
-    "source_url": null,
-    "last_updated": null,
-    "verification_status": "pending_review",
+    "category": "Treatment",
+    "source_name": "Cleveland Clinic",
+    "source_url": "https://my.clevelandclinic.org/health/diagnostics/11199-dental-x-rays",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
     "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
-    "legacy_source_url": "https://www.mouthhealthy.org/all-topics-a-z/x-rays",
     "en": "Dental X-rays",
     "ar": "أشعة الأسنان",
-    "sen": "Low-dose images that reveal decay between teeth, bone loss and hidden problems. Modern digital X-rays use very low radiation; lead aprons protect the body.",
-    "sar": "صور بجرعة إشعاع قليلة بتكشف التسوس بين الأسنان وفقد العظم ومشاكل مخفية. الأشعة الديجيتال الحديثة إشعاعها قليل جدًا؛ والمريلة الرصاصية بتحمي الجسم.",
-    "cat": "Diagnostics",
-    "src": null
+    "cat": "Treatment",
+    "sen": "Dental X-rays show areas that a visual check cannot fully assess.\nThey can help find decay, bone loss or infections and plan treatment.\nYour dentist chooses the type and timing based on clinical need.",
+    "sar": "أشعة الأسنان بتوضح أماكن الكشف بالنظر مش بيقيمها بالكامل.\nبتساعد في اكتشاف التسوس أو فقدان العظم أو العدوى وتخطيط العلاج.\nالدكتور يختار النوع والموعد حسب الاحتياج الطبي.",
+    "src": "https://my.clevelandclinic.org/health/diagnostics/11199-dental-x-rays"
   },
   {
     "title_en": "Baby teeth care",
@@ -1431,35 +1428,34 @@ window.AI_TOPICS = [
     "src": "https://www.who.int/news-room/fact-sheets/detail/oral-health"
   },
   {
-    "title_en": "Oral cancer signs",
-    "title_ar": "علامات سرطان الفم",
-    "description_en": "A sore that does not heal in 3 weeks, a red or white patch, a lump, or persistent numbness needs prompt examination. Early detection greatly improves outcomes; dentists screen at checkups.",
-    "description_ar": "قرحة مبتتقفلش في ٣ أسابيع، أو بقعة حمرا أو بيضا، أو تورم، أو تنميل مستمر محتاج كشف سريع. الاكتشاف المبكر بيحسن النتائج جدًا؛ والدكتور بيعمل فحص مبدئي في الكشف الدوري.",
+    "title_en": "Oral cancer warning signs",
+    "title_ar": "علامات تستدعي فحص سرطان الفم",
+    "description_en": "An ulcer lasting more than three weeks needs a dental or medical check.\nRed or white patches, a lump or persistent mouth pain also need assessment.\nThese symptoms have many causes and do not by themselves mean cancer.",
+    "description_ar": "القرحة اللي مستمرة أكتر من تلات أسابيع محتاجة كشف أسنان أو طبي.\nالبقع الحمرا أو البيضاء أو كتلة أو ألم مستمر محتاجين تقييم برضه.\nالأعراض ليها أسباب كتير ومش معناها لوحدها وجود سرطان.",
     "symptoms": {
-      "en": "",
-      "ar": ""
+      "en": "Persistent ulcer, patch, lump, mouth pain or trouble swallowing or speaking.",
+      "ar": "قرحة مستمرة أو بقعة أو كتلة أو ألم بالفم أو صعوبة بلع أو كلام."
     },
     "treatment": {
-      "en": "",
-      "ar": ""
+      "en": "A clinician examines the mouth and may refer for specialist tests.",
+      "ar": "الطبيب يفحص الفم وممكن يحولك لفحوصات عند مختص."
     },
     "prevention": {
-      "en": "",
-      "ar": ""
+      "en": "Do not delay assessment of persistent changes.",
+      "ar": "متأجلش كشف التغيرات المستمرة."
     },
-    "category": "Soft tissue",
-    "source_name": null,
-    "source_url": null,
-    "last_updated": null,
-    "verification_status": "pending_review",
+    "category": "Oral health",
+    "source_name": "NHS",
+    "source_url": "https://www.nhs.uk/conditions/mouth-cancer/symptoms/",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
     "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
-    "legacy_source_url": "https://www.mouthhealthy.org/all-topics-a-z/oral-cancer",
-    "en": "Oral cancer signs",
-    "ar": "علامات سرطان الفم",
-    "sen": "A sore that does not heal in 3 weeks, a red or white patch, a lump, or persistent numbness needs prompt examination. Early detection greatly improves outcomes; dentists screen at checkups.",
-    "sar": "قرحة مبتتقفلش في ٣ أسابيع، أو بقعة حمرا أو بيضا، أو تورم، أو تنميل مستمر محتاج كشف سريع. الاكتشاف المبكر بيحسن النتائج جدًا؛ والدكتور بيعمل فحص مبدئي في الكشف الدوري.",
-    "cat": "Soft tissue",
-    "src": null
+    "en": "Oral cancer warning signs",
+    "ar": "علامات تستدعي فحص سرطان الفم",
+    "cat": "Oral health",
+    "sen": "An ulcer lasting more than three weeks needs a dental or medical check.\nRed or white patches, a lump or persistent mouth pain also need assessment.\nThese symptoms have many causes and do not by themselves mean cancer.",
+    "sar": "القرحة اللي مستمرة أكتر من تلات أسابيع محتاجة كشف أسنان أو طبي.\nالبقع الحمرا أو البيضاء أو كتلة أو ألم مستمر محتاجين تقييم برضه.\nالأعراض ليها أسباب كتير ومش معناها لوحدها وجود سرطان.",
+    "src": "https://www.nhs.uk/conditions/mouth-cancer/symptoms/"
   },
   {
     "title_en": "Jaw pain",
@@ -2388,66 +2384,64 @@ window.AI_TOPICS = [
     "src": null
   },
   {
-    "title_en": "White patches in mouth",
-    "title_ar": "بقع بيضا في الفم",
-    "description_en": "Wipeable white patches suggest thrush; patches that do not wipe off need examination because a small percentage are pre-cancerous. Smoking increases the risk.",
-    "description_ar": "البقع البيضا اللي بتتشال غالبًا قلاع؛ اللي مبتتشالش محتاجة كشف لأن نسبة صغيرة منها ما قبل سرطانية. التدخين بيزود الخطورة.",
+    "title_en": "White patches in the mouth",
+    "title_ar": "بقع بيضاء في الفم",
+    "description_en": "White patches can have several causes, including thrush and other conditions.\nAppearance alone is not enough for self-diagnosis.\nSee a dentist or doctor for white patches or worsening tongue pain.",
+    "description_ar": "البقع البيضاء ليها أسباب مختلفة منها الفطريات وحالات تانية.\nالشكل لوحده مش كفاية للتشخيص الذاتي.\nاكشف عند دكتور أسنان أو طبيب لو فيه بقع بيضاء أو ألم لسان بيزيد.",
     "symptoms": {
-      "en": "",
-      "ar": ""
+      "en": "White areas on the tongue or inside the cheeks.",
+      "ar": "مناطق بيضاء على اللسان أو داخل الخد."
     },
     "treatment": {
-      "en": "",
-      "ar": ""
+      "en": "Treatment depends on the cause found during examination.",
+      "ar": "العلاج حسب السبب اللي الكشف يحدده."
     },
     "prevention": {
-      "en": "",
-      "ar": ""
+      "en": "Clean gently and avoid foods, smoking or alcohol that irritate the mouth.",
+      "ar": "نضف برفق وتجنب الأكل والتدخين والكحول اللي بيهيجوا الفم."
     },
-    "category": "Soft tissue",
-    "source_name": null,
-    "source_url": null,
-    "last_updated": null,
-    "verification_status": "pending_review",
+    "category": "Oral health",
+    "source_name": "NHS",
+    "source_url": "https://www.nhs.uk/symptoms/sore-or-white-tongue/",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
     "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
-    "legacy_source_url": "https://www.mouthhealthy.org/all-topics-a-z/leukoplakia",
-    "en": "White patches in mouth",
-    "ar": "بقع بيضا في الفم",
-    "sen": "Wipeable white patches suggest thrush; patches that do not wipe off need examination because a small percentage are pre-cancerous. Smoking increases the risk.",
-    "sar": "البقع البيضا اللي بتتشال غالبًا قلاع؛ اللي مبتتشالش محتاجة كشف لأن نسبة صغيرة منها ما قبل سرطانية. التدخين بيزود الخطورة.",
-    "cat": "Soft tissue",
-    "src": null
+    "en": "White patches in the mouth",
+    "ar": "بقع بيضاء في الفم",
+    "cat": "Oral health",
+    "sen": "White patches can have several causes, including thrush and other conditions.\nAppearance alone is not enough for self-diagnosis.\nSee a dentist or doctor for white patches or worsening tongue pain.",
+    "sar": "البقع البيضاء ليها أسباب مختلفة منها الفطريات وحالات تانية.\nالشكل لوحده مش كفاية للتشخيص الذاتي.\nاكشف عند دكتور أسنان أو طبيب لو فيه بقع بيضاء أو ألم لسان بيزيد.",
+    "src": "https://www.nhs.uk/symptoms/sore-or-white-tongue/"
   },
   {
     "title_en": "Geographic tongue",
     "title_ar": "اللسان الجغرافي",
-    "description_en": "Harmless migrating smooth red patches with white borders that change shape over days. No treatment needed; avoid spicy food if it stings.",
-    "description_ar": "بقع حمرا ناعمة بحواف بيضا بتغير شكلها كل كام يوم، وهي حالة غير ضارة. مش محتاجة علاج؛ تجنب الأكل الحار لو بيلسع.",
+    "description_en": "Blotchy red tongue patches with a pale border may be geographic tongue.\nOther conditions can cause tongue changes too.\nAsk a clinician about patches or pain rather than diagnosing from a photo.",
+    "description_ar": "بقع حمرا غير منتظمة بحد فاتح على اللسان ممكن تكون لسان جغرافي.\nحالات تانية ممكن تسبب تغيرات في اللسان برضه.\nاسأل مختص عن البقع أو الألم بدل التشخيص من صورة.",
     "symptoms": {
-      "en": "",
-      "ar": ""
+      "en": "Red tongue patches with a white or light-coloured edge.",
+      "ar": "بقع حمرا على اللسان بحافة بيضاء أو فاتحة."
     },
     "treatment": {
-      "en": "",
-      "ar": ""
+      "en": "A clinician checks the tongue and advises care based on the cause.",
+      "ar": "المختص يفحص اللسان وينصح بالعناية حسب السبب."
     },
     "prevention": {
-      "en": "",
-      "ar": ""
+      "en": "Avoid hot, acidic or spicy foods if they irritate your tongue.",
+      "ar": "تجنب الأكل السخن أو الحمضي أو الحار لو بيهيج لسانك."
     },
-    "category": "Soft tissue",
-    "source_name": null,
-    "source_url": null,
-    "last_updated": null,
-    "verification_status": "pending_review",
+    "category": "Oral health",
+    "source_name": "NHS",
+    "source_url": "https://www.nhs.uk/symptoms/sore-or-white-tongue/",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
     "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
-    "legacy_source_url": "https://www.mouthhealthy.org/all-topics-a-z/geographic-tongue",
     "en": "Geographic tongue",
     "ar": "اللسان الجغرافي",
-    "sen": "Harmless migrating smooth red patches with white borders that change shape over days. No treatment needed; avoid spicy food if it stings.",
-    "sar": "بقع حمرا ناعمة بحواف بيضا بتغير شكلها كل كام يوم، وهي حالة غير ضارة. مش محتاجة علاج؛ تجنب الأكل الحار لو بيلسع.",
-    "cat": "Soft tissue",
-    "src": null
+    "cat": "Oral health",
+    "sen": "Blotchy red tongue patches with a pale border may be geographic tongue.\nOther conditions can cause tongue changes too.\nAsk a clinician about patches or pain rather than diagnosing from a photo.",
+    "sar": "بقع حمرا غير منتظمة بحد فاتح على اللسان ممكن تكون لسان جغرافي.\nحالات تانية ممكن تسبب تغيرات في اللسان برضه.\nاسأل مختص عن البقع أو الألم بدل التشخيص من صورة.",
+    "src": "https://www.nhs.uk/symptoms/sore-or-white-tongue/"
   },
   {
     "title_en": "Child's first dental visit",
@@ -3852,5 +3846,155 @@ window.AI_TOPICS = [
     "sen": "Mild soreness can occur after gum reshaping.\nSoft foods and careful cleaning help during recovery.\nContact the provider for severe pain, persistent bleeding, pus or fever.",
     "sar": "ممكن يحصل وجع بسيط بعد تجميل اللثة.\nالأكل الطري والتنظيف بحذر بيساعدوا خلال التعافي.\nكلم الطبيب لو الألم شديد أو النزيف مستمر أو فيه صديد أو حرارة.",
     "src": "https://my.clevelandclinic.org/health/treatments/25208-gum-contouring"
+  },
+  {
+    "title_en": "Bitewing X-rays",
+    "title_ar": "أشعة بايت وينج",
+    "description_en": "Bitewing images show selected upper and lower teeth together.\nThey help detect decay between teeth and near the gum line.\nYour dentist decides whether this view will help your examination.",
+    "description_ar": "أشعة بايت وينج بتوضح أسنان مختارة فوق وتحت مع بعض.\nبتساعد في اكتشاف التسوس بين الأسنان وقرب خط اللثة.\nدكتورك يحدد إذا كانت الصورة هتفيد في الكشف.",
+    "symptoms": {
+      "en": "Hidden decay may cause no early symptoms.",
+      "ar": "التسوس المخفي ممكن ميعملش أعراض في البداية."
+    },
+    "treatment": {
+      "en": "A small sensor or film is positioned inside the mouth for imaging.",
+      "ar": "حساس صغير أو فيلم بيتحط داخل الفم للتصوير."
+    },
+    "prevention": {
+      "en": "Continue prevention and have images only when clinically needed.",
+      "ar": "كمل الوقاية واعمل الأشعة وقت الاحتياج الطبي."
+    },
+    "category": "Treatment",
+    "source_name": "Cleveland Clinic",
+    "source_url": "https://my.clevelandclinic.org/health/diagnostics/11199-dental-x-rays",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
+    "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
+    "en": "Bitewing X-rays",
+    "ar": "أشعة بايت وينج",
+    "cat": "Treatment",
+    "sen": "Bitewing images show selected upper and lower teeth together.\nThey help detect decay between teeth and near the gum line.\nYour dentist decides whether this view will help your examination.",
+    "sar": "أشعة بايت وينج بتوضح أسنان مختارة فوق وتحت مع بعض.\nبتساعد في اكتشاف التسوس بين الأسنان وقرب خط اللثة.\nدكتورك يحدد إذا كانت الصورة هتفيد في الكشف.",
+    "src": "https://my.clevelandclinic.org/health/diagnostics/11199-dental-x-rays"
+  },
+  {
+    "title_en": "Panoramic dental X-ray",
+    "title_ar": "أشعة بانوراما الأسنان",
+    "description_en": "A panoramic image shows the mouth and jaws in a broad view.\nIt can include teeth, jawbone, nerves and sinuses.\nIt complements other checks and does not replace every detailed tooth image.",
+    "description_ar": "البانوراما بتوضح الفم والفكين في صورة واسعة.\nممكن تشمل الأسنان وعظم الفك والأعصاب والجيوب.\nبتكمل الفحوصات ومش بديل لكل صورة تفصيلية للسن.",
+    "symptoms": {
+      "en": "Used for selected diagnostic or treatment-planning needs.",
+      "ar": "بتستخدم لاحتياجات تشخيص أو تخطيط علاج معينة."
+    },
+    "treatment": {
+      "en": "The imaging machine captures the view with the sensor outside the mouth.",
+      "ar": "جهاز التصوير بياخد الصورة والحساس خارج الفم."
+    },
+    "prevention": {
+      "en": "Tell your provider about previous imaging and follow positioning instructions.",
+      "ar": "بلغ المختص بالأشعة السابقة واتبع تعليمات الوقفة."
+    },
+    "category": "Treatment",
+    "source_name": "Cleveland Clinic",
+    "source_url": "https://my.clevelandclinic.org/health/diagnostics/11199-dental-x-rays",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
+    "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
+    "en": "Panoramic dental X-ray",
+    "ar": "أشعة بانوراما الأسنان",
+    "cat": "Treatment",
+    "sen": "A panoramic image shows the mouth and jaws in a broad view.\nIt can include teeth, jawbone, nerves and sinuses.\nIt complements other checks and does not replace every detailed tooth image.",
+    "sar": "البانوراما بتوضح الفم والفكين في صورة واسعة.\nممكن تشمل الأسنان وعظم الفك والأعصاب والجيوب.\nبتكمل الفحوصات ومش بديل لكل صورة تفصيلية للسن.",
+    "src": "https://my.clevelandclinic.org/health/diagnostics/11199-dental-x-rays"
+  },
+  {
+    "title_en": "Dental cone beam CT",
+    "title_ar": "الأشعة المقطعية المخروطية للأسنان",
+    "description_en": "Cone beam CT produces three-dimensional dental and jaw images.\nIt may help selected cases such as implant planning.\nA dentist weighs the information needed against radiation exposure.",
+    "description_ar": "الأشعة المخروطية بتعمل صور تلاتية الأبعاد للأسنان والفكين.\nممكن تفيد حالات مختارة زي تخطيط الزراعة.\nالدكتور يوازن المعلومات المطلوبة مع التعرض للأشعة.",
+    "symptoms": {
+      "en": "A planning test, not a symptom-based diagnosis.",
+      "ar": "فحص للتخطيط ومش تشخيص بالأعراض."
+    },
+    "treatment": {
+      "en": "Three-dimensional imaging when a clinician considers it necessary.",
+      "ar": "تصوير تلاتي الأبعاد لما المختص يشوفه ضروري."
+    },
+    "prevention": {
+      "en": "Do not request repeat scans without a clinical reason.",
+      "ar": "متطلبش تكرار الأشعة من غير سبب طبي."
+    },
+    "category": "Treatment",
+    "source_name": "Cleveland Clinic",
+    "source_url": "https://my.clevelandclinic.org/health/diagnostics/11199-dental-x-rays",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
+    "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
+    "en": "Dental cone beam CT",
+    "ar": "الأشعة المقطعية المخروطية للأسنان",
+    "cat": "Treatment",
+    "sen": "Cone beam CT produces three-dimensional dental and jaw images.\nIt may help selected cases such as implant planning.\nA dentist weighs the information needed against radiation exposure.",
+    "sar": "الأشعة المخروطية بتعمل صور تلاتية الأبعاد للأسنان والفكين.\nممكن تفيد حالات مختارة زي تخطيط الزراعة.\nالدكتور يوازن المعلومات المطلوبة مع التعرض للأشعة.",
+    "src": "https://my.clevelandclinic.org/health/diagnostics/11199-dental-x-rays"
+  },
+  {
+    "title_en": "Sealants for children",
+    "title_ar": "المادة الوقائية لشقوق أسنان الأطفال",
+    "description_en": "New back teeth can have deep grooves that trap food and bacteria.\nSealants may protect suitable permanent or sometimes baby teeth.\nA dentist checks eruption, decay risk and tooth condition first.",
+    "description_ar": "الأسنان الخلفية الجديدة ممكن يكون فيها شقوق عميقة بتحبس الأكل والبكتيريا.\nالمادة الوقائية ممكن تحمي أسنان دائمة مناسبة وأحياناً لبنية.\nالدكتور بيفحص طلوع السن وخطر التسوس وحالة السن الأول.",
+    "symptoms": {
+      "en": "Deep grooves or increased risk of back-tooth decay.",
+      "ar": "شقوق عميقة أو قابلية أعلى لتسوس الأسنان الخلفية."
+    },
+    "treatment": {
+      "en": "A dental professional applies a protective coating to a suitable tooth.",
+      "ar": "مختص أسنان بيحط طبقة حماية على السن المناسب."
+    },
+    "prevention": {
+      "en": "Help children brush and have sealants checked at dental visits.",
+      "ar": "ساعد الطفل في الغسيل وراجع المادة في زيارات الأسنان."
+    },
+    "category": "Pediatric",
+    "source_name": "Cleveland Clinic",
+    "source_url": "https://my.clevelandclinic.org/health/treatments/10912-sealants",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
+    "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
+    "en": "Sealants for children",
+    "ar": "المادة الوقائية لشقوق أسنان الأطفال",
+    "cat": "Pediatric",
+    "sen": "New back teeth can have deep grooves that trap food and bacteria.\nSealants may protect suitable permanent or sometimes baby teeth.\nA dentist checks eruption, decay risk and tooth condition first.",
+    "sar": "الأسنان الخلفية الجديدة ممكن يكون فيها شقوق عميقة بتحبس الأكل والبكتيريا.\nالمادة الوقائية ممكن تحمي أسنان دائمة مناسبة وأحياناً لبنية.\nالدكتور بيفحص طلوع السن وخطر التسوس وحالة السن الأول.",
+    "src": "https://my.clevelandclinic.org/health/treatments/10912-sealants"
+  },
+  {
+    "title_en": "Oral thrush in babies",
+    "title_ar": "فطريات الفم عند الرضع",
+    "description_en": "Babies with thrush may have a white tongue coating or mouth spots.\nSome babies become reluctant to feed.\nA baby under four months with suspected thrush needs medical advice.",
+    "description_ar": "الرضيع المصاب بالفطريات ممكن يكون عنده طبقة بيضاء على اللسان أو بقع بالفم.\nبعض الأطفال ممكن يرفضوا الرضاعة.\nالرضيع أقل من أربع شهور مع اشتباه فطريات محتاج نصيحة طبيب.",
+    "symptoms": {
+      "en": "White mouth patches or feeding reluctance.",
+      "ar": "بقع بيضاء بالفم أو قلة الرغبة في الرضاعة."
+    },
+    "treatment": {
+      "en": "Ask a clinician about age-appropriate treatment; do not choose a gel without advice.",
+      "ar": "اسأل الطبيب عن علاج مناسب للعمر ومتختارش جل من غير نصيحة."
+    },
+    "prevention": {
+      "en": "Clean feeding equipment and sterilise bottles after use.",
+      "ar": "نضف أدوات الرضاعة وعقم الببرونات بعد الاستخدام."
+    },
+    "category": "Pediatric",
+    "source_name": "NHS",
+    "source_url": "https://www.nhs.uk/conditions/oral-thrush-mouth-thrush/",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
+    "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
+    "en": "Oral thrush in babies",
+    "ar": "فطريات الفم عند الرضع",
+    "cat": "Pediatric",
+    "sen": "Babies with thrush may have a white tongue coating or mouth spots.\nSome babies become reluctant to feed.\nA baby under four months with suspected thrush needs medical advice.",
+    "sar": "الرضيع المصاب بالفطريات ممكن يكون عنده طبقة بيضاء على اللسان أو بقع بالفم.\nبعض الأطفال ممكن يرفضوا الرضاعة.\nالرضيع أقل من أربع شهور مع اشتباه فطريات محتاج نصيحة طبيب.",
+    "src": "https://www.nhs.uk/conditions/oral-thrush-mouth-thrush/"
   }
 ];
