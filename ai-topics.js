@@ -2175,64 +2175,62 @@ window.AI_TOPICS = [
   {
     "title_en": "Gap between front teeth",
     "title_ar": "الفلجة بين الأسنان الأمامية",
-    "description_en": "A midline gap can be closed with bonding, veneers or orthodontics depending on its size and cause. A thick lip frenum sometimes keeps the gap open.",
-    "description_ar": "الفراغ في النص ممكن يتقفل باللصق التجميلي أو الفينير أو التقويم حسب حجمه وسببه. أحيانًا لجام الشفة السميك بيفضل مفتّح الفراغ.",
+    "description_en": "A gap between teeth may be a cosmetic concern.\nBonding can close some spaces, but it is not right for every case.\nA dentist should assess the cause and discuss suitable options.",
+    "description_ar": "الفراغ بين الأسنان ممكن يكون مصدر قلق من ناحية الشكل.\nالبوندنج يقدر يقفل بعض الفراغات لكنه مش مناسب لكل حالة.\nالدكتور يقيم السبب ويناقش الاختيارات المناسبة.",
     "symptoms": {
-      "en": "",
-      "ar": ""
+      "en": "A visible space between teeth.",
+      "ar": "فراغ واضح بين الأسنان."
     },
     "treatment": {
-      "en": "",
-      "ar": ""
+      "en": "Tooth-coloured bonding may be an option after assessment.",
+      "ar": "البوندنج بلون الأسنان ممكن يكون اختيار بعد التقييم."
     },
     "prevention": {
-      "en": "",
-      "ar": ""
+      "en": "Keep the area clean and avoid biting objects that could chip bonding.",
+      "ar": "حافظ على نظافة المكان ومتعضش على حاجات ممكن تكسر البوندنج."
     },
     "category": "Cosmetic",
-    "source_name": null,
-    "source_url": null,
-    "last_updated": null,
-    "verification_status": "pending_review",
+    "source_name": "Cleveland Clinic",
+    "source_url": "https://my.clevelandclinic.org/health/treatments/10922-dental-bonding",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
     "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
-    "legacy_source_url": "https://www.mouthhealthy.org/all-topics-a-z/diastema",
     "en": "Gap between front teeth",
     "ar": "الفلجة بين الأسنان الأمامية",
-    "sen": "A midline gap can be closed with bonding, veneers or orthodontics depending on its size and cause. A thick lip frenum sometimes keeps the gap open.",
-    "sar": "الفراغ في النص ممكن يتقفل باللصق التجميلي أو الفينير أو التقويم حسب حجمه وسببه. أحيانًا لجام الشفة السميك بيفضل مفتّح الفراغ.",
     "cat": "Cosmetic",
-    "src": null
+    "sen": "A gap between teeth may be a cosmetic concern.\nBonding can close some spaces, but it is not right for every case.\nA dentist should assess the cause and discuss suitable options.",
+    "sar": "الفراغ بين الأسنان ممكن يكون مصدر قلق من ناحية الشكل.\nالبوندنج يقدر يقفل بعض الفراغات لكنه مش مناسب لكل حالة.\nالدكتور يقيم السبب ويناقش الاختيارات المناسبة.",
+    "src": "https://my.clevelandclinic.org/health/treatments/10922-dental-bonding"
   },
   {
     "title_en": "Gummy smile",
     "title_ar": "الابتسامة اللثوية",
-    "description_en": "Showing excess gum when smiling. Options range from simple gum contouring to orthodontics or Botox for a hyperactive lip, depending on the cause.",
-    "description_ar": "ظهور كمية زيادة من اللثة وقت الابتسامة. الحلول من تعديل شكل اللثة البسيط للتقويم أو البوتوكس للشفة النشطة، حسب السبب.",
+    "description_en": "Extra gum tissue can make teeth appear short.\nLip position, tooth wear and bone levels also matter in planning.\nGum contouring is one option for suitable patients, not a universal fix.",
+    "description_ar": "زيادة نسيج اللثة ممكن تخلي الأسنان تبان قصيرة.\nوضع الشفة وتآكل الأسنان ومستوى العظم مهمين في التخطيط.\nتجميل اللثة اختيار لحالات مناسبة ومش حل لكل الحالات.",
     "symptoms": {
-      "en": "",
-      "ar": ""
+      "en": "A large amount of visible gum or an uneven gum line.",
+      "ar": "ظهور جزء كبير من اللثة أو خط لثة غير منتظم."
     },
     "treatment": {
-      "en": "",
-      "ar": ""
+      "en": "A dentist or gum specialist checks teeth, gums and bone first.",
+      "ar": "الدكتور أو أخصائي اللثة بيفحص الأسنان واللثة والعظم الأول."
     },
     "prevention": {
-      "en": "",
-      "ar": ""
+      "en": "Treat decay or gum disease before cosmetic procedures.",
+      "ar": "عالج التسوس أو مرض اللثة قبل إجراءات التجميل."
     },
     "category": "Cosmetic",
-    "source_name": null,
-    "source_url": null,
-    "last_updated": null,
-    "verification_status": "pending_review",
+    "source_name": "Cleveland Clinic",
+    "source_url": "https://my.clevelandclinic.org/health/treatments/25208-gum-contouring",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
     "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
-    "legacy_source_url": "https://www.mouthhealthy.org/all-topics-a-z/gummy-smile",
     "en": "Gummy smile",
     "ar": "الابتسامة اللثوية",
-    "sen": "Showing excess gum when smiling. Options range from simple gum contouring to orthodontics or Botox for a hyperactive lip, depending on the cause.",
-    "sar": "ظهور كمية زيادة من اللثة وقت الابتسامة. الحلول من تعديل شكل اللثة البسيط للتقويم أو البوتوكس للشفة النشطة، حسب السبب.",
     "cat": "Cosmetic",
-    "src": null
+    "sen": "Extra gum tissue can make teeth appear short.\nLip position, tooth wear and bone levels also matter in planning.\nGum contouring is one option for suitable patients, not a universal fix.",
+    "sar": "زيادة نسيج اللثة ممكن تخلي الأسنان تبان قصيرة.\nوضع الشفة وتآكل الأسنان ومستوى العظم مهمين في التخطيط.\nتجميل اللثة اختيار لحالات مناسبة ومش حل لكل الحالات.",
+    "src": "https://my.clevelandclinic.org/health/treatments/25208-gum-contouring"
   },
   {
     "title_en": "Wisdom tooth pain",
@@ -2578,64 +2576,62 @@ window.AI_TOPICS = [
   {
     "title_en": "Braces for adults",
     "title_ar": "تقويم الأسنان للكبار",
-    "description_en": "Teeth move at any age as long as gums and bone are healthy. Adult options include ceramic brackets and clear aligners; treatment often takes 12-24 months.",
-    "description_ar": "الأسنان بتتحرك في أي سن طالما اللثة والعظم سليمين. اختيارات الكبار تشمل الحاصرات السيراميك والتقويم الشفاف؛ العلاج عادة ١٢-٢٤ شهر.",
+    "description_en": "Adults can have orthodontic treatment.\nBraces or aligners move teeth gradually, and treatment time varies.\nAn orthodontist checks the bite and oral health before planning.",
+    "description_ar": "الكبار يقدروا يعملوا تقويم أسنان.\nالتقويم أو القوالب بيحركوا الأسنان تدريجياً ومدة العلاج بتختلف.\nالأخصائي بيفحص العضة وصحة الفم قبل التخطيط.",
     "symptoms": {
-      "en": "",
-      "ar": ""
+      "en": "Crowded, spaced or misaligned teeth and bite concerns.",
+      "ar": "تزاحم أو فراغات أو عدم انتظام الأسنان ومشاكل العضة."
     },
     "treatment": {
-      "en": "",
-      "ar": ""
+      "en": "Fixed braces or removable aligners when suitable.",
+      "ar": "تقويم ثابت أو قوالب متحركة حسب الملاءمة."
     },
     "prevention": {
-      "en": "",
-      "ar": ""
+      "en": "Clean carefully around appliances and attend follow-up visits.",
+      "ar": "نضف بعناية حوالين الجهاز والتزم بالمتابعة."
     },
     "category": "Orthodontics",
-    "source_name": null,
-    "source_url": null,
-    "last_updated": null,
-    "verification_status": "pending_review",
+    "source_name": "Cleveland Clinic",
+    "source_url": "https://my.clevelandclinic.org/health/treatments/24601-teeth-braces",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
     "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
-    "legacy_source_url": "https://www.mouthhealthy.org/all-topics-a-z/adult-braces",
     "en": "Braces for adults",
     "ar": "تقويم الأسنان للكبار",
-    "sen": "Teeth move at any age as long as gums and bone are healthy. Adult options include ceramic brackets and clear aligners; treatment often takes 12-24 months.",
-    "sar": "الأسنان بتتحرك في أي سن طالما اللثة والعظم سليمين. اختيارات الكبار تشمل الحاصرات السيراميك والتقويم الشفاف؛ العلاج عادة ١٢-٢٤ شهر.",
     "cat": "Orthodontics",
-    "src": null
+    "sen": "Adults can have orthodontic treatment.\nBraces or aligners move teeth gradually, and treatment time varies.\nAn orthodontist checks the bite and oral health before planning.",
+    "sar": "الكبار يقدروا يعملوا تقويم أسنان.\nالتقويم أو القوالب بيحركوا الأسنان تدريجياً ومدة العلاج بتختلف.\nالأخصائي بيفحص العضة وصحة الفم قبل التخطيط.",
+    "src": "https://my.clevelandclinic.org/health/treatments/24601-teeth-braces"
   },
   {
-    "title_en": "Braces pain relief",
-    "title_ar": "تخفيف ألم التقويم",
-    "description_en": "Soreness for 2-3 days after each adjustment is normal: soft food, warm salt rinses, orthodontic wax on rubbing brackets, and usual painkillers if needed.",
-    "description_ar": "ألم ٢-٣ أيام بعد كل تظبيطة حاجة طبيعية: أكل طري، مضمضة بمية دافية وملح، شمع التقويم على الحاصرات اللي بتخبط، ومسكن عادي لو احتجت.",
+    "title_en": "Braces discomfort",
+    "title_ar": "ألم التقويم",
+    "description_en": "Mild soreness is common after fitting or tightening braces.\nBrackets or wires can irritate the cheeks and lips.\nAsk your orthodontist about persistent pain or a broken appliance.",
+    "description_ar": "ألم بسيط شائع بعد تركيب التقويم أو شده.\nالحاصرات والأسلاك ممكن تهيج الخدود والشفتين.\nاسأل الأخصائي عن الألم المستمر أو أي كسر في الجهاز.",
     "symptoms": {
-      "en": "",
-      "ar": ""
+      "en": "Temporary tenderness and irritation inside the mouth.",
+      "ar": "حساسية مؤقتة وتهيج داخل الفم."
     },
     "treatment": {
-      "en": "",
-      "ar": ""
+      "en": "Orthodontic wax may help rough spots; ask about safe pain relief.",
+      "ar": "شمع التقويم ممكن يساعد مع الأجزاء الخشنة؛ اسأل عن مسكن مناسب."
     },
     "prevention": {
-      "en": "",
-      "ar": ""
+      "en": "Choose soft foods initially and avoid hard or sticky foods.",
+      "ar": "اختار أكل طري في الأول وتجنب الصلب واللزق."
     },
     "category": "Orthodontics",
-    "source_name": null,
-    "source_url": null,
-    "last_updated": null,
-    "verification_status": "pending_review",
+    "source_name": "Cleveland Clinic",
+    "source_url": "https://my.clevelandclinic.org/health/treatments/24601-teeth-braces",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
     "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
-    "legacy_source_url": "https://www.mouthhealthy.org/all-topics-a-z/braces",
-    "en": "Braces pain relief",
-    "ar": "تخفيف ألم التقويم",
-    "sen": "Soreness for 2-3 days after each adjustment is normal: soft food, warm salt rinses, orthodontic wax on rubbing brackets, and usual painkillers if needed.",
-    "sar": "ألم ٢-٣ أيام بعد كل تظبيطة حاجة طبيعية: أكل طري، مضمضة بمية دافية وملح، شمع التقويم على الحاصرات اللي بتخبط، ومسكن عادي لو احتجت.",
+    "en": "Braces discomfort",
+    "ar": "ألم التقويم",
     "cat": "Orthodontics",
-    "src": null
+    "sen": "Mild soreness is common after fitting or tightening braces.\nBrackets or wires can irritate the cheeks and lips.\nAsk your orthodontist about persistent pain or a broken appliance.",
+    "sar": "ألم بسيط شائع بعد تركيب التقويم أو شده.\nالحاصرات والأسلاك ممكن تهيج الخدود والشفتين.\nاسأل الأخصائي عن الألم المستمر أو أي كسر في الجهاز.",
+    "src": "https://my.clevelandclinic.org/health/treatments/24601-teeth-braces"
   },
   {
     "title_en": "Water flossers",
@@ -3227,33 +3223,32 @@ window.AI_TOPICS = [
   {
     "title_en": "Smile design",
     "title_ar": "تصميم الابتسامة",
-    "description_en": "Planning the shape, length and color of front teeth before cosmetic work, often with a preview mock-up. Good design respects face proportions and leaves enamel conservative options first.",
-    "description_ar": "تخطيط شكل وطول ولون الأسنان الأمامية قبل الشغل التجميلي، غالبًا مع معاينة مبدئية. التصميم الكويس بيحترم نسب الوش وبيفضل الاختيارات المحافظة على المينا أولًا.",
+    "description_en": "Smile planning starts with your goals and a dental examination.\nWhitening, bonding, veneers or contouring may change appearance.\nDiscuss risks, maintenance and irreversible steps before choosing.",
+    "description_ar": "تخطيط الابتسامة بيبدأ بأهدافك وكشف أسنان.\nالتبييض أو البوندنج أو القشور أو التجميل ممكن يغيروا الشكل.\nناقش المخاطر والعناية وأي خطوات لا يمكن الرجوع فيها قبل الاختيار.",
     "symptoms": {
-      "en": "",
-      "ar": ""
+      "en": "Concerns about tooth colour, shape, gaps or gum appearance.",
+      "ar": "قلق من لون أو شكل الأسنان أو الفراغات أو شكل اللثة."
     },
     "treatment": {
-      "en": "",
-      "ar": ""
+      "en": "An individual plan after checking oral health.",
+      "ar": "خطة حسب الحالة بعد تقييم صحة الفم."
     },
     "prevention": {
-      "en": "",
-      "ar": ""
+      "en": "Continue routine dental checks and daily cleaning.",
+      "ar": "كمل كشوف الأسنان والتنظيف اليومي."
     },
     "category": "Cosmetic",
-    "source_name": null,
-    "source_url": null,
-    "last_updated": null,
-    "verification_status": "pending_review",
+    "source_name": "Cleveland Clinic",
+    "source_url": "https://my.clevelandclinic.org/health/treatments/23914-cosmetic-dentistry",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
     "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
-    "legacy_source_url": "https://www.mouthhealthy.org/all-topics-a-z/smile-design",
     "en": "Smile design",
     "ar": "تصميم الابتسامة",
-    "sen": "Planning the shape, length and color of front teeth before cosmetic work, often with a preview mock-up. Good design respects face proportions and leaves enamel conservative options first.",
-    "sar": "تخطيط شكل وطول ولون الأسنان الأمامية قبل الشغل التجميلي، غالبًا مع معاينة مبدئية. التصميم الكويس بيحترم نسب الوش وبيفضل الاختيارات المحافظة على المينا أولًا.",
     "cat": "Cosmetic",
-    "src": null
+    "sen": "Smile planning starts with your goals and a dental examination.\nWhitening, bonding, veneers or contouring may change appearance.\nDiscuss risks, maintenance and irreversible steps before choosing.",
+    "sar": "تخطيط الابتسامة بيبدأ بأهدافك وكشف أسنان.\nالتبييض أو البوندنج أو القشور أو التجميل ممكن يغيروا الشكل.\nناقش المخاطر والعناية وأي خطوات لا يمكن الرجوع فيها قبل الاختيار.",
+    "src": "https://my.clevelandclinic.org/health/treatments/23914-cosmetic-dentistry"
   },
   {
     "title_en": "Oral hygiene with braces",
@@ -3707,5 +3702,155 @@ window.AI_TOPICS = [
     "sen": "Tenderness, swelling and bruising can occur after grafting.\nThe early recovery and bone healing times are different.\nContact the provider for severe pain, fever, pus or increasing swelling.",
     "sar": "ممكن يحصل ألم بسيط وورم وكدمات بعد الترقيع.\nالتعافي الأولي ووقت التئام العظم مش نفس المدة.\nكلم الطبيب لو الألم شديد أو فيه حرارة أو صديد أو ورم بيزيد.",
     "src": "https://my.clevelandclinic.org/health/treatments/21727-dental-bone-graft"
+  },
+  {
+    "title_en": "Dental bonding",
+    "title_ar": "البوندنج التجميلي للأسنان",
+    "description_en": "A dentist shapes tooth-coloured resin on a tooth.\nBonding can cover small chips, close gaps or change shape and colour.\nIt can chip or stain and may need repair or replacement.",
+    "description_ar": "الدكتور بيشكل راتنج بلون السن على سطحه.\nالبوندنج ممكن يغطي كسور صغيرة أو يقفل فراغات أو يغير الشكل واللون.\nممكن يتكسر أو يتصبغ ويحتاج إصلاح أو تغيير.",
+    "symptoms": {
+      "en": "Small chips, gaps, discolouration or shape concerns.",
+      "ar": "كسور بسيطة أو فراغات أو تصبغات أو مشكلة في الشكل."
+    },
+    "treatment": {
+      "en": "A dentist selects resin, shapes it, hardens it with light and polishes it.",
+      "ar": "الدكتور يختار الراتنج ويشكله ويصلبه بالضوء ويلمعه."
+    },
+    "prevention": {
+      "en": "Brush and floss; do not chew pens, nails or packages.",
+      "ar": "اغسل ونضف بين الأسنان ومتعضش أقلام أو أظافر ومتفتحش عبوات بأسنانك."
+    },
+    "category": "Cosmetic",
+    "source_name": "Cleveland Clinic",
+    "source_url": "https://my.clevelandclinic.org/health/treatments/10922-dental-bonding",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
+    "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
+    "en": "Dental bonding",
+    "ar": "البوندنج التجميلي للأسنان",
+    "cat": "Cosmetic",
+    "sen": "A dentist shapes tooth-coloured resin on a tooth.\nBonding can cover small chips, close gaps or change shape and colour.\nIt can chip or stain and may need repair or replacement.",
+    "sar": "الدكتور بيشكل راتنج بلون السن على سطحه.\nالبوندنج ممكن يغطي كسور صغيرة أو يقفل فراغات أو يغير الشكل واللون.\nممكن يتكسر أو يتصبغ ويحتاج إصلاح أو تغيير.",
+    "src": "https://my.clevelandclinic.org/health/treatments/10922-dental-bonding"
+  },
+  {
+    "title_en": "Tooth contouring",
+    "title_ar": "إعادة تشكيل حواف الأسنان",
+    "description_en": "Tooth contouring removes a small amount of enamel to change shape.\nThere is a limit to how much enamel can safely be removed.\nDiscuss whether an irreversible change fits your needs.",
+    "description_ar": "إعادة التشكيل بتشيل كمية صغيرة من المينا لتغيير الشكل.\nفيه حد لكمية المينا اللي ممكن تتشال بأمان.\nناقش إذا كان التغيير غير القابل للرجوع مناسب لاحتياجك.",
+    "symptoms": {
+      "en": "Minor concerns about tooth shape.",
+      "ar": "ملاحظات بسيطة على شكل السن."
+    },
+    "treatment": {
+      "en": "A dentist assesses enamel and suitability before reshaping.",
+      "ar": "الدكتور يقيم المينا والملاءمة قبل إعادة التشكيل."
+    },
+    "prevention": {
+      "en": "Do not file teeth at home; keep daily cleaning and dental checks.",
+      "ar": "متبردش أسنانك في البيت؛ حافظ على التنظيف والكشف."
+    },
+    "category": "Cosmetic",
+    "source_name": "Cleveland Clinic",
+    "source_url": "https://my.clevelandclinic.org/health/treatments/23914-cosmetic-dentistry",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
+    "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
+    "en": "Tooth contouring",
+    "ar": "إعادة تشكيل حواف الأسنان",
+    "cat": "Cosmetic",
+    "sen": "Tooth contouring removes a small amount of enamel to change shape.\nThere is a limit to how much enamel can safely be removed.\nDiscuss whether an irreversible change fits your needs.",
+    "sar": "إعادة التشكيل بتشيل كمية صغيرة من المينا لتغيير الشكل.\nفيه حد لكمية المينا اللي ممكن تتشال بأمان.\nناقش إذا كان التغيير غير القابل للرجوع مناسب لاحتياجك.",
+    "src": "https://my.clevelandclinic.org/health/treatments/23914-cosmetic-dentistry"
+  },
+  {
+    "title_en": "Gum contouring",
+    "title_ar": "تجميل وإعادة تشكيل اللثة",
+    "description_en": "Gum contouring removes extra tissue and reshapes the gum line.\nSome cases also need a small amount of bone removed.\nThe dentist explains recovery, infection risk and possible regrowth.",
+    "description_ar": "تجميل اللثة بيشيل النسيج الزائد ويعدل خط اللثة.\nبعض الحالات محتاجة كمان إزالة كمية صغيرة من العظم.\nالدكتور يشرح التعافي وخطر العدوى واحتمال رجوع النسيج.",
+    "symptoms": {
+      "en": "Uneven gum line or excessive visible gum.",
+      "ar": "خط لثة غير منتظم أو ظهور لثة زيادة."
+    },
+    "treatment": {
+      "en": "A trained provider reshapes tissue with local anaesthesia.",
+      "ar": "مختص مدرب بيعيد تشكيل النسيج بتخدير موضعي."
+    },
+    "prevention": {
+      "en": "Keep the site clean and follow soft-food and activity advice.",
+      "ar": "حافظ على نظافة المكان واتبع تعليمات الأكل الطري والمجهود."
+    },
+    "category": "Cosmetic",
+    "source_name": "Cleveland Clinic",
+    "source_url": "https://my.clevelandclinic.org/health/treatments/25208-gum-contouring",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
+    "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
+    "en": "Gum contouring",
+    "ar": "تجميل وإعادة تشكيل اللثة",
+    "cat": "Cosmetic",
+    "sen": "Gum contouring removes extra tissue and reshapes the gum line.\nSome cases also need a small amount of bone removed.\nThe dentist explains recovery, infection risk and possible regrowth.",
+    "sar": "تجميل اللثة بيشيل النسيج الزائد ويعدل خط اللثة.\nبعض الحالات محتاجة كمان إزالة كمية صغيرة من العظم.\nالدكتور يشرح التعافي وخطر العدوى واحتمال رجوع النسيج.",
+    "src": "https://my.clevelandclinic.org/health/treatments/25208-gum-contouring"
+  },
+  {
+    "title_en": "Bonding aftercare",
+    "title_ar": "العناية بعد البوندنج",
+    "description_en": "Bonding often needs no recovery downtime.\nShort-term sensitivity can happen after treatment.\nCall the dentist if a sharp edge appears or your bite feels wrong.",
+    "description_ar": "البوندنج غالباً مش محتاج توقف عن النشاط اليومي.\nممكن تحصل حساسية لفترة قصيرة بعد العلاج.\nكلم الدكتور لو ظهرت حافة حادة أو العضة مش مظبوطة.",
+    "symptoms": {
+      "en": "Temporary sensitivity or a new rough edge.",
+      "ar": "حساسية مؤقتة أو حافة خشنة جديدة."
+    },
+    "treatment": {
+      "en": "The dentist can adjust rough areas or assess bite discomfort.",
+      "ar": "الدكتور يقدر يعدل الأجزاء الخشنة أو يقيم عدم راحة العضة."
+    },
+    "prevention": {
+      "en": "Brush twice daily, floss daily and avoid chewing hard objects.",
+      "ar": "اغسل مرتين ونضف بين الأسنان يومياً ومتعضش حاجات صلبة."
+    },
+    "category": "Cosmetic",
+    "source_name": "Cleveland Clinic",
+    "source_url": "https://my.clevelandclinic.org/health/treatments/10922-dental-bonding",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
+    "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
+    "en": "Bonding aftercare",
+    "ar": "العناية بعد البوندنج",
+    "cat": "Cosmetic",
+    "sen": "Bonding often needs no recovery downtime.\nShort-term sensitivity can happen after treatment.\nCall the dentist if a sharp edge appears or your bite feels wrong.",
+    "sar": "البوندنج غالباً مش محتاج توقف عن النشاط اليومي.\nممكن تحصل حساسية لفترة قصيرة بعد العلاج.\nكلم الدكتور لو ظهرت حافة حادة أو العضة مش مظبوطة.",
+    "src": "https://my.clevelandclinic.org/health/treatments/10922-dental-bonding"
+  },
+  {
+    "title_en": "Gum contouring recovery",
+    "title_ar": "التعافي بعد تجميل اللثة",
+    "description_en": "Mild soreness can occur after gum reshaping.\nSoft foods and careful cleaning help during recovery.\nContact the provider for severe pain, persistent bleeding, pus or fever.",
+    "description_ar": "ممكن يحصل وجع بسيط بعد تجميل اللثة.\nالأكل الطري والتنظيف بحذر بيساعدوا خلال التعافي.\nكلم الطبيب لو الألم شديد أو النزيف مستمر أو فيه صديد أو حرارة.",
+    "symptoms": {
+      "en": "Expected mild tenderness; worsening symptoms need review.",
+      "ar": "ألم بسيط متوقع؛ زيادة الأعراض محتاجة مراجعة."
+    },
+    "treatment": {
+      "en": "Follow the provider’s instructions and attend review visits.",
+      "ar": "اتبع تعليمات الطبيب والتزم بزيارات المراجعة."
+    },
+    "prevention": {
+      "en": "Avoid strenuous activity and hard or spicy foods as directed.",
+      "ar": "تجنب المجهود الشديد والأكل الصلب أو الحار حسب التعليمات."
+    },
+    "category": "Surgery",
+    "source_name": "Cleveland Clinic",
+    "source_url": "https://my.clevelandclinic.org/health/treatments/25208-gum-contouring",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
+    "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
+    "en": "Gum contouring recovery",
+    "ar": "التعافي بعد تجميل اللثة",
+    "cat": "Surgery",
+    "sen": "Mild soreness can occur after gum reshaping.\nSoft foods and careful cleaning help during recovery.\nContact the provider for severe pain, persistent bleeding, pus or fever.",
+    "sar": "ممكن يحصل وجع بسيط بعد تجميل اللثة.\nالأكل الطري والتنظيف بحذر بيساعدوا خلال التعافي.\nكلم الطبيب لو الألم شديد أو النزيف مستمر أو فيه صديد أو حرارة.",
+    "src": "https://my.clevelandclinic.org/health/treatments/25208-gum-contouring"
   }
 ];
