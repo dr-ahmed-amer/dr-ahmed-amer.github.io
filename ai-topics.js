@@ -182,35 +182,34 @@ window.AI_TOPICS = [
     "src": "https://www.nhs.uk/conditions/tooth-decay/"
   },
   {
-    "title_en": "Enamel erosion",
-    "title_ar": "تآكل مينا الأسنان",
-    "description_en": "Loss of the hard outer layer from acids (soft drinks, reflux, vomiting). It does not grow back; reduce acidic drinks, wait 30 minutes before brushing after them.",
-    "description_ar": "فقد الطبقة الخارجية الصلبة بسبب الأحماض (مشروبات غازية، ارتجاع، قيء). المينا مبتترجعش؛ قلل المشروبات الحمضية واستنى ٣٠ دقيقة قبل غسل الأسنان بعدها.",
+    "title_en": "Tooth erosion",
+    "title_ar": "تآكل الأسنان",
+    "description_en": "Enamel can gradually wear thin and cannot grow back once lost.\nAcidic drinks, reflux and other factors may contribute.\nSee a dentist for sensitivity, chips or changes in tooth colour.",
+    "description_ar": "المينا ممكن تترقق تدريجياً ومش بترجع تنمو بعد فقدانها.\nالمشروبات الحمضية والارتجاع وعوامل تانية ممكن تساهم.\nاكشف لو فيه حساسية أو تكسر أو تغير في لون الأسنان.",
     "symptoms": {
-      "en": "",
-      "ar": ""
+      "en": "Sensitivity, discoloration, chips or small pits.",
+      "ar": "حساسية أو تغير لون أو تكسر أو حفر صغيرة."
     },
     "treatment": {
-      "en": "",
-      "ar": ""
+      "en": "A dentist may use fluoride, bonding or restorations according to damage.",
+      "ar": "الدكتور ممكن يستخدم فلورايد أو ترميم حسب الضرر."
     },
     "prevention": {
-      "en": "",
-      "ar": ""
+      "en": "Limit acids, use fluoride toothpaste and avoid aggressive brushing.",
+      "ar": "قلل الأحماض واستخدم معجون فلورايد ومتغسلش بعنف."
     },
-    "category": "Tooth wear",
-    "source_name": null,
-    "source_url": null,
-    "last_updated": null,
-    "verification_status": "pending_review",
+    "category": "Oral health",
+    "source_name": "Cleveland Clinic",
+    "source_url": "https://my.clevelandclinic.org/health/diseases/tooth-erosion",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
     "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
-    "legacy_source_url": "https://www.mouthhealthy.org/all-topics-a-z/erosion",
-    "en": "Enamel erosion",
-    "ar": "تآكل مينا الأسنان",
-    "sen": "Loss of the hard outer layer from acids (soft drinks, reflux, vomiting). It does not grow back; reduce acidic drinks, wait 30 minutes before brushing after them.",
-    "sar": "فقد الطبقة الخارجية الصلبة بسبب الأحماض (مشروبات غازية، ارتجاع، قيء). المينا مبتترجعش؛ قلل المشروبات الحمضية واستنى ٣٠ دقيقة قبل غسل الأسنان بعدها.",
-    "cat": "Tooth wear",
-    "src": null
+    "en": "Tooth erosion",
+    "ar": "تآكل الأسنان",
+    "cat": "Oral health",
+    "sen": "Enamel can gradually wear thin and cannot grow back once lost.\nAcidic drinks, reflux and other factors may contribute.\nSee a dentist for sensitivity, chips or changes in tooth colour.",
+    "sar": "المينا ممكن تترقق تدريجياً ومش بترجع تنمو بعد فقدانها.\nالمشروبات الحمضية والارتجاع وعوامل تانية ممكن تساهم.\nاكشف لو فيه حساسية أو تكسر أو تغير في لون الأسنان.",
+    "src": "https://my.clevelandclinic.org/health/diseases/tooth-erosion"
   },
   {
     "title_en": "Dental abscess",
@@ -305,96 +304,93 @@ window.AI_TOPICS = [
   },
   {
     "title_en": "Teeth grinding (bruxism)",
-    "title_ar": "صرير الأسنان",
-    "description_en": "Clenching or grinding, often during sleep, linked to stress and bite issues. It wears teeth and strains the jaw; a night guard protects the teeth.",
-    "description_ar": "ضغط أو جزّ على الأسنان، غالبًا أثناء النوم، ومرتبط بالتوتر والإطباقة. بياكل الأسنان ويجهد الفك؛ واقي ليلي بيحمي الأسنان.",
+    "title_ar": "جز على الأسنان",
+    "description_en": "Grinding or clenching can happen while awake or asleep.\nIt may be linked to stress, sleep problems or other factors.\nA dentist should check tooth damage, sensitivity or jaw pain.",
+    "description_ar": "الجز أو الضغط على الأسنان ممكن يحصل وإنت صاحي أو نايم.\nممكن يرتبط بالتوتر أو مشاكل النوم أو عوامل تانية.\nاكشف لو فيه تآكل أو حساسية أو ألم بالفك.",
     "symptoms": {
-      "en": "",
-      "ar": ""
+      "en": "Worn or broken teeth, jaw pain, headaches or disturbed sleep.",
+      "ar": "تآكل أو كسر الأسنان أو وجع فك أو صداع أو نوم متقطع."
     },
     "treatment": {
-      "en": "",
-      "ar": ""
+      "en": "A dentist may recommend a fitted guard to protect teeth; other care addresses triggers.",
+      "ar": "الدكتور ممكن يوصي بواقي مناسب لحماية الأسنان مع التعامل مع العوامل المسببة."
     },
     "prevention": {
-      "en": "",
-      "ar": ""
+      "en": "Work on relaxation and sleep habits and reduce excess caffeine.",
+      "ar": "اهتم بالاسترخاء وعادات النوم وقلل الكافيين الزيادة."
     },
-    "category": "Habits",
-    "source_name": null,
-    "source_url": null,
-    "last_updated": null,
-    "verification_status": "pending_review",
+    "category": "Oral health",
+    "source_name": "NHS",
+    "source_url": "https://www.nhs.uk/symptoms/teeth-grinding/",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
     "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
-    "legacy_source_url": "https://www.mouthhealthy.org/all-topics-a-z/bruxism",
     "en": "Teeth grinding (bruxism)",
-    "ar": "صرير الأسنان",
-    "sen": "Clenching or grinding, often during sleep, linked to stress and bite issues. It wears teeth and strains the jaw; a night guard protects the teeth.",
-    "sar": "ضغط أو جزّ على الأسنان، غالبًا أثناء النوم، ومرتبط بالتوتر والإطباقة. بياكل الأسنان ويجهد الفك؛ واقي ليلي بيحمي الأسنان.",
-    "cat": "Habits",
-    "src": null
+    "ar": "جز على الأسنان",
+    "cat": "Oral health",
+    "sen": "Grinding or clenching can happen while awake or asleep.\nIt may be linked to stress, sleep problems or other factors.\nA dentist should check tooth damage, sensitivity or jaw pain.",
+    "sar": "الجز أو الضغط على الأسنان ممكن يحصل وإنت صاحي أو نايم.\nممكن يرتبط بالتوتر أو مشاكل النوم أو عوامل تانية.\nاكشف لو فيه تآكل أو حساسية أو ألم بالفك.",
+    "src": "https://www.nhs.uk/symptoms/teeth-grinding/"
   },
   {
-    "title_en": "TMJ disorders",
-    "title_ar": "اضطرابات مفصل الفك",
-    "description_en": "Pain or clicking in the jaw joint and chewing muscles. Most cases improve with soft diet, avoiding wide opening, warm compresses and stress reduction; persistent cases need dental evaluation.",
-    "description_ar": "ألم أو طقطقة في مفصل الفك وعضلات المضغ. أغلب الحالات بتحسن بأكل طري وتجنب فتح البق ب wide وكمادات دافية وتقليل التوتر؛ الحالات المستمرة محتاجة تقييم.",
+    "title_en": "Jaw clicking and TMD",
+    "title_ar": "طقطقة الفك واضطراب المفصل",
+    "description_en": "Jaw joint problems can cause clicking, pain or restricted movement.\nSoft foods and avoiding very wide opening may ease symptoms.\nSeek prompt medical advice for locking, trouble eating or drinking, or significant pain.",
+    "description_ar": "مشاكل مفصل الفك ممكن تسبب طقطقة أو ألم أو صعوبة حركة.\nالأكل الطري وتجنب فتح الفم بقوة ممكن يساعدوا.\nاطلب تقييم طبي سريع لو الفك بيقفل أو الأكل والشرب صعبين أو فيه ألم واضح.",
     "symptoms": {
-      "en": "",
-      "ar": ""
+      "en": "Clicking, pain around the jaw or ear, limited opening or locking.",
+      "ar": "طقطقة أو ألم حوالين الفك والأذن أو قلة فتح الفم أو قفل الفك."
     },
     "treatment": {
-      "en": "",
-      "ar": ""
+      "en": "A clinician assesses the cause; dental, physiotherapy or other care may be advised.",
+      "ar": "الطبيب بيقيم السبب وممكن ينصح بعلاج أسنان أو علاج طبيعي أو رعاية تانية."
     },
     "prevention": {
-      "en": "",
-      "ar": ""
+      "en": "Avoid gum chewing, nail biting and clenching; try relaxation.",
+      "ar": "تجنب اللبان وقضم الأظافر والضغط على الأسنان وجرب الاسترخاء."
     },
-    "category": "Jaw",
-    "source_name": null,
-    "source_url": null,
-    "last_updated": null,
-    "verification_status": "pending_review",
+    "category": "Oral health",
+    "source_name": "NHS",
+    "source_url": "https://www.nhs.uk/conditions/temporomandibular-disorder-tmd/",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
     "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
-    "legacy_source_url": "https://www.mouthhealthy.org/all-topics-a-z/tmj",
-    "en": "TMJ disorders",
-    "ar": "اضطرابات مفصل الفك",
-    "sen": "Pain or clicking in the jaw joint and chewing muscles. Most cases improve with soft diet, avoiding wide opening, warm compresses and stress reduction; persistent cases need dental evaluation.",
-    "sar": "ألم أو طقطقة في مفصل الفك وعضلات المضغ. أغلب الحالات بتحسن بأكل طري وتجنب فتح البق ب wide وكمادات دافية وتقليل التوتر؛ الحالات المستمرة محتاجة تقييم.",
-    "cat": "Jaw",
-    "src": null
+    "en": "Jaw clicking and TMD",
+    "ar": "طقطقة الفك واضطراب المفصل",
+    "cat": "Oral health",
+    "sen": "Jaw joint problems can cause clicking, pain or restricted movement.\nSoft foods and avoiding very wide opening may ease symptoms.\nSeek prompt medical advice for locking, trouble eating or drinking, or significant pain.",
+    "sar": "مشاكل مفصل الفك ممكن تسبب طقطقة أو ألم أو صعوبة حركة.\nالأكل الطري وتجنب فتح الفم بقوة ممكن يساعدوا.\nاطلب تقييم طبي سريع لو الفك بيقفل أو الأكل والشرب صعبين أو فيه ألم واضح.",
+    "src": "https://www.nhs.uk/conditions/temporomandibular-disorder-tmd/"
   },
   {
-    "title_en": "Bad breath (halitosis)",
-    "title_ar": "رائحة الفم الكريهة",
-    "description_en": "Usually from tongue coating, plaque, gum disease or dry mouth; less often from sinus or stomach issues. Brush the tongue, floss, hydrate; persistent odor despite hygiene deserves a dental exam.",
-    "description_ar": "غالبًا سببها طبقة على اللسان أو بلاك أو التهاب لثة أو جفاف فم؛ وأحيانًا الجيوب أو المعدة. نظف لسانك واستخدم الخيط واشرب مية كفاية؛ لو الرائحة مستمرة رغم النضافة، محتاجة كشف.",
+    "title_en": "Bad breath",
+    "title_ar": "رائحة الفم",
+    "description_en": "Bad breath can be related to food, smoking or problems with teeth and gums.\nCleaning teeth, tongue and between teeth regularly can help.\nSee a dentist if it continues for a few weeks despite good care.",
+    "description_ar": "رائحة الفم ممكن ترتبط بالأكل أو التدخين أو مشاكل الأسنان واللثة.\nتنظيف الأسنان واللسان وبين الأسنان بانتظام ممكن يساعد.\nاكشف لو الرائحة مستمرة لأسابيع رغم العناية.",
     "symptoms": {
-      "en": "",
-      "ar": ""
+      "en": "Persistent unpleasant breath, sometimes with gum or tooth problems.",
+      "ar": "رائحة مستمرة وأحياناً معاها مشاكل لثة أو أسنان."
     },
     "treatment": {
-      "en": "",
-      "ar": ""
+      "en": "A dentist checks for dental causes and recommends appropriate care.",
+      "ar": "الدكتور بيفحص أسباب الأسنان ويحدد العناية المناسبة."
     },
     "prevention": {
-      "en": "",
-      "ar": ""
+      "en": "Brush gently twice daily, clean the tongue and between teeth, and avoid smoking.",
+      "ar": "اغسل برفق مرتين ونضف اللسان وبين الأسنان وتجنب التدخين."
     },
-    "category": "Symptoms",
-    "source_name": null,
-    "source_url": null,
-    "last_updated": null,
-    "verification_status": "pending_review",
+    "category": "Oral health",
+    "source_name": "NHS",
+    "source_url": "https://www.nhs.uk/symptoms/bad-breath/",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
     "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
-    "legacy_source_url": "https://www.mouthhealthy.org/all-topics-a-z/bad-breath",
-    "en": "Bad breath (halitosis)",
-    "ar": "رائحة الفم الكريهة",
-    "sen": "Usually from tongue coating, plaque, gum disease or dry mouth; less often from sinus or stomach issues. Brush the tongue, floss, hydrate; persistent odor despite hygiene deserves a dental exam.",
-    "sar": "غالبًا سببها طبقة على اللسان أو بلاك أو التهاب لثة أو جفاف فم؛ وأحيانًا الجيوب أو المعدة. نظف لسانك واستخدم الخيط واشرب مية كفاية؛ لو الرائحة مستمرة رغم النضافة، محتاجة كشف.",
-    "cat": "Symptoms",
-    "src": null
+    "en": "Bad breath",
+    "ar": "رائحة الفم",
+    "cat": "Oral health",
+    "sen": "Bad breath can be related to food, smoking or problems with teeth and gums.\nCleaning teeth, tongue and between teeth regularly can help.\nSee a dentist if it continues for a few weeks despite good care.",
+    "sar": "رائحة الفم ممكن ترتبط بالأكل أو التدخين أو مشاكل الأسنان واللثة.\nتنظيف الأسنان واللسان وبين الأسنان بانتظام ممكن يساعد.\nاكشف لو الرائحة مستمرة لأسابيع رغم العناية.",
+    "src": "https://www.nhs.uk/symptoms/bad-breath/"
   },
   {
     "title_en": "Dry mouth",
@@ -1658,35 +1654,34 @@ window.AI_TOPICS = [
     "src": null
   },
   {
-    "title_en": "Night guard",
-    "title_ar": "الواقي الليلي",
-    "description_en": "A custom tray worn in sleep to absorb grinding forces, protecting enamel and dental work and easing jaw muscle strain.",
-    "description_ar": "قالب مخصص بيتلبس أثناء النوم بيمتص قوة الصرير، بيحمي المينا والتركيبات وبيقلل إجهاد عضلات الفك.",
+    "title_en": "Night guard for grinding",
+    "title_ar": "الواقي الليلي للجز",
+    "description_en": "A fitted guard or splint can protect teeth from grinding damage at night.\nIt is not needed for every person who grinds their teeth.\nA dentist checks the teeth and decides whether it may help.",
+    "description_ar": "الواقي أو الجبيرة المناسبة ممكن تحمي الأسنان من ضرر الجز بالليل.\nمش كل شخص بيجز محتاجها.\nالدكتور بيفحص الأسنان ويقرر إذا كانت مفيدة.",
     "symptoms": {
-      "en": "",
-      "ar": ""
+      "en": "Grinding with tooth damage, sensitivity or jaw discomfort.",
+      "ar": "جز مع ضرر بالأسنان أو حساسية أو وجع فك."
     },
     "treatment": {
-      "en": "",
-      "ar": ""
+      "en": "A dentist-made guard fits over upper or lower teeth.",
+      "ar": "واقي بيعمله الدكتور على مقاس الفك العلوي أو السفلي."
     },
     "prevention": {
-      "en": "",
-      "ar": ""
+      "en": "Attend dental checks and address stress and sleep issues.",
+      "ar": "تابع عند الدكتور واهتم بالتوتر ومشاكل النوم."
     },
-    "category": "Habits",
-    "source_name": null,
-    "source_url": null,
-    "last_updated": null,
-    "verification_status": "pending_review",
+    "category": "Treatment",
+    "source_name": "NHS",
+    "source_url": "https://www.nhs.uk/symptoms/teeth-grinding/",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
     "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
-    "legacy_source_url": "https://www.mouthhealthy.org/all-topics-a-z/night-guards",
-    "en": "Night guard",
-    "ar": "الواقي الليلي",
-    "sen": "A custom tray worn in sleep to absorb grinding forces, protecting enamel and dental work and easing jaw muscle strain.",
-    "sar": "قالب مخصص بيتلبس أثناء النوم بيمتص قوة الصرير، بيحمي المينا والتركيبات وبيقلل إجهاد عضلات الفك.",
-    "cat": "Habits",
-    "src": null
+    "en": "Night guard for grinding",
+    "ar": "الواقي الليلي للجز",
+    "cat": "Treatment",
+    "sen": "A fitted guard or splint can protect teeth from grinding damage at night.\nIt is not needed for every person who grinds their teeth.\nA dentist checks the teeth and decides whether it may help.",
+    "sar": "الواقي أو الجبيرة المناسبة ممكن تحمي الأسنان من ضرر الجز بالليل.\nمش كل شخص بيجز محتاجها.\nالدكتور بيفحص الأسنان ويقرر إذا كانت مفيدة.",
+    "src": "https://www.nhs.uk/symptoms/teeth-grinding/"
   },
   {
     "title_en": "Dental anxiety",
@@ -2711,35 +2706,34 @@ window.AI_TOPICS = [
     "src": null
   },
   {
-    "title_en": "Tooth wear from acids",
+    "title_en": "Acid-related tooth wear",
     "title_ar": "تآكل الأسنان من الأحماض",
-    "description_en": "Frequent soft drinks, lemon water and reflux soften enamel. Sip through a straw, rinse with water after, and never brush within 30 minutes of acid.",
-    "description_ar": "المشروبات الغازية المتكررة ومية الليمون والارتجاع بتلين المينا. اشرب بشفاطة، اتمضمض بمية بعدها، وأبدًا متغسلش أسنانك قبل ٣٠ دقيقة من الحمض.",
+    "description_en": "Frequent acid exposure can weaken the protective enamel.\nAcidic foods, drinks and stomach reflux are possible contributors.\nAsk your dentist about wear and seek medical advice for ongoing reflux.",
+    "description_ar": "التعرض المتكرر للأحماض ممكن يضعف طبقة المينا.\nالأكل والمشروبات الحمضية وارتجاع المعدة عوامل محتملة.\nاسأل الدكتور عن التآكل وراجع طبيب لو الارتجاع مستمر.",
     "symptoms": {
-      "en": "",
-      "ar": ""
+      "en": "Sensitivity, chips, pitting or changes in colour.",
+      "ar": "حساسية أو تكسر أو حفر صغيرة أو تغير لون."
     },
     "treatment": {
-      "en": "",
-      "ar": ""
+      "en": "Treatment depends on damage and controlling the contributing cause.",
+      "ar": "العلاج حسب الضرر والسيطرة على السبب المساهم."
     },
     "prevention": {
-      "en": "",
-      "ar": ""
+      "en": "Limit acidic drinks, rinse with water and wait before brushing after acid exposure.",
+      "ar": "قلل المشروبات الحمضية واشطف بميه واستنى قبل الغسيل بعد الأحماض."
     },
-    "category": "Tooth wear",
-    "source_name": null,
-    "source_url": null,
-    "last_updated": null,
-    "verification_status": "pending_review",
+    "category": "Prevention",
+    "source_name": "Cleveland Clinic",
+    "source_url": "https://my.clevelandclinic.org/health/diseases/tooth-erosion",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
     "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
-    "legacy_source_url": "https://www.mouthhealthy.org/all-topics-a-z/erosion",
-    "en": "Tooth wear from acids",
+    "en": "Acid-related tooth wear",
     "ar": "تآكل الأسنان من الأحماض",
-    "sen": "Frequent soft drinks, lemon water and reflux soften enamel. Sip through a straw, rinse with water after, and never brush within 30 minutes of acid.",
-    "sar": "المشروبات الغازية المتكررة ومية الليمون والارتجاع بتلين المينا. اشرب بشفاطة، اتمضمض بمية بعدها، وأبدًا متغسلش أسنانك قبل ٣٠ دقيقة من الحمض.",
-    "cat": "Tooth wear",
-    "src": null
+    "cat": "Prevention",
+    "sen": "Frequent acid exposure can weaken the protective enamel.\nAcidic foods, drinks and stomach reflux are possible contributors.\nAsk your dentist about wear and seek medical advice for ongoing reflux.",
+    "sar": "التعرض المتكرر للأحماض ممكن يضعف طبقة المينا.\nالأكل والمشروبات الحمضية وارتجاع المعدة عوامل محتملة.\nاسأل الدكتور عن التآكل وراجع طبيب لو الارتجاع مستمر.",
+    "src": "https://my.clevelandclinic.org/health/diseases/tooth-erosion"
   },
   {
     "title_en": "Attrition and worn teeth",
@@ -3479,5 +3473,65 @@ window.AI_TOPICS = [
     "sen": "A temporary crown may protect a prepared tooth while the final crown is made.\nIt is not the final restoration.\nContact your dentist if it loosens, breaks or causes a sharp edge.",
     "sar": "التلبيسة المؤقتة ممكن تحمي السن المحضر لحد ما النهائية تجهز.\nهي مش التعويض النهائي.\nكلم الدكتور لو اتحركت أو اتكسرت أو بقت حادة.",
     "src": "https://my.clevelandclinic.org/health/treatments/10923-dental-crowns"
+  },
+  {
+    "title_en": "Tongue cleaning",
+    "title_ar": "تنظيف اللسان",
+    "description_en": "Gentle tongue cleaning is part of caring for bad breath.\nUse a tongue scraper or cleaner once daily.\nDo not scrub so hard that the tongue bleeds; persistent odour needs a dental check.",
+    "description_ar": "تنظيف اللسان برفق جزء من العناية برائحة الفم.\nاستخدم منظف أو مكشطة لسان مرة يومياً.\nمتدعكش لحد النزيف؛ الرائحة المستمرة محتاجة كشف.",
+    "symptoms": {
+      "en": "Unpleasant breath may improve with better oral cleaning.",
+      "ar": "رائحة الفم ممكن تتحسن مع تنظيف الفم بشكل أحسن."
+    },
+    "treatment": {
+      "en": "A dentist checks persistent bad breath for other causes.",
+      "ar": "الدكتور بيفحص الرائحة المستمرة عشان أسباب تانية."
+    },
+    "prevention": {
+      "en": "Combine gentle tongue care with toothbrushing and cleaning between teeth.",
+      "ar": "اجمع تنظيف اللسان برفق مع غسيل الأسنان والتنظيف بينها."
+    },
+    "category": "Prevention",
+    "source_name": "NHS",
+    "source_url": "https://www.nhs.uk/symptoms/bad-breath/",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
+    "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
+    "en": "Tongue cleaning",
+    "ar": "تنظيف اللسان",
+    "cat": "Prevention",
+    "sen": "Gentle tongue cleaning is part of caring for bad breath.\nUse a tongue scraper or cleaner once daily.\nDo not scrub so hard that the tongue bleeds; persistent odour needs a dental check.",
+    "sar": "تنظيف اللسان برفق جزء من العناية برائحة الفم.\nاستخدم منظف أو مكشطة لسان مرة يومياً.\nمتدعكش لحد النزيف؛ الرائحة المستمرة محتاجة كشف.",
+    "src": "https://www.nhs.uk/symptoms/bad-breath/"
+  },
+  {
+    "title_en": "Bruxism and sleep habits",
+    "title_ar": "الجز على الأسنان وعادات النوم",
+    "description_en": "Grinding during sleep may be noticed by a partner before you notice symptoms.\nA regular bedtime and a quiet, dark bedroom can support better sleep.\nSee a dentist for damage or pain, and a clinician for persistent sleep problems.",
+    "description_ar": "الجز أثناء النوم ممكن شريكك يلاحظه قبل ما تحس بأعراض.\nميعاد نوم منتظم وغرفة هادية وضلمة بيساعدوا النوم.\nاكشف أسنان لو فيه ضرر أو وجع وراجع طبيب لو مشاكل النوم مستمرة.",
+    "symptoms": {
+      "en": "Grinding sounds, disturbed sleep or sore jaw on waking.",
+      "ar": "صوت جز أو نوم متقطع أو وجع فك عند الاستيقاظ."
+    },
+    "treatment": {
+      "en": "A dentist assesses protection needs and a clinician can address sleep issues.",
+      "ar": "الدكتور يقيم الحاجة لحماية الأسنان والطبيب يراجع مشاكل النوم."
+    },
+    "prevention": {
+      "en": "Relax before bed and avoid excess caffeine and alcohol.",
+      "ar": "استرخي قبل النوم وتجنب زيادة الكافيين والكحول."
+    },
+    "category": "Oral health",
+    "source_name": "NHS",
+    "source_url": "https://www.nhs.uk/symptoms/teeth-grinding/",
+    "last_updated": "2026-11-23",
+    "verification_status": "verified",
+    "disclaimer": "المعلومات للتوعية فقط، استشر طبيبك للتشخيص الدقيق",
+    "en": "Bruxism and sleep habits",
+    "ar": "الجز على الأسنان وعادات النوم",
+    "cat": "Oral health",
+    "sen": "Grinding during sleep may be noticed by a partner before you notice symptoms.\nA regular bedtime and a quiet, dark bedroom can support better sleep.\nSee a dentist for damage or pain, and a clinician for persistent sleep problems.",
+    "sar": "الجز أثناء النوم ممكن شريكك يلاحظه قبل ما تحس بأعراض.\nميعاد نوم منتظم وغرفة هادية وضلمة بيساعدوا النوم.\nاكشف أسنان لو فيه ضرر أو وجع وراجع طبيب لو مشاكل النوم مستمرة.",
+    "src": "https://www.nhs.uk/symptoms/teeth-grinding/"
   }
 ];
