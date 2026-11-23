@@ -1,4 +1,4 @@
-const CACHE='dental-topics-v-4a9ece162e';
-self.addEventListener('install',event=>{self.skipWaiting();event.waitUntil(caches.open(CACHE).then(cache=>cache.add('./ai-topics.js?v=4a9ece162e')).catch(()=>{}));});
+const CACHE='dental-topics-v-99a68d5b0c';
+self.addEventListener('install',event=>{self.skipWaiting();event.waitUntil(caches.open(CACHE).then(cache=>cache.add('./ai-topics.js?v=99a68d5b0c')).catch(()=>{}));});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('dental-topics-v-')&&k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
 self.addEventListener('fetch',event=>{const url=new URL(event.request.url);if(url.origin!==location.origin||!url.pathname.endsWith('/ai-topics.js')||event.request.method!=='GET')return;event.respondWith(caches.open(CACHE).then(async cache=>{const hit=await cache.match(event.request);if(hit)return hit;const response=await fetch(event.request);if(response.ok)await cache.put(event.request,response.clone());return response;}));});
