@@ -672,6 +672,7 @@ function initReviews(){
           });
         }).catch(function(){});
       }).then(function(){
+        if (window.__notify) try { window.__notify("review", { name: name, rating: data.rating, treat: data.treat, text: text }); } catch(e) {}
         $("rvStatus").textContent = isAr() ? "شكراً! تقييمك اتضاف ✅" : "Thank you! Your review was added ✅";
         $("rvName").value = ""; $("rvText").value = ""; if ($("rvTreat")) $("rvTreat").selectedIndex = 0; sel = 0; paint();
         render(lastItems);
@@ -688,6 +689,28 @@ function initReviews(){
   });
 }
 
+/* ---------- notifications: email via Formspree (fire-and-forget, never blocks posting) ---------- */
+window.__notify = function(kind, d){
+  try {
+    var now = new Date().toLocaleString("ar-EG", { timeZone: "Africa/Cairo" });
+    var subject, lines;
+    if (kind === "review") {
+      subject = "تقييم جديد ⭐ " + (d.rating || "") + " - " + (d.name || "");
+      lines = ["⭐ تقييم جديد:", "الاسم: " + (d.name || "-"), "التقييم: " + (d.rating || "-") + " / 5", "العلاج: " + (d.treat || "-"), "التعليق: " + (d.text || "-"), "التاريخ: " + now];
+    } else if (kind === "comment") {
+      subject = "تعليق جديد 💬 - " + (d.name || "زائر");
+      lines = ["💬 تعليق جديد على حالة:", "الحالة: " + (d.caseId || "-"), "الاسم: " + (d.name || "-"), "التعليق: " + (d.text || "-"), "التاريخ: " + now];
+    } else {
+      subject = "تجربة إشعار 🔔";
+      lines = ["ده إشعار تجريبي من الموقع.", "التاريخ: " + now];
+    }
+    fetch("https://formspree.io/f/mkjrpger", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({ _subject: subject, message: lines.join("\n"), kind: kind })
+    }).catch(function(){});
+  } catch(e) {}
+};
 /* ---------- native Firestore comments + likes ---------- */
 function initComments(){
   const boxes = document.querySelectorAll(".case-comment[data-cm-case]");
@@ -806,6 +829,7 @@ function initComments(){
           caseId: caseId, name: name, text: text, approved: false, likeCount: 0, reply: "",
           createdAt: firebase.firestore.FieldValue.serverTimestamp()
         }).then(function(ref){
+          if (window.__notify) try { window.__notify("comment", { name: name, text: text, caseId: caseId }); } catch(e) {}
           try { localStorage.setItem("lastCommentTs", String(Date.now())); } catch(e) {}
           myComments[ref.id] = { caseId: caseId, name: name, text: text, ts: Date.now() };
           try { localStorage.setItem("myCommentsV1", JSON.stringify(myComments)); } catch(e) {}
